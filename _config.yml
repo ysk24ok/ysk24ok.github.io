@@ -1,0 +1,12 @@
+# jekyll setting
+auto: true
+server: true
+markdown: kramdown
+
+# title
+title: Mother Earth, Father Sky and I
+
+# Path
+asset_path: /assets
+bootstrap_path: /lib/bootstrap
+reveal_js_path: /lib/reveal.js
