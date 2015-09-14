@@ -1,6 +1,6 @@
 ---
 layout: slide
-title: Python-test-slide
+title: python_unittest
 ---
 
 ## Pythonでテストを書くにあたって

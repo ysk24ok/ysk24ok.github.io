@@ -1,6 +1,4 @@
 # jekyll setting
-auto: true
-server: true
 markdown: kramdown
 
 # title
