@@ -170,7 +170,7 @@ title: statistics\_introduction
 
 * 分散の平方根をとったもの
 
-  - \\( \sigma^2 = \cfrac{1}{N} \sum\_{i=1}^{N} (\bar{x} - x\_i)^2 \\)
+  - \\( \sigma = \sqrt{ \cfrac{1}{N} \sum\_{i=1}^{N} (\bar{x} - x\_i)^2 }\\)
 
   - いわば平均からの誤差
 
