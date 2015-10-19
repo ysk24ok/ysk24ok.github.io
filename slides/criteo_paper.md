@@ -1,10 +1,9 @@
 ---
 layout: slide
-title: criteo\_paper\_section4
+title: criteo\_paper
 ---
 
 ### Simple and scalable prediciont for display advertising
-#### the first half of section 4
 
 ---
 ### 4. Modeling
@@ -86,7 +85,7 @@ title: criteo\_paper\_section4
 ### 4.3 Hashing trick
 - - -
 
-![hashing trick](/assets/images/criteo_paper_section4/pseudo_code_hashing_trick.png)
+![hashing trick](/assets/images/criteo_paper/pseudo_code_hashing_trick.png)
 
 * There is hashing function \\( h_f \\) for every feature \\( f \\)
 

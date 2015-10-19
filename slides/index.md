@@ -7,4 +7,4 @@ title: Slides
 
 ### [Introduction to statistics](/slides/statistics_introduction.html)
 
-### [Simple and scalable response prediction for display advertising #4](/slides/criteo_paper_section4.html)
+### [Simple and scalable response prediction for display advertising](/slides/criteo_paper.html)
