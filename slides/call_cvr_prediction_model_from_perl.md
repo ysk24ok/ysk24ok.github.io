@@ -77,12 +77,10 @@ my $cvr = `python3 get_predicted_cvr.py '13,57062'`;
 ```python
 if __name__ == '__main__':
   # 特徴をコマンドライン引数で受け取る
-  adv_id = sys.argv[1]
-  placement_id  = sys.argv[2]
+  feature_str = sys.argv[1]
   # ディスクからモデルを読み出す
   cvr_pred_model = load_model()
   # 特徴をモデルに渡し予測CVRを取得
-  feature_str = '{},{}'.format(adv_id, placement_id)
   predicted_cvr = cvr_pred_model.predict(feature_str)
   # 標準出力
   print(predicted_cvr)
