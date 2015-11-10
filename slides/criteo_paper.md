@@ -20,7 +20,7 @@ title: criteo\_paper
     + sparse binary feature vector \\( \mathbf{x_i} \in \\{ 0, 1 \\}^d \\)
     + binary target \\( y_i \in \\{ -1, 1 \\} \\)
 
-  - the predicted probablity of an example \\( x \\) belonging to class 1 is:
+  - the predicted probability of an example \\( x \\) belonging to class 1 is:
     + \\( Pr(y=1|\mathbf{x},\mathbf{w}) = \frac{1}{1+\exp{(-\mathbf{w^{\mathrm{T}}} \mathbf{x})}}\\)
     + \\( \mathbf{w} \in \mathbb{R}^d \\) is a weight vector
 
@@ -206,3 +206,228 @@ title: criteo\_paper
 
 * A promising future work direction would be to combine  
   a low-dimensinal representation with the hashing trick
+
+---
+#### 5.4 Comparison with a feedback model<br/>- overview
+- - -
+
+* An alternative class of models is *feedback* models
+  - the response rate is encoded  
+    in the values of *feedback* features
+
+* Feedback features is the aggregated historical data:
+  - along various dimensions
+    +  ads, publishers or uses, etc ...
+  - at varying levels of granularity
+    + response rate (CTR or CVR)
+    + number of impressions or clicks
+
+---
+#### 5.4 Comparison with a feedback model<br/>- composite feedback features
+- - -
+
+* *Composite feedback features*
+  - multiple attributes along different dimensions
+    + e.x. publisher-advertiser, user-publisher-creative
+  - to capture the variation of response rate  
+    across different dimensions
+
+* Feedback features are quantized  
+  using a simple k-means clustering algorithm
+  - with a special cluster id for the undefined values
+
+* The size of the final models is typically small
+
+---
+#### 5.4 Comparison with a feedback model<br/>- pros and cons
+- - -
+
+* Weakness of the feedback models:
+  - additional memory for feature value mappings
+  - feedback features may give an incorrect signal  
+    because of confounding variables
+
+* It is preferable to directly model the response  
+  as a function of variables,  
+  not to perform any aggregation
+
+* From a practical standpoint,  
+  the feedback model may be preferable in cases  
+  where the cost of updating the model is high
+
+---
+#### 5.4 Comparison with a feedback model<br/> - evaluation
+- - -
+
+* They used a relatively small number of features  
+  for comparison between:
+  - their proposed model based on categorical features
+  - a model based on feedback features
+
+* The table below shows a slight advantage  
+  for their proposed model
+  - the difference would likely be larger  
+    as the number of features increases
+
+<img src="/assets/images/criteo_paper/5.4_feedback_features.png" width="40%">
+
+---
+#### 5.5 Comparison with a hierarchical model<br/> - overview
+- - -
+
+* LMMH (Log-linear Model for Multiple Hierarchies)
+  - exploits the hirarchical nature of attributes  
+    by encoding the relations
+  - the feature hirarchies
+    + publisher type -> publisher id
+    + advertiser id -> campaign id -> ad id
+
+---
+#### 5.5 Comparison with a hierarchical model<br/> - two phase learning
+- - -
+
+* Assume the following decomposition:
+  <div style="text-align: center;">
+  \\(p\_{i} = \lambda\_{h\_{i}} b\_{i} \\)
+  </div>
+
+* LMMH splits the modeling task into two phases
+  1. a feature-based model is trained using covariates,  
+     without hirarchical features
+     - using logisctic regression, etc.
+     - to calculate a probability estimate \\( b\_{i} \\)
+  2. the correction factor \\( \lambda\_{h\_{i}} \\) are learned  
+     with feature hierarchies
+     - \\( \lambda\_{h\_{i}} \\) does not depend on covariates
+     - true rate parameter \\( p\_{i} \\) can be estimated
+
+---
+#### 5.5 Comparison with a hierarchical model<br/> - correction factors
+- - -
+
+* Correction factors of the full hierarchies:
+  <div style="text-align: center;">
+  \\(\displaystyle \lambda\_{h\_{i}} = \prod\_{a\_{i} \in h\_{i,ad}} \prod\_{p\_{j} \in h\_{i, pub}} \phi\_{a_i, p_j} \\)
+  </div>
+
+  - \\( h\_{i} \\): the hierarchy pair
+    + \\( h\_{i, ad} \\): advertiser hierarchies for the pair
+    + \\( h\_{i, pub} \\): publisher hierarchies for the pair
+  - \\( \lambda\_{h\_{i}} \\): the multiplicative correction factor for the pair
+  - \\( \phi\_{a\_{i}, p\_{j}} \\): the state parameter (likelihood)  
+    with the advertiser node \\( a\_{i} \\) and publisher node \\( p\_{j} \\)
+
+---
+#### 5.5 Comparison with a hierarchical model<br/> - model(1)
+- - -
+
+* \\( \phi\_{h\_{i}} \\) can be modeled using a Poisson distribution
+  <div style="text-align: center;">
+  \\( \phi\_{h\_{i}} = \exp^{-\nu} \cfrac{\nu^{C\_{h\_{i}}}}{C\_{h\_{i}}!} \quad (\nu=\lambda\_{h\_{i}}E\_{h\_{i}}) \\)
+  </div>
+  <!-- 単位時間中の平均クリック回数が\nuのとき、単位時間中にC回クリックが発生する確率 = \phi -->
+
+  - \\( C\_{h\_{i}} \\): successes (clicks) on hierarchy pair \\( h\_{i} \\)
+  - \\( E\_{h\_{i}} \\): expected successes under the baseline model on hierarchy pair \\( h\_{i} \\)
+
+* The likelihood function is:
+
+  <div style="text-align: center;">
+  \\(\displaystyle \phi = \prod\_{h\_{i}} \phi\_{h\_{i}}\\)
+  </div>
+
+---
+#### 5.5 Comparison with a hierarchical model<br/> - model(2)
+- - -
+
+* The log-likelihood of \\( \phi \\) is given by:
+
+  <div style="text-align: center;">
+  \\(
+    \begin{align}
+      \displaystyle
+      \log \phi &= \sum\_{h\_{i}} \log \phi\_{h\_{i}} \\\
+                &= \sum\_{h\_{i}} \log \left( \exp^{-\nu} \cfrac{\nu^{C\_{h\_{i}}}}{C\_{h\_{i}}!} \right) \\\
+                &= \sum\_{h\_{i}} \left(
+                    - E\_{h\_{i}}\lambda\_{h\_{i}}
+                    + C\_{h\_{i}}\log ( \lambda\_{h\_{i}}E\_{h\_{i}} )
+                    - \log C\_{h\_{i}} ! \right) \\\
+                &= \sum\_{h\_{i}} \left(
+                    - E\_{h\_{i}} \lambda\_{h\_{i}}
+                    + C\_{h\_{i}} \log \lambda\_{h\_{i}} \right) + constant
+    \end{align}
+  \\)
+  </div>
+
+---
+#### 5.5 Comparison with a hierarchical model<br/> - result
+- - -
+
+* When estimating \\( \phi \\) in the hierarchical structure of LMMH,  
+  child nodes shares their ancestor parameters
+  - the closer nodes are to each other,  
+    the closer their correction factors will be to the parent
+
+* Results show improvements in all metrics
+  - their model's ability to take advantage of all relations, jointly
+
+<img src="/assets/images/criteo_paper/5.5_lmmh.png" width="50%">
+
+
+---
+#### 5.6 Value of publisher information<br/>- overview
+- - -
+
+* This subsection provides an analysis of the relevance  
+  of publisher information for both CTR and CVR predictions
+
+* They compare the models for both CTR and CVR predictions:
+  - a model without any publisher features
+  - a model including publisher features
+
+---
+#### 5.6 Value of publisher information<br/>- comparison
+- - -
+
+* The model with publisher features improves  
+  the normalized negative log likelihood
+  - by 52.6% for CTR prediction
+  - only by 0.5% for CVR prediction
+
+* It means once the user clicks on the ad,  
+  the publisher's page does not have much impact  
+  on user's conversion behaviour
+
+---
+#### 5.6 Value of publisher information<br/> - results
+- - -
+
+* Their results differ from those reported in [Rosale et al. 2012]
+  - PCC experiments show 5.62% improvements in auROC
+
+* The dataset used in the current experiments  
+  contains more reliable user information
+  - while the dataset used in the previous experiments  
+    includes samples where user features are not available
+
+* In the absence of explicit user attributes,  
+  publisher information serve as a proxy for user features
+  - The website for Disney games  
+    will surely attract more kids than adults
+
+---
+#### 5.7 Multiple hash functions
+- - -
+
+* A collision between two frequent values can lead to  
+  a degradation in the log-likelihood
+
+* One idea to alleviate this issue is  
+  to use several hash functions
+  - each value is replicated using different hash functions
+
+* The table below shows using several hash functions  
+  does not result in any significant improvements
+  - conjunctions already induce redundancies
+
+<img src="/assets/images/criteo_paper/5.7_multiple_hash_functions.png" width="55%">
