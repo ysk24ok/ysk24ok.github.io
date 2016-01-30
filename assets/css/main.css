@@ -1,6 +1,14 @@
-header a {
+header h1 {
+  text-align: center;
+}
+
+header h1 a {
   color: #778899;
   text-decoration: none;
+}
+
+.contents {
+  padding: 0px 20px;
 }
 
 .slides table {
