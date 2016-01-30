@@ -2,20 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="author" content="Yusuke Nishioka">
-    <meta name="description" content="My blog posts, profile and past works">
+    <meta name="author" content="xxthermidorxx">
+    <meta name="description" content="My blog posts, slides and past works">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <!-- reveal -->
     <link rel="stylesheet" href="{{ site.reveal_js_path }}/css/reveal.css">
     <link rel="stylesheet" href="{{ site.reveal_js_path }}/css/theme/white.css" id="theme">
-    <!-- Code syntax highlighting -->
     <link rel="stylesheet" href="{{ site.reveal_js_path }}/lib/css/zenburn.css">
     <!-- My customized css -->
     <link rel="stylesheet" type="text/css" href="{{ site.asset_path }}/css/main.css">
-    <!-- MathJax -->
-    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
-    </script>
     <!-- Printing and PDF exports -->
     <script>
       var link = document.createElement( 'link' );
@@ -32,9 +29,7 @@
 
   <body>
     <div class="reveal">
-
-      <!-- Any section element inside of this container is displayed as a slide -->
-      <div class="slides" style="height: 0px">
+      <div class="slides">
         <pre style="display:none"><code></code></pre>
         <section data-markdown="" data-separator="^\n---$" data-separator-vertical="^\n>>>$">
           <script type="text/template">
@@ -55,29 +50,52 @@
         center: true,
         transition: 'slide', // none/fade/slide/convex/concave/zoom
         height: 900,
+        math: {
+            mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+            config: 'TeX-AMS_HTML-full'
+        },
         // Optional reveal.js plugins
         dependencies: [
+          // cross-browser shim that fully implements classList
           {
             src: '{{ site.reveal_js_path }}/lib/js/classList.js',
             condition: function() { return !document.body.classList; }
           },
+          // interpret Markdown in <section> elements
           {
             src: '{{ site.reveal_js_path }}/plugin/markdown/marked.js',
-            condition: function() { return !!document.querySelector( '[data-markdown]' ); }
+            condition: function() {
+              return !!document.querySelector( '[data-markdown]' );
+            }
           },
           {
             src: '{{ site.reveal_js_path }}/plugin/markdown/markdown.js',
-            condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            condition: function() {
+              return !!document.querySelector( '[data-markdown]' );
+            }
+          },
+          // syntax highlight for <code> elements
           {
             src: '{{ site.reveal_js_path }}/plugin/highlight/highlight.js',
             async: true,
-            condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+            condition: function() {
+              return !!document.querySelector( 'pre code' );
+            },
+            callback: function() { hljs.initHighlightingOnLoad(); }
+          },
+          // zoom in and out with Alt+click
           {
             src: '{{ site.reveal_js_path }}/plugin/zoom-js/zoom.js',
             async: true
           },
+          // speaker notes
           {
             src: '{{ site.reveal_js_path }}/plugin/notes/notes.js',
+            async: true
+          },
+          // MathJax
+          {
+            src: '{{ site.reveal_js_path }}/plugin/math/math.js',
             async: true
           }
         ]
