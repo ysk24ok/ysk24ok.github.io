@@ -13,4 +13,6 @@ title: Slides
 
 ### [PerlからPythonのCVR予測モデルを呼び出す](/slides/call_cvr_prediction_model_from_perl.html)
 
+### [基本統計量について](/slides/fundamental_statistics.html)
+
 ### [Pythonでテストを書くにあたって](/slides/python_unittest.html)

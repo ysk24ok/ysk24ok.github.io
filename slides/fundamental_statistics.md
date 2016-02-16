@@ -1,20 +1,17 @@
 ---
 layout: slide
-title: statistics\_introduction
+title: fundamental_statistics
 ---
 
-### 人類総データサイエンティスト化計画
-#### ~ 統計入門①  基本統計量 ~
+### 基本統計量について
 
 ---
 ### 背景
 - - -
 * これからのアドテクはデータサイエンスが重要
-
   - コンバージョンがとれる確率が高い  
     案件or枠or人に対して適切な価格で入札する
-
-* 分析者だけでなく開発者も統計の知識を身につけるべき
+* 分析者だけでなく開発者も統計の知識を身につける
 
 ---
 ### 今日これだけは覚えて帰ってください
@@ -30,9 +27,7 @@ title: statistics\_introduction
 - - -
 
 * データの特徴を「平均」のみで表すのは不十分
-
 * 様々な指標を用いてデータを評価しなければならない
-
   - 「様々な指標」って何よ
 
 ---
@@ -40,15 +35,10 @@ title: statistics\_introduction
 - - -
 
 * 代表値 (representative value)
-
   - 集団の真ん中を表す値
-
   - e.x. 平均値(average), 中央値(median), 最頻値(mode)
-
 * 散布度 (dispersion)
-
   - 集団のバラつき
-
   - e.x. 分散(variance), 標準偏差(standard deviation)
 
 ---
@@ -56,57 +46,47 @@ title: statistics\_introduction
 - - -
 
 * 日常生活で出てくるのは平均値
-
-  - \\( \bar{x} = \cfrac{1}{N} \sum\_{i=1}^{N} x\_i \\)
-
-* \\( N \\) : サンプル数、\\( x_i \\): i番目のサンプルの値
-
+  - $\bar{x} = \cfrac{1}{N} \sum\_{i=1}^{N} x\_i$
+* $N$ : サンプル数、$x\_i$: i番目のサンプルの値
 * いわゆる相加平均
-
 * 他には相乗平均・調和平均など
 
 ---
 ### 例1. 平均年収
 - - -
 
-![技術開発部の平均年収](/assets/images/average_income_1.png)
+<img src="/assets/images/fundamental_statistics/average_income_1.png" width="60%">
 
 * 高い給料をもらっているのは一部の人間
-
 * 平均給与: 約1300万円
-
   - 明らかに実態・実感と異なる
-
 
 ---
 ### 「平均値」ではなく「中央値」
 - - -
 
-![技術開発部の平均年収](/assets/images/average_income_2.png)
+<img src="/assets/images/fundamental_statistics/average_income_2.png" width="60%">
 
 * 中央に位置する値
-
   - サンプル数が奇数の場合 -> 真ん中の値
-
   - サンプル数が偶数の場合 -> 真ん中2つの平均
-
 
 ---
 ### 「平均値」ではなく「最頻値」
 - - -
 
-![技術開発部の平均年収](/assets/images/average_income_3.png)
+<img src="/assets/images/fundamental_statistics/average_income_3.png" width="60%">
 
 * 最も頻繁に出現する値
-
-* いくつかの階級に分け、その階級に属するサンプル数が最も多い階級
+* いくつかの階級に分けた際に  
+  その階級に属するサンプル数が最も多い階級
 
 ---
 ### 例2: 平均CVR
 - - -
 
 
-|広告主|案件|クリック数|コンバージョン数|CVR|
+|広告主|案件|クリック数|CV数|CVR|
 |:-:|:-:|:-:|:-:|:-:|
 |1111|2345|5000|500|0.1|
 
@@ -117,7 +97,7 @@ title: statistics\_introduction
 ### 枠ごとに見てみる
 - - -
 
-|広告主|案件|枠|クリック数|コンバージョン数|CVR|
+|広告主|案件|枠|クリック数|CV数|CVR|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |1111|2345|10|500|300|0.6|
 |1111|2345|11|400|200|0.5|
@@ -127,15 +107,12 @@ title: statistics\_introduction
 
 * 枠別で見るとCVRの高い枠と低い枠の差が顕著
 
-
 ---
 ### 平均の弱点
 - - -
 
 * 外れ値に引っ張られやすい
-
 * 全体の分布がどうなっているかわからない
-
   - 分布って何よ
 
 ---
@@ -143,25 +120,18 @@ title: statistics\_introduction
 - - -
 
 * データの散らばり具合を表す
-
 * 分散 (variance)
-
-  - \\( \sigma^2 = \cfrac{1}{N} \sum\_{i=1}^{N} (\bar{x} - x\_i)^2 \\)
-
+  - $\sigma^2 = \cfrac{1}{N} \sum\_{i=1}^{N} (\bar{x} - x\_i)^2$
 * 標準偏差 (standard deviation)
-
-  - \\( \sigma = \sqrt{ \cfrac{1}{N} \sum\_{i=1}^{N} (\bar{x} - x\_i)^2 } \\)
+  - $\sigma = \sqrt{ \cfrac{1}{N} \sum\_{i=1}^{N} (\bar{x} - x\_i)^2 }$
 
 ---
 ### 分散 (variance)
 - - -
 
 * 平均と比較したときのサンプルの散らばり具合
-
-  - \\( \sigma^2 = \cfrac{1}{N} \sum\_{i=1}^{N} (\bar{x} - x\_i)^2 \\)
-
+  - $\sigma^2 = \cfrac{1}{N} \sum\_{i=1}^{N} (\bar{x} - x\_i)^2$
   - 分散大 => 散らばり具合大
-
   - 分散小 => 散らばり具合小
 
 ---
@@ -169,43 +139,29 @@ title: statistics\_introduction
 - - -
 
 * 分散の平方根をとったもの
-
-  - \\( \sigma = \sqrt{ \cfrac{1}{N} \sum\_{i=1}^{N} (\bar{x} - x\_i)^2 }\\)
-
+  - $\sigma = \sqrt{ \cfrac{1}{N} \sum\_{i=1}^{N} (\bar{x} - x\_i)^2 }$
   - いわば平均からの誤差
-
   - 平均 ±  標準偏差 => 偏差値
-
-
 
 ---
 ### まとめ
 - - -
 
 * データを表す指標は**代表値**と**散布度**の2種類がある
-
   - 代表値: 平均値・中央値・最頻値
-
   - 散布度: 分散・標準偏差
-
 * 平均だけに頼るのはやめましょう
-
-* × 「そのデータの平均教えて」  
-  ○ 「そのデータの平均と分布見せて」
-
+* × 「そのデータの平均教えて」
+* ○ 「そのデータの平均と分布見せて」
 
 ---
 
 ご清聴ありがとうございました
-
 
 ---
 ### 参考ページ
 - - -
 
 * http://www.mm-lab.jp/analysis/data-analysis-start-with-excel-4th/
-
 * http://ronri2.web.fc2.com/tokei09.html
-
 * http://www.albert2005.co.jp/technology/data/univariate.html
-
