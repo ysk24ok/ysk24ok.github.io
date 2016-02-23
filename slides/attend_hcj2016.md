@@ -220,7 +220,8 @@ http://hadoop.apache.jp/hcj2016-program/
 * IHIには独自のメトリクス収集・監視システムが存在
   - 分析にはPythonやRを使用
 
-* 実用的な処理時間・柔軟性などからHadoopやSparkに注目
+* 実用的な処理時間・柔軟性などから  
+  HadoopやSparkに注目
 
 ---
 ### 目標
@@ -369,7 +370,6 @@ http://hadoop.apache.jp/hcj2016-program/
 
 * HadoopはLinuxの夢を見るか？
 
-
 ---
 ### 参考URLなど
 - - -
@@ -382,10 +382,10 @@ http://hadoop.apache.jp/hcj2016-program/
   - 鯵坂さん、小沢さん (Hadoopコミッタ)
   - [発表資料](http://www.slideshare.net/hadoopconf/hadoop-conferencejapan2016-keynote-ozawa-ajisaka)
 
-* Yahoo!Japanのデータプラットフォームの全体像と未来
+* Yahoo!Japanのデータプラットフォームの  
+  全体像と未来
   - 遠藤さん (Yahoo!Japan)
   - [参考記事](http://www.publickey1.jp/blog/16/yahoo_japan_hadoop_spark_conference_japan_2016.html)
-
 
 ---
 ### 参考URLなど
@@ -399,6 +399,10 @@ http://hadoop.apache.jp/hcj2016-program/
 * SparkによるGISデータを題材とした時系列データ処理
   - 鈴木さん (IHI), 土橋さん (NTTデータ)
   - [発表資料](http://www.slideshare.net/hadoopconf/apache-spark-gis-timeseries-data-ihi-nttdata-hadoop-spark-conference-japan-2016)
+
+---
+### 参考URLなど
+- - -
 
 * Hive On Sparkを活用した高速データ分析
   - 加嵜さん (DMM.comラボ)
