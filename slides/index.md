@@ -3,9 +3,9 @@ layout: default
 title: Slides
 ---
 
-### [Hadoop / Spark Conference Japan 2016 参加報告](/slides/attend_hcj2016.html)
+### [Linuxにおけるメモリ管理](/slides/linux_memory.html)
 
-### [統計学入門 第3章](/slides/statistics_introduction_section_3.html)
+### [Hadoop / Spark Conference Japan 2016 参加報告](/slides/attend_hcj2016.html)
 
 ### [統計学がわかる 第3章](/slides/hamburger_statistics_section3.html)
 
