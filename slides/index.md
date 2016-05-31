@@ -3,6 +3,8 @@ layout: default
 title: Slides
 ---
 
+### [個人的gitベストプラクティス](/slides/git_best_practice.html)
+
 ### [Linuxにおけるメモリ管理](/slides/linux_memory.html)
 
 ### [Hadoop / Spark Conference Japan 2016 参加報告](/slides/attend_hcj2016.html)
