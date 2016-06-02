@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset='utf-8'>
     <meta name="author" content="xxthermidorxx">
     <meta name="description" content="My blog posts, slides and past works">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+          processEscapes: true
+        }
+      });
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </script>
     <!-- boostrap -->
     <link rel="stylesheet" type="text/css" href="{{ site.bootstrap_path }}/css/bootstrap.min.css">
     <script src="{{ site.asset_path }}/js/jquery-2.1.4.min.js"></script>
@@ -26,7 +37,7 @@
     <div id="container">
       <div class="inner">
         {% include header.html %}
-        <div class="contents">
+        <div class="posts">
           {{ content }}
         </div>
         {% include footer.html %}

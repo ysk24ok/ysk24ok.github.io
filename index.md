@@ -3,8 +3,6 @@ layout: default
 title: Home
 ---
 
-No posts yet
-
-<!-- {% for post in site.posts limit:3 %}
-  ## [{{ post.title }}]({{ post.url }})
-{% endfor%} -->
+{% for post in site.posts %}
+* {{ post.date | date_to_string }} - [{{ post.title }}]({{ post.url }})
+{% endfor%}

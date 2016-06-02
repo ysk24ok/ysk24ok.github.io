@@ -7,8 +7,32 @@ header h1 a {
   text-decoration: none;
 }
 
-.contents {
+.posts {
   padding: 0px 20px;
+}
+
+.posts h1 {
+  text-align: center;
+  font-size: 2.2em;
+  font-weight: bold;
+}
+
+.posts h2 {
+  border-bottom: solid 1px #808080;
+}
+
+.posts hr {
+  border-top: dashed 1px #708090;
+}
+
+.posts ul, ol {
+  padding-left: 40px;
+}
+
+.posts .post-img img{
+  display: block;
+  padding: 10px 0px;
+  margin: auto;
 }
 
 .slides table {
