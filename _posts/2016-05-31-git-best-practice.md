@@ -1,6 +1,7 @@
 ---
 layout: slide
 title: 個人的gitベストプラクティス
+tag: [slide, git, Japanese]
 ---
 
 ### 個人的gitベストプラクティス

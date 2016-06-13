@@ -1,6 +1,7 @@
 ---
 layout: slide
 title: Hadoop / Spark Conference Japan 2016参加報告
+tag: [slide, conference, Hadoop, Japanese]
 ---
 
 ### Hadoop / Spark Conference Japan 2016参加報告

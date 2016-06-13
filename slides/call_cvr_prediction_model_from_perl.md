@@ -1,6 +1,6 @@
 ---
 layout: slide
-title: call_cvr_prediction_model_from_perl
+title: Perl
 ---
 
 ### PerlからPythonのCVR予測モデルを呼び出す
@@ -16,13 +16,8 @@ title: call_cvr_prediction_model_from_perl
 ### 背景
 - - -
 
-* 実装
-  - Bypassの集計バッチ等はPerlで実装されている
-  - 一方、CVR予測モデルはPythonで実装されている
-
-#### ＿人人人人＿
-#### ＞死の予感＜
-#### ￣Y^Y^Y^Y^￣
+* Bypassの集計バッチ等はPerlで実装されている
+* 一方、CVR予測モデルはPythonで実装されている
 
 ---
 ### CVR予測モデルとは
@@ -31,7 +26,6 @@ title: call_cvr_prediction_model_from_perl
 * CVRを予測するための要素(**特徴**という)からCVRを予測
   - 案件、案件の業種、etc...
   - 枠、枠のカテゴリ、etc...
-[](TODO: モデリングという言葉を入れたい)
 
 * モデルとは
   - 特徴を引数に渡すと予測値を返す関数のようなもの
@@ -46,7 +40,6 @@ title: call_cvr_prediction_model_from_perl
 - - -
 
 * CVR予測モデル作成にはscikit-learnを使用
-[](TODO: scikit-learnの画像貼る)
 
 * scikit-learnとは
   - どちらかというと研究用途

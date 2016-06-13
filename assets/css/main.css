@@ -7,6 +7,70 @@ header h1 a {
   text-decoration: none;
 }
 
+/* css for post-list */
+.post-list hr {
+  border-top: solid 1px #708090;
+  padding: 0;
+}
+
+.post-list h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.post-list h1 a {
+  color: #337ab7;
+}
+
+.post-list .post-item {
+  position: relative;
+}
+
+.post-list .post-date {
+  position: absolute;
+  right: 10px;
+  font-size: 12px;
+}
+
+/* http://www.nxworld.net/tips/css-tag-cloud.html */
+.post-list .post-item ul.post-tags {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.post-list .post-item ul.post-tags li {
+  position: relative;
+  display: inline-block;
+  margin-left .7em;
+  padding: 0 20px;
+  line-height: 1.2em;
+  background-color: #fff;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+.post-list .post-item ul.post-tags li a {
+  color: #000;
+  font-size: 13px;
+  text-decoration: none;
+}
+/*
+.post-list .post-item ul.post-tags li::after {
+  width: 0;
+  height: 0;
+  top: 50%;
+  right: 100%;
+  content: '';
+  position: absolute;
+  border: solid transparent;
+  border-color: transparent;
+  border-right-color: #3498db;
+  border-width: .9em;
+  border-radius: 100%;
+  margin-top: -.9em;
+}
+*/
+
+/* css for post */
 .posts {
   padding: 0px 20px;
 }
@@ -35,6 +99,7 @@ header h1 a {
   margin: auto;
 }
 
+/* css for slide */
 .slides table {
   /* margin-top: 30px; */
   margin-bottom: 30px;

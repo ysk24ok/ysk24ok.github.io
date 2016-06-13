@@ -1,6 +1,7 @@
 ---
 layout: slide
 title: 統計学がわかる 第3章
+tag: [slide, statistics, Japanese]
 ---
 
 ### 統計学がわかる 第3章

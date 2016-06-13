@@ -1,6 +1,7 @@
 ---
 layout: slide
-title: fundamental_statistics
+title: 基本統計量について
+tag: [slide, statistics, Japanese]
 ---
 
 ### 基本統計量について

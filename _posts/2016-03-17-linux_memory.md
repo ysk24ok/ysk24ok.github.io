@@ -1,6 +1,7 @@
 ---
 layout: slide
 title: Linuxにおけるメモリ管理の基本
+tag: [slide, Linux, Japanese]
 ---
 
 ### Linuxにおけるメモリ管理の基本

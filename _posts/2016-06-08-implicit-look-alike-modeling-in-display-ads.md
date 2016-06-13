@@ -1,6 +1,7 @@
 ---
-layout: default
+layout: post
 title: "Read a paper: Implicit Look-Alike modeling in Display Ads"
+tag: [paper, RTB, English]
 ---
 
 # Read a paper: Implicit Look-Alike modeling in Display Ads

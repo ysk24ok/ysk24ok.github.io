@@ -1,9 +1,10 @@
 ---
 layout: slide
-title: 統計学入門 第3章 相関
+title: 統計学入門 相関
+tag: [slide, statistics, Japanese]
 ---
 
-### 統計学入門 第3章
+### 統計学入門
 #### - 相関 -
 
 ---

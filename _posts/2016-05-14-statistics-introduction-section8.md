@@ -1,6 +1,7 @@
 ---
-layout: default
+layout: post
 title: 統計学入門 第8章 メモ
+tag: [book, statistics, Japanese]
 ---
 
 # 統計学入門 第8章 メモ

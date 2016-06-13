@@ -1,0 +1,26 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="xxthermidorxx">
+  <meta name="description" content="My blog posts, slides and past works">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <!-- reveal.js -->
+  <link rel="stylesheet" href="{{ site.reveal_js_path }}/css/reveal.css">
+  <link rel="stylesheet" href="{{ site.reveal_js_path }}/css/theme/white.css" id="theme">
+  <link rel="stylesheet" href="{{ site.reveal_js_path }}/lib/css/zenburn.css">
+  <!-- My customized css -->
+  <link rel="stylesheet" type="text/css" href="{{ site.asset_path }}/css/main.css">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '{{ site.reveal_js_path }}/css/print/pdf.css' : '{{ site.reveal_js_path }}/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="{{ site.reveal_js_path }}/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <title>{{ page.title }} - {{ site.title }}</title>
+</head>
