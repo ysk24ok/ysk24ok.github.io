@@ -1,5 +1,15 @@
 # jekyll setting
+# https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
 markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+gems:
+  - jekyll-gist
+  - rouge
+highlighter: rouge
+exclude:
+  - vendor
 
 # title
 title: xxthermidorxx.github.io

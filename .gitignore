@@ -1,4 +1,7 @@
 *.bak
 *.swp
+.bundle
+Gemfile.lock
 _site
 _drafts
+vendor
