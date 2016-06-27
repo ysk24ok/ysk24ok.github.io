@@ -43,7 +43,7 @@ http://www.utp.or.jp/bd/978-4-13-042065-5.html
 ### 量的データ - 散布図
 - - -
 
-<img src="/assets/images/statistics_introduction/section3/scattergram1.png" width="40%">
+<img src="/assets/images/statistics_introduction/section03/scattergram1.png" width="40%">
 
 ---
 ### 相関関係
@@ -56,7 +56,7 @@ http://www.utp.or.jp/bd/978-4-13-042065-5.html
 ### 散布図 - 正の相関関係
 - - -
 
-<img src="/assets/images/statistics_introduction/section3/pos_corr.png" width="40%">
+<img src="/assets/images/statistics_introduction/section03/pos_corr.png" width="40%">
 
 * 一方の変数が増加するにつれて他方の変数も増加する
   - **正の相関関係がある**という
@@ -65,7 +65,7 @@ http://www.utp.or.jp/bd/978-4-13-042065-5.html
 ### 散布図 - 負の相関関係
 - - -
 
-<img src="/assets/images/statistics_introduction/section3/neg_corr.png" width="40%">
+<img src="/assets/images/statistics_introduction/section03/neg_corr.png" width="40%">
 
 * 一方の変数が増加するにつれて他方の変数は減少する
   - **負の相関関係がある**という
@@ -145,7 +145,7 @@ http://www.utp.or.jp/bd/978-4-13-042065-5.html
 ### 相関係数
 - - -
 
-<img src="/assets/images/statistics_introduction/section3/coef_corr.png" width="70%">
+<img src="/assets/images/statistics_introduction/section03/coef_corr.png" width="70%">
 
 
 ---
@@ -171,7 +171,7 @@ http://www.utp.or.jp/bd/978-4-13-042065-5.html
 ### 疑似相関
 - - -
 
-<img src="/assets/images/statistics_introduction/section3/pseudo_corr.png" width="60%">
+<img src="/assets/images/statistics_introduction/section03/pseudo_corr.png" width="60%">
 
 * 実際に相関があるのは昼間人口
   - **疑似相関** or **みかけ上の相関**
@@ -190,7 +190,7 @@ http://www.utp.or.jp/bd/978-4-13-042065-5.html
 ### 層別相関
 - - -
 
-<img src="/assets/images/statistics_introduction/section3/stratified_corr.png" width="60%">
+<img src="/assets/images/statistics_introduction/section03/stratified_corr.png" width="60%">
 
 * イングランド以外は相関は強くない
   - **層別相関**
