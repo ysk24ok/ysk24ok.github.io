@@ -12,10 +12,10 @@ exclude:
   - vendor
 
 # title
-name: xxthermidorxx.github.io
+name: ysk24ok.github.io
 description: My blog posts, slides and past works
-url: https://xxthermidorxx.github.io
-github_url: https://github.com/xxthermidorxx
+url: https://ysk24ok.github.io
+github_url: https://github.com/ysk24ok
 
 # Path
 asset_path: /assets
