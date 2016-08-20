@@ -5,8 +5,11 @@
     <div id="container">
       <div class="inner">
         {% include header.html %}
-        <div class="posts">
-          {{ content }}
+        <div class="post-item">
+          {% include post_header.html page_obj=page %}
+          <div class="post-content">
+            {{ content }}
+          </div>
         </div>
         {% include footer.html %}
       </div>

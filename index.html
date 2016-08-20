@@ -1,0 +1,16 @@
+---
+layout: default
+title: Home
+---
+
+<div class="post-list">
+{% for post in site.posts %}
+  <div class="post-item">
+    {% include post_header.html page_obj=post %}
+    <div class="post-content">
+      {{ post.excerpt }}
+      <a href="{{ post.url }}">続きを読む</a>
+    </div>
+  </div>
+{% endfor %}
+</div>

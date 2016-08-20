@@ -4,11 +4,9 @@ title: "Read a paper: Implicit Look-Alike modeling in Display Ads"
 tag: [paper, RTB, English]
 ---
 
-# Read a paper: Implicit Look-Alike modeling in Display Ads
-
-## Paper
-
 Zhang, W., Chen, L., Wang, J.: Implicit Look-alike Modelling in Display Ads: Transfer Collaborative Filtering to CTR Estimation, [arxiv:1601.02377](https://arxiv.org/abs/1601.02377)
+
+<!-- more -->
 
 ## Background
 

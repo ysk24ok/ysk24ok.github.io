@@ -1,21 +1,21 @@
 ---
 layout: post
-title: 統計学入門 第8章 メモ
+title: 統計学入門 第8章 -大数の法則と中心極限定理- メモ
 tag: [statistics, book, Japanese]
 ---
-
-# 統計学入門 第8章 メモ
 
 <div class='post-img'>
   <img src="/assets/images/statistics_introduction/cover.jpg" width="20%">
 </div>
 
-読み進めた本のURLは[こちら](http://www.utp.or.jp/bd/978-4-13-042065-5.html)
+[統計学入門](http://www.utp.or.jp/bd/978-4-13-042065-5.html)の第8章をまとめた。
+
+<!-- more -->
 
 ## 大数の法則
 
 1回の試行で2種類の事象(コイン投げなら表・裏)のいずれかが生じ、  
-そのような事象が生起する可能性が常に一定(コイン投げなら$\cfrac{1}{2}$)である試行を  
+そのような事象が生起する可能性が常に一定(コイン投げなら$\frac{1}{2}$)である試行を  
 **ベルヌーイ試行**と呼ぶ。
 
 コイン投げにおいて、表が出た場合を$1$、裏が出た場合を$0$をとる確率変数$x$を考える。  

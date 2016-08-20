@@ -1,3 +1,7 @@
+body {
+  text-shadow: none;
+}
+
 header h1 {
   text-align: center;
 }
@@ -7,54 +11,60 @@ header h1 a {
   text-decoration: none;
 }
 
-/* css for post-list */
-.post-list hr {
+/* for post-item */
+.post-item {
+  margin-bottom: 20px;
+  background-color: #f8f8f8;
+}
+
+/* for post-header */
+.post-header {
+  position: relative;
+  padding: 10px 15px 0px;
+}
+
+.post-header hr {
   border-top: solid 1px #708090;
   padding: 0;
 }
 
-.post-list h1 {
-  font-size: 20px;
+.post-header h1 {
+  font-size: 1.6em;
   font-weight: bold;
 }
 
-.post-list h1 a {
+.post-header h1 a {
   color: #337ab7;
 }
 
-.post-list .post-item {
-  position: relative;
-}
-
-.post-list .post-date {
+.post-header .post-date {
   position: absolute;
-  right: 10px;
+  right: 15px;
   font-size: 12px;
 }
 
 /* http://www.nxworld.net/tips/css-tag-cloud.html */
-.post-list .post-item ul.post-tags {
+.post-header ul.post-tags {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.post-list .post-item ul.post-tags li {
+.post-header ul.post-tags li {
   position: relative;
   display: inline-block;
   margin-left .7em;
   padding: 0 20px;
   line-height: 1.2em;
-  background-color: #fff;
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
+  background-color: #999;
+  border-radius: 2.5px;
 }
-.post-list .post-item ul.post-tags li a {
-  color: #000;
+.post-header ul.post-tags li a {
+  color: #fff;
   font-size: 13px;
   text-decoration: none;
 }
 /*
-.post-list .post-item ul.post-tags li::after {
+.post-header ul.post-tags li::after {
   width: 0;
   height: 0;
   top: 50%;
@@ -70,36 +80,30 @@ header h1 a {
 }
 */
 
-/* css for post */
-.posts {
-  padding: 0px 20px;
+/* for post */
+.post-content {
+  padding: 0px 40px 10px;
 }
 
-.posts h1 {
-  text-align: center;
-  font-size: 2.2em;
-  font-weight: bold;
-}
-
-.posts h2 {
+.post-content h2 {
   border-bottom: solid 1px #808080;
 }
 
-.posts hr {
+.post-content hr {
   border-top: dashed 1px #708090;
 }
 
-.posts ul, ol {
+.post-content ul, ol {
   padding-left: 40px;
 }
 
-.posts .post-img img{
+.post-content .post-img img{
   display: block;
   padding: 10px 0px;
   margin: auto;
 }
 
-.posts table {
+.post-content table {
   margin-bottom: 10px;
 }
 
@@ -126,5 +130,20 @@ header h1 a {
 
 .slides .MathJax_Display {
   margin: 30px 0px;
+}
 
+.slides h1.very-large-font {
+  font-size: 6em;
+}
+
+.slides h1, .slides h2, .slides h3 {
+  text-transform: none;
+}
+
+.slides .ref {
+  font-size: 0.5em;
+}
+
+.slides pre code {
+  max-height: 400px;
 }

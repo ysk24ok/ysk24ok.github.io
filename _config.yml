@@ -10,6 +10,7 @@ gems:
 highlighter: rouge
 exclude:
   - vendor
+excerpt_separator: <!-- more -->
 
 # title
 name: ysk24ok.github.io
