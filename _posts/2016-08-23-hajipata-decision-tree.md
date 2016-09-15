@@ -1,7 +1,7 @@
 ---
 layout: post
 title: はじめてのパターン認識 第11章 決定木
-tags: [statistics, book, Japanese ]
+tags: [statistics, book, Japanese]
 ---
 
 <div class='post-img'>
@@ -14,20 +14,27 @@ tags: [statistics, book, Japanese ]
 
 ## 決定木とは
 
-**決定木**とは、`if ... then ... else`のような単純な識別規則で  
+**決定木**とは、`if ... then ... else`のような単純な識別規則を組み合わせて  
 分類・回帰をおこなうノンパラメトリックな手法である。  
 以下の説明はCARTを前提とする。
 
+## 特徴
 
-## 分割規則
+* 学習した木を可視化することができる。
+* 質的変数も量的変数も扱うことができる。
+* ノード数を増やすと過学習しやすいのでノード数の調整が必須。
+* 訓練データにfitしやすく、高バリアンスである。
 
-$C\_{i}\quad(i=1,\cdots,K)$: クラス  
-$N(t)\quad(t=1,\cdots,T)$: ノード$t$に属するサンプルの数  
-$N\_{j}$: $j$番目のクラスに属するサンプルの数  
-$N\_{j}(t)$: ノード$t$のサンプルがクラス$j$に属する確率  
-$p(t)=\frac{N(t)}{N}$: サンプルがノード$t$に属する確率  
-$P(C\_{j})=\frac{N\_{j}}{N}$: クラス$j$の事前確率  
-$p(t\|C\_{j})=\frac{N\_{j}(t)}{N\_{j}}$: クラス$j$のサンプルがノード$t$に属する確率  
+
+## 木の分割
+
+* $C\_{i}\quad(i=1,\cdots,K)$: クラス  
+* $N(t)\quad(t=1,\cdots,T)$: ノード$t$に属するサンプルの数  
+* $N\_{j}$: クラス$j$に属するサンプルの数  
+* $N\_{j}(t)$: ノード$t$に属するサンプルのうちクラス$j$に属する数  
+* $p(t)=\frac{N(t)}{N}$: サンプルがノード$t$に属する確率  
+* $P(C\_{j})=\frac{N\_{j}}{N}$: クラス$j$の事前確率  
+* $p(t\|C\_{j})=\frac{N\_{j}(t)}{N\_{j}}$: クラス$j$のサンプルがノード$t$に属する確率  
 
 ノード$t$におけるクラス$j$の事後確率$P(C\_{j}\|t)$は、ベイズの公式より
 
@@ -39,12 +46,21 @@ P(C_{j}|t)
 &=\cfrac{N_j(t)}{N(t)}
 \end{align}$$
 
-となるので、ノード$t$において事後確率$P(C\_{j}\|t)$が最大となるクラスを選べばよい。
+となる。
+
+### 不純度(impurity)
 
 
-## 不純度 (impurity)
+ノード$t$で分割規則を作るときは**不純度**の減り方が最も大きな分割を選ぶ。
 
-各ノードにおける最適な分割は**不純度(impurity)**とよばれる評価関数で評価し選択する。
+* $t\_{L}$: 子ノード(左)
+* $t\_{R}$: 子ノード(右)
+* $p\_{L}$: サンプル$\mathbf{x}$が$t\_{L}$に属する確率
+* $p\_{R}$: サンプル$\mathbf{x}$が$t\_{R}$に属する確率
+
+とすると、
+
+$$\Delta I(s,t)=I(t)-\left(p_{L}I(t_{L})+p_{R}I(t_{R}) \right)$$
 
 
 ノード$t$の不純度$I(t)$を
@@ -61,11 +77,18 @@ $$I(t)=\phi\left( P(C_{1}|t), \cdots,P(C_{K}|t) \right)$$
 
 という性質をもつ。
 
-### 交差エントロピー
+
+#### 誤り率
+
+$$I(t)=1-\max_{i}P(C_{i}|t)$$
+
+ノード$t$において事後確率$P(C\_{j}\|t)$が最大となるクラスを選ぶ。
+
+#### 交差エントロピー
 
 $$I(t)=-\sum_{i=1}^{K} P(C_{i}|t) \ln P(C_{i}|t)$$
 
-### ジニ係数
+#### ジニ係数
 
 $$\begin{align}
 I(t)
@@ -94,27 +117,40 @@ $=$不純度が大きい
 
 ## 木の剪定 (pruning)
 
-ノードの分割を進め木が大きくなりすぎると  
-バイアスは小さくなるものの汎化性能が下がってしまい、  
-かといって木が小さいとバイアスが大きくなり  
-再代入誤り率も大きくなる。
+木が大きくなるとバイアスは小さくなるものの汎化性能が下がる、  
+木が小さいとバイアスが大きくなり再代入誤り率が大きくなる  
+というトレードオフの調整のために、  
+誤り率と木の複雑さで決まる許容範囲まで木を**剪定**する。
 
-そのため、 不純度が最小になるまで
-（終端ノードに1つのクラスの学習データが属するようになるまで）木を成長させ、  
-誤り率と木の複雑さで決まる許容範囲まで木を**剪定(pruning)**する必要がある。
+* $t\in \tilde{T}$: 終端ノード
+* $M(t)$: 終端ノードに属するサンプルのうち、事後確率を最大にしないクラスのサンプル数
+* $\alpha$: 1つの終端ノードがあることによる複雑さのコスト
 
-後日追記予定。
+とすると、木全体の誤り率と複雑さのコスト$R\_{\alpha}(T)$は
+
+$$\begin{align}
+R_{\alpha}(T)
+&= \sum_{t\in \tilde{T}} R(t) + \alpha |\tilde{T}| \\
+&= \sum_{t\in \tilde{T}} \cfrac{M(t)}{N} + \alpha |\tilde{T}|
+\end{align}$$
+
+目的は木のコスト$R_{\alpha}(T)$を最小にすることであるが、  
+$\alpha$は誤り率と複雑さのバランスをとる正則化パラメータの役割を果たす。
+
+続きは後日追記予定。
+
 
 ちなみにscikit-learnでは木のpruningはサポートされていない。  
 そのため、`max_depth`や`max_leaf_node`の値を  
 汎化性能を見ながら調整する必要がある。
 
-## 分類木・回帰木
+## 実践
 
-irisデータセットをscikit-learnの`tree.DecisionTreeClassifier`で分類、  
-bostonデータセットを`tree.DecisionTreeClassifier`で回帰させる。
+irisデータセットを`sklearn.tree.DecisionTreeClassifier`で分類、  
+bostonデータセットを`sklearn.tree.DecisionTreeClassifier`で回帰させる。
 
-使用したコードは[こちら](https://github.com/ysk24ok/swsk)。また、notebookは[こちら](https://github.com/ysk24ok/swsk/blob/master/notebooks/decision_tree.ipynb)。
+使用したコードは[こちら](https://github.com/ysk24ok/swsk)。  
+また、notebookは[こちら](https://github.com/ysk24ok/swsk/blob/master/notebooks/decision_tree.ipynb)。
 
 ### 分類木
 
@@ -214,6 +250,75 @@ Image(graph.create_png())
 ![png](/assets/images/hajipata/11/decision_tree_1_1.png)
 
 回帰木では、不純度にmean squared errorが使用されている。
+
+## 章末問題
+
+### 11.1
+
+決定木Aの$(C\_{1}, C\_{2})=(50,150)$のノードを$t\_{A,L}$, $(150,50)$のノードを$t\_{A,R}$、  
+決定木Bの$(C\_{1}, C\_{2})=(100,200)$のノードを$t\_{B,L}$, $(100,0)$のノードを$t\_{B,R}$とする。
+
+* $P(C\_{1}\|t\_{A,L})=\frac{50}{200}=\frac{1}{4},\quad P(C\_{2}\|t\_{A,L})=\frac{150}{200}=\frac{3}{4}$
+* $P(C\_{1}\|t\_{A,R})=\frac{150}{200}=\frac{3}{4},\quad P(C\_{2}\|t\_{A,R})=\frac{50}{200}=\frac{1}{4}$
+
+* $P(C\_{1}\|t\_{B,L})=\frac{100}{300}=\frac{1}{3},\quad P(C\_{2}\|t\_{B,L})=\frac{200}{300}=\frac{2}{3}$
+* $P(C\_{1}\|t\_{B,R})=\frac{100}{100}=1,\quad P(C\_{2}\|t\_{B,R})=\frac{0}{100}=0$
+
+(1)
+
+決定木Aの誤り率は$\frac{50}{400}+\frac{50}{400}=\frac{1}{4}$  
+決定木Bの誤り率は$\frac{100}{400}+\frac{0}{400}=\frac{1}{4}$
+
+よって、どちらの木も誤り率は同じである。
+
+(2)
+
+決定木Aの総コスト$R\_{A}(T)$は
+
+$$\begin{align}
+R_{A}(T)
+&= \sum_{t\in \{t_{A,L}, t_{A,R}\}} R(t) + \alpha |\tilde{T}| \\
+&= -\sum_{t\in \{t_{A,L}, t_{A,R}\}} \sum_{i=1}^{2} P(C_{i}|t) \ln P(C_{i}|t) + \alpha |\tilde{T}| \\
+&= -2 \left( \frac{1}{4}\ln\frac{1}{4} + \frac{3}{4}\ln\frac{3}{4} \right) + 2\alpha\\
+&= 0.562335\cdots \times 2 + 2\alpha \\
+&= 1.125 + 2\alpha
+\end{align}$$
+
+決定木Bの総コスト$R\_{B}(T)$は
+
+$$\begin{align}
+R_{B}(T)
+&= \sum_{t\in \{t_{B,L}, t_{B,R}\}} R(t) + \alpha |\tilde{T}| \\
+&= -\sum_{t\in \{t_{B,L}, t_{B,R}\}} \sum_{i=1}^{2} P(C_{i}|t) \ln P(C_{i}|t) + \alpha |\tilde{T}| \\
+&= - \left(\frac{1}{3}\ln\frac{1}{3} + \frac{2}{3}\ln\frac{2}{3} + \ln1 \right) + 2\alpha \\
+&= 0.6365\cdots + 2\alpha
+\end{align}$$
+
+よって、決定木Bの方が総コストが低い。
+
+(3)
+
+決定木Aの総コスト$R\_{A}(T)$は
+
+$$\begin{align}
+R_{A}(T)
+&= \sum_{t\in \{t_{A,L}, t_{A,R}\}} R(t) + \alpha |\tilde{T}| \\
+&= \sum_{t\in \{t_{A,L}, t_{A,R}\}} \sum_{i=1}^{2} P(C_{i}|t) (1 - P(C_{i}|t)) + \alpha |\tilde{T}| \\
+&= 2 \left( \frac{1}{4}\times\frac{3}{4} + \frac{3}{4}\times\frac{1}{4} \right) + 2\alpha\\
+&= \frac{3}{4} + 2\alpha
+\end{align}$$
+
+決定木Bの総コスト$R\_{B}(T)$は
+
+$$\begin{align}
+R_{B}(T)
+&= \sum_{t\in \{t_{B,L}, t_{B,R}\}} R(t) + \alpha |\tilde{T}| \\
+&= \sum_{t\in \{t_{B,L}, t_{B,R}\}} \sum_{i=1}^{2} P(C_{i}|t) (1 - P(C_{i}|t)) + \alpha |\tilde{T}| \\
+&= 2 \left( \frac{1}{3}\times\frac{2}{3} + 1\times0 \right) + 2\alpha\\
+&= \frac{4}{9} + 2\alpha
+\end{align}$$
+
+よって、決定木Bの方が総コストが低い。
 
 
 ## 参考文献・サイト
