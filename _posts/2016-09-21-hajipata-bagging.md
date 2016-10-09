@@ -1,14 +1,16 @@
 ---
 layout: post
 title: はじめてのパターン認識 第11章 bagging
-tags: [ensemble learning, bagging, book, Japanese]
+tags: [hajipata, ensemble learning, Japanese]
+type: article
+description: "はじめてのパターン認識 第11章のbaggingについてまとめた。"
 ---
 
 <div class='post-img'>
   <img src="/assets/images/hajipata/cover.jpg" width="20%">
 </div>
 
-[はじめてのパターン認識](https://www.morikita.co.jp/books/book/2235) 第11章のbaggingについてまとめる。
+[はじめてのパターン認識](https://www.morikita.co.jp/books/book/2235) 第11章のbaggingについてまとめた。
 
 <!-- more -->
 

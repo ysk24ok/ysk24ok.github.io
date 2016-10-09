@@ -26,6 +26,7 @@ header h1 a {
 .post-header hr {
   border-top: solid 1px #708090;
   padding: 0;
+  margin-bottom: 10px;
 }
 
 .post-header h1 {
@@ -107,7 +108,18 @@ header h1 a {
   margin-bottom: 10px;
 }
 
-/* css for slide */
+/* for social button */
+.post-content .social-buttons {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.post-content .social-buttons li {
+  display: inline-block;
+  padding-left: 0;
+}
+
+/* for slide */
 .slides table {
   /* margin-top: 30px; */
   margin-bottom: 30px;

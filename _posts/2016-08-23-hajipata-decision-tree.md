@@ -1,7 +1,9 @@
 ---
 layout: post
 title: はじめてのパターン認識 第11章 決定木
-tags: [statistics, book, Japanese]
+tags: [hajipata, decision tree, Japanese]
+type: article
+description: "はじめてのパターン認識 第11章の決定木についてまとめた。"
 ---
 
 <div class='post-img'>

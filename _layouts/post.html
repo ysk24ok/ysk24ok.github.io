@@ -8,7 +8,9 @@
         <div class="post-item">
           {% include post_header.html page_obj=page %}
           <div class="post-content">
+            {% include social.html %}
             {{ content }}
+            {% include social.html %}
           </div>
         </div>
         {% include footer.html %}

@@ -1,14 +1,16 @@
 ---
 layout: post
 title: はじめてのパターン認識 第11章 boosting
-tags: [statistics, book, Japanese]
+tags: [hajipata, ensemble learning, Japanese]
+type: article
+description: "はじめてのパターン認識 第11章のboostingについてまとめた。"
 ---
 
 <div class='post-img'>
   <img src="/assets/images/hajipata/cover.jpg" width="20%">
 </div>
 
-[はじめてのパターン認識](https://www.morikita.co.jp/books/book/2235) 第11章のboostingについてまとめる。
+[はじめてのパターン認識](https://www.morikita.co.jp/books/book/2235) 第11章のboostingについてまとめた。
 
 <!-- more -->
 
