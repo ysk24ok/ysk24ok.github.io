@@ -6,3 +6,6 @@ _site
 _drafts
 vendor
 .ipynb_checkpoints
+
+.python-version
+.ruby-version
