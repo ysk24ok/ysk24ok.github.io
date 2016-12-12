@@ -1,5 +1,6 @@
 body {
   text-shadow: none;
+  font-family: arial, sans-serif;
 }
 
 header h1 {
@@ -84,6 +85,10 @@ header h1 a {
 /* for post */
 .post-content {
   padding: 0px 40px 10px;
+}
+
+.post-content h1 {
+  border-bottom: solid 1px #808080;
 }
 
 .post-content h2 {

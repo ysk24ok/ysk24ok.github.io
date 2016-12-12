@@ -1,9 +1,9 @@
 ---
 layout: post
-title: みどりぼん 第3章
+title: みどりぼん 第3章 ポワソン回帰
 tags: [midoribon, GLM, Japanese]
 type: article
-description: "みどりぼんの第3章を読んで自分の理解をまとめた。"
+description: "みどりぼん第3章を読んで自分の理解をまとめた。"
 ---
 
 [みどりぼん](http://hosho.ees.hokudai.ac.jp/~kubo/ce/IwanamiBook.html)第3章を読んで自分の理解をまとめた。
