@@ -113,6 +113,15 @@ header h1 a {
   margin-bottom: 10px;
 }
 
+.post-content .img-centering {
+  margin: 10px auto;
+  text-align: center;
+}
+
+.post-content .img-centering figcaption {
+  font-size: 10px;
+}
+
 /* for social button */
 .post-content .social-buttons {
   text-align: right;
