@@ -89,6 +89,7 @@ header h1 a {
 
 .post-content h1 {
   border-bottom: solid 1px #808080;
+  margin-bottom: 15px;
 }
 
 .post-content h2 {
