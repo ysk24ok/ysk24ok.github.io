@@ -11,7 +11,7 @@ description: "みどりぼん第6章の割算値モデリングのためのオ�
 <!-- more -->
 
 使用したデータは[こちら](http://hosho.ees.hokudai.ac.jp/~kubo/stat/iwanamibook/fig/binomial/data4b.csv)。
-また、jupyter notebookは[こちら](/notebooks/midoribon_section6_poisson_regression_with_offset.ipynb)。
+また、jupyter notebookは[こちら](https://nbviewer.jupyter.org/gist/ysk24ok/77230fa47ee0cf2b229ca83b0ff826ee)。
 
 ## 割算値モデリングのためのオフセット項
 

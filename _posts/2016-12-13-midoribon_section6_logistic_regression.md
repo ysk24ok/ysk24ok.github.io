@@ -11,7 +11,7 @@ description: "みどりぼん第6章のロジスティック回帰について"
 <!-- more -->
 
 使用したデータは[こちら](http://hosho.ees.hokudai.ac.jp/~kubo/stat/iwanamibook/fig/binomial/data4a.csv)。
-また、jupyter notebookは[こちら](/notebooks/midoribon_section6_logistic_regression.ipynb)。
+また、jupyter notebookは[こちら](https://nbviewer.jupyter.org/gist/ysk24ok/9d6a6420a1ed679cbe93dc26273e3743)。
 
 ## ロジスティック回帰
 

@@ -11,7 +11,7 @@ description: "みどりぼん第7章のGLMMについてまとめた。"
 <!-- more -->
 
 使用したデータは[こちら](http://hosho.ees.hokudai.ac.jp/~kubo/stat/iwanamibook/fig/glmm/data.csv)。
-また、jupyter notebookは[こちら](/notebooks/midoribon_section7_glmm.ipynb)。
+また、jupyter notebookは[こちら](https://nbviewer.jupyter.org/gist/ysk24ok/a8e91206b49fe446552ef2155af180f2)。
 
 ## GLMで説明できないデータ
 
