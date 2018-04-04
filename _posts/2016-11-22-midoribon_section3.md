@@ -90,7 +90,7 @@ $$\log L(\beta_{1},\beta_{2})=-\sum_{i}(y_{i}-(\beta_{1}+\beta_{2}x_{i}))$$
 などの理由で、種子数のモデリングに正規分布を用いるのは適切ではない。
 
 
-# サンプルデータの概要 (3.2, 3.3)
+# サンプルデータを使って種子数をモデリング
 
 [本書で使用されていたサンプルデータ](http://hosho.ees.hokudai.ac.jp/~kubo/stat/iwanamibook/fig/poisson/data3a.csv)を使って、  
 
