@@ -14,7 +14,7 @@ description: "ニュートン法の更新式を導出してみる。"
 
 最小化したい損失関数を$L(\boldsymbol{w})$とする。
 
-$k$ステップ目において、$L(\boldsymbol{w})$を$\boldsymbol{w}=\boldsymbol{w}\_{k}$において2次のテイラー展開で近似すると
+$k$ステップ目において、$L(\boldsymbol{w})$を$\boldsymbol{w}=\boldsymbol{w}\_{k}$においてテイラー展開によって2次近似すると、
 
 $$L(\boldsymbol{w}) \approx
   L(\boldsymbol{w}_{k})
@@ -49,39 +49,45 @@ $$\begin{equation}
 </figure>
 
 <!-- TODO: 式番号つけたい -->
-右辺を$\Delta\boldsymbol{w}$の関数として$h(\Delta{\boldsymbol{w}})$とおくと、
-$h(\Delta{\boldsymbol{w}})$は$\Delta\boldsymbol{w}$の2次関数になる。  
+右辺を$\Delta\boldsymbol{w}$の関数$h(\Delta{\boldsymbol{w}})$と見ると
+$h(\Delta{\boldsymbol{w}})$は$\Delta\boldsymbol{w}$の2次関数になり、  
+ヘッセ行列$\nabla^{2} L(\boldsymbol{w_{k}})$が正定値対称行列であれば
+$h(\Delta{\boldsymbol{w}})$は唯一の最小値をとる。
+
 $\boldsymbol{g}\_{k}=\nabla L(\boldsymbol{w}\_{k})$、
 $\boldsymbol{H}\_{k}=\nabla^{2} L(\boldsymbol{w_{k}})$とおき、
 $h(\Delta{\boldsymbol{w}})$を$\Delta{\boldsymbol{w}}$で微分すると、
 
 $$\cfrac{\partial h(\Delta{\boldsymbol{w}})}{\partial \Delta{\boldsymbol{w}}} = \boldsymbol{g}_{k} + \boldsymbol{H}_{k}\Delta \boldsymbol{w}$$
 
-この式が0になるとき、$\Delta{\boldsymbol{w}}$は
+この式が0になる（=$h(\Delta{\boldsymbol{w}})$が最小値をとる）とき、
 
 $$\Delta\boldsymbol{w}=-\boldsymbol{H}_{k}^{-1}\boldsymbol{g}_{k}$$
 
-となり、$h(\Delta{\boldsymbol{w}})$は下に凸の2次関数なので最小となる。
+となる。
 
 $\Delta\boldsymbol{w}=\boldsymbol{w}-\boldsymbol{w}_{k}$なので、
 
-$$\boldsymbol{w} \leftarrow \boldsymbol{w}_{k} + \Delta\boldsymbol{w}$$
+$$\boldsymbol{w} = \boldsymbol{w}_{k} + \Delta\boldsymbol{w}$$
 
-ステップ幅を$\alpha\_{k}$として、
+ステップ幅を$\alpha\_{k}$とすると、
 
-$$\boldsymbol{w}_{k+1} \leftarrow \boldsymbol{w}_{k} - \alpha_{k}\boldsymbol{H}_{k}^{-1}\boldsymbol{g}_{k}$$
+$$\boldsymbol{w}_{k+1} = \boldsymbol{w}_{k} - \alpha_{k}\boldsymbol{H}_{k}^{-1}\boldsymbol{g}_{k}$$
 
 として更新される。
 
 ## 特徴
 
-ヘッセ行列の逆行列を計算する必要があるが、計算量は$O(n^{3})$なので陽に求めづらい。  
-そこで逆行列を近似的に求める**準ニュートン法(quasi-Newton method)**に発展する。
+* 2次収束する
+* ヘッセ行列が正定値対称行列となるときのみ収束性が保証される
+* ヘッセ行列の逆行列を計算する必要があるが、計算量は$O(n^{3})$なので陽に求めづらい。  
+  - そこで逆行列を近似的に求める**準ニュートン法(quasi-Newton method)**に発展する。
 
 ## 参考URL
 
+* [これなら分かる最適化数学](http://www.kyoritsu-pub.co.jp/kenpon/bookDetail/9784320017863) 3.2
 * [最適化と学習アルゴリズム](http://www.r.dl.itc.u-tokyo.ac.jp/~nakagawa/SML1/opt-algorithm1.pdf)
 * [Newton法](http://dsl4.eee.u-ryukyu.ac.jp/DOCS/nlp/node5.html)
 * [3分でわかるL-BFGS - Kotaro's blog](http://kotarotanahashi.github.io/blog/2015/10/03/l-bfgsfalseshi-zu-mi/)
-* [unnonouno: Newton-CG法とは](http://blog.unnono.net/2011/04/newton-cg.html)
-* [システムの最適化  － ２．非線形計画法（NP : Nonlinear Programming） －](https://www.sist.ac.jp/~suganuma/kougi/other_lecture/SE/opt/nonlinear/nonlinear.htm#2.6)
+* [2.6 Newton 法](https://www.sist.ac.jp/~suganuma/kougi/other_lecture/SE/opt/nonlinear/nonlinear.htm#2.6)
+* [数理情報学演習 I 制約なし最適化問題の解法 – ニュートン法 –](http://www.math.cm.is.nagoya-u.ac.jp/~kanamori/lecture/lec.2007.1st.suurijouhou1/08.2007.06.14.NewtonMethod.pdf)
