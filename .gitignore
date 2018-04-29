@@ -1,10 +1,4 @@
-*.bak
-*.swp
-.bundle
-Gemfile.lock
-_site
-_drafts
-vendor
-
-.python-version
-.ruby-version
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
