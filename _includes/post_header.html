@@ -7,6 +7,8 @@
       <li><a href="#">{{ tag }}</a></li>
     {% endfor %}
   </ul>
+  {% if include.page_obj.date %}
   <div class="post-date">posted on {{ include.page_obj.date | date_to_string }}</div>
+  {% endif %}
   <hr>
 </div>
