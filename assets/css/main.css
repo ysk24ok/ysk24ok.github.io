@@ -3,6 +3,11 @@ body {
   font-family: arial, sans-serif;
 }
 
+.pagination {
+  text-align: center;
+  width: 100%;
+}
+
 header h1 {
   text-align: center;
 }

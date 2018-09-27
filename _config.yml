@@ -6,11 +6,14 @@ kramdown:
   hard_wrap: false
 plugins:
   - jekyll-gist
+  - jekyll-paginate
   - rouge
 highlighter: rouge
 exclude:
   - vendor
 excerpt_separator: <!-- more -->
+paginate: 10
+paginate_path: "/page/:num"
 
 # title
 name: ysk24ok.github.io

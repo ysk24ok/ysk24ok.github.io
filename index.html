@@ -6,7 +6,7 @@ description: "ysk24ok's blog posts, slides and past works"
 ---
 
 <div class="post-list">
-{% for post in site.posts %}
+{% for post in paginator.posts %}
   <div class="post-item">
     {% include post_header.html page_obj=post %}
     <div class="post-content">
@@ -15,4 +15,12 @@ description: "ysk24ok's blog posts, slides and past works"
     </div>
   </div>
 {% endfor %}
+</div>
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path }}" class="prev">← Prev</a>
+  {% endif %}
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path }}" class="next">Next →</a>
+  {% endif %}
 </div>
