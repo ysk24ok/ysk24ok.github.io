@@ -6,6 +6,8 @@ type: article
 description: "Coursera Deep Learning Specializationのcourse5受講メモ"
 ---
 
+[Coursera Deep Learning Specializaton](https://www.coursera.org/specializations/deep-learning)の[course5: Sequence Models](https://www.coursera.org/learn/nlp-sequence-models)を修了したのでメモを残しておく。
+
 <!-- more -->
 
 # Week1

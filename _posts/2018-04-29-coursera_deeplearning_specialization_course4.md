@@ -6,6 +6,9 @@ type: article
 description: "Coursera Deep Learning Specializationのcourse4受講メモ"
 ---
 
+[Coursera Deep Learning Specializaton](https://www.coursera.org/specializations/deep-learning)の[course4: Convolutional Neural Networks](https://www.coursera.org/learn/convolutional-neural-networks)を修了したのでメモを残しておく。
+
+
 <!-- more -->
 
 # Week1
