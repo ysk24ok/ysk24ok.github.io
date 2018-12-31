@@ -3,8 +3,6 @@ layout: post
 title: About me
 ---
 
-# Who am I
-
 Yusuke Nishioka / [@ysk24ok](https://twitter.com/ysk24ok)
 
 I'm a software engineer, whose interest is to bridge between data science and software engineering.
@@ -19,13 +17,17 @@ I'm a software engineer, whose interest is to bridge between data science and so
 
 # Paper
 
-* Y. Nishioka and K. Taura, "Scalable Task-Parallel SGD on Matrix Factorization in Multicore Architectures", in ParLearning, 2015
-  - parallelizes training matrix factorization by SGD which scales up to 32 cores (64 virtual cores)
+* Y. Nishioka and K. Taura, "Scalable Task-Parallel SGD on Matrix Factorization in Multicore Architectures", IEEE International Parallel and Distributed Processing Symposium Workshop 2015
+  - parallelizes SGD optimization on matrix factorization which scales up to 32 cores (64 virtual cores)
   - achieved best paper award!
+
+# Tech talks
+
+* [Linuxカーネルを読んで改めて知るプロセスとスレッドの違い](https://www.youtube.com/watch?v=z8yqF5L0khc&t=373s), 2018/07
 
 # My Software
 
 * [cpmf](https://github.com/ysk24ok/cpmf)
-  - implementation of the paper described above
+  - implements parallelized optimization on matrix factorization
 * [ml-by-mixins](https://github.com/ysk24ok/ml-by-mixins)
   - implements machine learning algorithms from scratch using numpy
