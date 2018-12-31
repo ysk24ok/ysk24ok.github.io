@@ -19,6 +19,15 @@
     link.href = window.location.search.match( /print-pdf/gi ) ? '{{ site.reveal_js_path }}/css/print/pdf.css' : '{{ site.reveal_js_path }}/css/print/paper.css';
     document.getElementsByTagName( 'head' )[0].appendChild( link );
   </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131519041-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-131519041-1');
+  </script>
   <!--[if lt IE 9]>
   <script src="{{ site.reveal_js_path }}/lib/js/html5shiv.js"></script>
   <![endif]-->
