@@ -1,3 +1,7 @@
+blockquote {
+  font-size: 1em;
+}
+
 body {
   text-shadow: none;
   font-family: arial, sans-serif;
