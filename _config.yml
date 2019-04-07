@@ -23,5 +23,4 @@ github_url: https://github.com/ysk24ok
 
 # Path
 asset_path: /assets
-bootstrap_path: /lib/bootstrap
 reveal_js_path: /lib/reveal.js
