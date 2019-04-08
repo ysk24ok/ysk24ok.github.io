@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="author" content="ysk24ok">
+  
+  <meta name="description" content="deeplearning.aiが提供するDeep Learning Specializatonのcourse2受講メモ">
+  <meta property="og:description" content="deeplearning.aiが提供するDeep Learning Specializatonのcourse2受講メモ">
+  
+  <meta property="og:image" content="https://ysk24ok.github.io/assets/images/profile.jpeg">
+  <meta property="og:title" content="CourseraのDeep Learning Specializaton course2受講メモ">
+  <meta property="og:url" content="https://ysk24ok.github.io/2017/12/31/coursera_deeplearning_course2.html">
+  <meta property="og:type" content="article">
+  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+  <!-- MathJax -->
+  <!-- http://docs.mathjax.org/en/latest/start.html#secure-access-to-the-cdn -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- bootstrap -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+  <script src="/assets/js/jquery-2.1.4.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <!-- github.io default -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/stylesheet.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/github-dark.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/print.css" media="print">
+  <!-- syntax highlight css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" media="screen">
+  <!-- My customized css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
+  <!-- RSS -->
+  <link href="/feed.xml" type="application/rss+xml" rel="alternate" title="ysk24ok.github.io" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131519041-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-131519041-1');
+  </script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title>CourseraのDeep Learning Specializaton course2受講メモ - ysk24ok.github.io</title>
+</head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+        <header>
+  <h1><a href="/">ysk24ok.github.io</a></h1>
+</header>
+<nav class="navbar navbar-default" role="navigation">
+  <ul id="main-navigation" class="nav navbar-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+
+        <div class="post-item">
+          <div class="post-header">
+  <h1>
+    <a href="/2017/12/31/coursera_deeplearning_course2.html">CourseraのDeep Learning Specializaton course2受講メモ</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">deep learning</a></li>
+    
+      <li><a href="#">coursera</a></li>
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 31 Dec 2017</div>
+  
+  <hr>
+</div>
+
+          <div class="post-content">
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2017/12/31/coursera_deeplearning_course2.html" class="hatena-bookmark-button" data-hatena-bookmark-title="CourseraのDeep Learning Specializaton course2受講メモ - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+            <p><a href="https://www.deeplearning.ai/">deeplearning.ai</a>が提供する<a href="https://www.coursera.org/specializations/deep-learning">Deep Learning Specializaton</a>の<a href="https://www.coursera.org/learn/deep-neural-network">course2</a>を受講したのでメモを残しておく。</p>
+
+<!-- more -->
+
+<h1 id="week1">week1</h1>
+
+<h2 id="train--dev--test-set">train / dev / test set</h2>
+
+<ul>
+  <li>サンプル数が非常に大きい場合、 dev / test setの割合は小さくてよい
+    <ul>
+      <li>サンプル数が小さい場合(e.x. 100-10000)、60/20/20くらいが良いとされていた</li>
+      <li>サンプル数が非常に大きい場合(e.x. million)、98/1/1くらいでも良い</li>
+    </ul>
+  </li>
+  <li>dev setとtest setは同じ分布からのサンプルにする
+    <ul>
+      <li>もちろんtraining / dev / test set全てが同じ分布から得られたデータであれば言うことは無いが、deep learningではデータが大量に必要になるためそれが難しいことが多い</li>
+      <li>そのためhyperparameterの最適化をおこなうdev setと評価をおこなうtest setは最低限同じ分布からのものにしましょう、ということだと思われる</li>
+      <li>例えばユーザがアップロードした、ピントがずれているor対象がちゃんと写っていない画像を分類するapplicationの場合、Webからクローリングしてきた比較的高精度・対象がちゃんと写っている画像でtrainingするとしても、目的はユーザのアップロードした画像の分類なので、同じ分布で統一するとしてもWebからクローリングしてきた画像ではなくユーザのアップロードした画像で統一する</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="bias-variance">bias-variance</h2>
+
+<ul>
+  <li>モデルがhigh biasの場合
+    <ul>
+      <li>= training setに対してすら精度が低い状態</li>
+      <li>層数orユニット数を増やす等、ネットワークを大きくする</li>
+      <li>early stoppingはせず、trainingを長くする</li>
+    </ul>
+  </li>
+  <li>モデルがhigh varianceの場合
+    <ul>
+      <li>= training setに対しては精度が高いが、test setについては精度が低い状態</li>
+      <li>データを増やす</li>
+      <li>regularizationを加える</li>
+    </ul>
+  </li>
+  <li>deep learningではbiasとvarianceは必ずしもtradeoffではない
+    <ul>
+      <li>古典的な機械学習ではbiasとvarianceはtradeoffの関係にあった</li>
+      <li>しかしdeep learningでは必ずしもそうではなく、片方を悪化させることなくもう片方を改善することができる</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="regularization">regularization</h2>
+
+<ul>
+  <li>weight decay
+    <ul>
+      <li>いわゆるL2正則化</li>
+    </ul>
+  </li>
+  <li>(inverted) dropout
+    <ul>
+      <li>forward prop時にいくつかのユニットを計算から除外する</li>
+      <li>activationの計算時に残したユニット数の割合で割る
+        <ul>
+          <li>e.x. 80%のユニットを残した（=20%のユニットを除外した）場合、0.8で割る</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>data augmentation
+    <ul>
+      <li>画像であれば反転する、回転させる、歪ませるなどしてデータを増やす</li>
+    </ul>
+  </li>
+  <li>early stopping
+    <ul>
+      <li>学習が進むにつれoverfittingの状態になるので、途中で学習を打ち切る</li>
+      <li>長所: L2正則化のように異なる値で何度も学習をおこなう必要がない、1度だけでよい</li>
+      <li>短所: underfitしないようにするフェーズとoverfitしないようにするフェーズが混ざってしまう</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="week2">week2</h1>
+
+<h2 id="optimizer">optimizer</h2>
+
+<ul>
+  <li>Momentum SGD
+    <ul>
+      <li>SGDの更新式に慣性項を加えることで、oscillationを防ぐことができる</li>
+      <li>$\beta$が大きくなるほどより過去の勾配の影響を受けることになる</li>
+      <li>$\beta$は0.9が良いとされている</li>
+    </ul>
+  </li>
+  <li>RMSprop,Adam
+    <ul>
+      <li>Momentum SGDの進化系（雑</li>
+    </ul>
+  </li>
+  <li>learning rate decay
+    <ul>
+      <li>学習が進むにつれlearning rateを小さくしていく</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="local-optima-vs-saddle-points">local optima vs saddle points</h2>
+
+<ul>
+  <li>deep learningでlocal optimaに遭遇することはレア
+    <ul>
+      <li>local optimaとは、パラメータの全次元で凹の状態で勾配が0になっている点のことだが、deep learningでは次元数が非常に大きいため全次元で凹になる可能性は低い</li>
+      <li>勾配が0になるのはsaddle pointsが多いと考えられている、つまりある次元では凹になるが、別の次元では凸になっているケース</li>
+    </ul>
+  </li>
+  <li>勾配の緩やかなplateauになっている場合、学習が遅くなる
+    <ul>
+      <li>Adamなどのadavancedなoptimizerを使うことで早く抜け出すことができる</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="week3">week3</h1>
+
+<h2 id="hyperparameter-tuning">hyperparameter tuning</h2>
+
+<ul>
+  <li>grid searchではなくrandom searchを使う
+    <ul>
+      <li>探索するhyperparameterが2つあり、それぞれのhyperparameterについて5個ずつ合計25個の点をgrid searchで探索する場合、それぞれのhyperparameterについては5つの値しか探索することができない</li>
+      <li>しかしrandom searchの場合、同じ25個の点を探索するにしてもそれぞれのhyperparameterについて25個の値を探索することができる</li>
+    </ul>
+  </li>
+  <li>coarse to fineで探索範囲を狭めていく
+    <ul>
+      <li>最初はパラメータ全体で探索し、探索範囲を狭め精度が高くなる範囲を重点的に探索するようにする</li>
+    </ul>
+  </li>
+  <li>適切なscaleを考える
+    <ul>
+      <li>ユニット数や層数は一様乱数でよいが、学習率やmomentumはlog-scaleで探索する</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># learning rateの場合</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>  <span class="c"># 10^-5 ~ 1</span>
+<span class="c"># momentumの場合</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>  <span class="c"># 0.9 ~ 0.99</span>
+</code></pre></div></div>
+
+<ul>
+  <li>pandaよりもcavier
+    <ul>
+      <li>1つのモデルのhyperparameterを少しずつ変えながら探索するのがpandaアプローチ</li>
+      <li>異なるhyperparameterのモデルを並列して複数作成し、最適なhyperparameterを探索するのがcavierアプローチ</li>
+      <li>計算資源が十分あるのならcavierアプローチのほうが良い</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="batch-normalization">batch normalization</h2>
+
+<ul>
+  <li>batch normalization
+    <ul>
+      <li>入力層においてfeatureをnormalizeするのと同様に、隠れ層においてactivationの計算の前にnormalizeする</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="関連リンク">関連リンク</h1>
+
+<ul>
+  <li><a href="https://www.deeplearning.ai/">deeplearning.ai</a></li>
+  <li><a href="https://www.coursera.org/specializations/deep-learning">Deep Learning | Coursera</a></li>
+  <li><a href="https://www.coursera.org/learn/deep-neural-network">Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization | Coursera</a></li>
+</ul>
+
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2017/12/31/coursera_deeplearning_course2.html" class="hatena-bookmark-button" data-hatena-bookmark-title="CourseraのDeep Learning Specializaton course2受講メモ - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+          </div>
+        </div>
+        <footer>
+  This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+</footer>
+
+      </div>
+    </div>
+  </body>
+</html>

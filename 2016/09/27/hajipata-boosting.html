@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="author" content="ysk24ok">
+  
+  <meta name="description" content="はじめてのパターン認識 第11章のboostingについてまとめた。">
+  <meta property="og:description" content="はじめてのパターン認識 第11章のboostingについてまとめた。">
+  
+  <meta property="og:image" content="https://ysk24ok.github.io/assets/images/profile.jpeg">
+  <meta property="og:title" content="はじめてのパターン認識 第11章 boosting">
+  <meta property="og:url" content="https://ysk24ok.github.io/2016/09/27/hajipata-boosting.html">
+  <meta property="og:type" content="article">
+  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+  <!-- MathJax -->
+  <!-- http://docs.mathjax.org/en/latest/start.html#secure-access-to-the-cdn -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- bootstrap -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+  <script src="/assets/js/jquery-2.1.4.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <!-- github.io default -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/stylesheet.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/github-dark.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/print.css" media="print">
+  <!-- syntax highlight css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" media="screen">
+  <!-- My customized css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
+  <!-- RSS -->
+  <link href="/feed.xml" type="application/rss+xml" rel="alternate" title="ysk24ok.github.io" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131519041-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-131519041-1');
+  </script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title>はじめてのパターン認識 第11章 boosting - ysk24ok.github.io</title>
+</head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+        <header>
+  <h1><a href="/">ysk24ok.github.io</a></h1>
+</header>
+<nav class="navbar navbar-default" role="navigation">
+  <ul id="main-navigation" class="nav navbar-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+
+        <div class="post-item">
+          <div class="post-header">
+  <h1>
+    <a href="/2016/09/27/hajipata-boosting.html">はじめてのパターン認識 第11章 boosting</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">hajipata</a></li>
+    
+      <li><a href="#">ensemble learning</a></li>
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 27 Sep 2016</div>
+  
+  <hr>
+</div>
+
+          <div class="post-content">
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2016/09/27/hajipata-boosting.html" class="hatena-bookmark-button" data-hatena-bookmark-title="はじめてのパターン認識 第11章 boosting - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+            <div class="post-img">
+  <img src="/assets/images/hajipata/cover.jpg" width="20%" />
+</div>
+
+<p><a href="https://www.morikita.co.jp/books/book/2235">はじめてのパターン認識</a> 第11章のboostingについてまとめた。</p>
+
+<!-- more -->
+
+<h2 id="boostingとは">boostingとは</h2>
+
+<p>複数の弱学習器を直列に並べ、<br />
+前の学習器の結果を使って次の学習器で学習するという逐次的なプロセスで<br />
+強学習器を作るアンサンブル学習の1種。</p>
+
+<h2 id="特徴">特徴</h2>
+
+<ul>
+  <li>baggingと異なり学習を並列化できないため時間がかかる。</li>
+  <li>過学習を起こしやすいため、弱学習器には小さな木が用いられる。
+    <ul>
+      <li>baggingでは各学習器に大きな木を使っても<br />
+過学習を抑えることができた</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="adaboost">AdaBoost</h2>
+
+<p>AdaBoostでは、前の弱学習器で誤って識別されたサンプルに対する重みを大きく、<br />
+正しく識別されたサンプルに対する重みを小さくすることで、<br />
+誤って識別されやすいサンプルを集中的に学習する。</p>
+
+<h3 id="アルゴリズム">アルゴリズム</h3>
+
+<ul>
+  <li>学習データ: $\mathbf{x}_{i}\in \mathbb{R}^{d}, t_{i}=\{-1, +1\}\quad(i=1,\cdots,N)$</li>
+  <li>弱識別器: $y_m(\mathbf{x})=\{-1,+1\}\quad(m=1,\cdots,M)$</li>
+  <li>$m$番目の弱識別器における$i$番目のデータの重み: $w_{i}^{m}$</li>
+</ul>
+
+<p>とすると、</p>
+
+<ol>
+  <li>重みを$w_{i}^{1}=\frac{1}{N}\quad(i=1,\cdots,N)$に初期化する。</li>
+  <li>ステップ$m=1$から$M$まで以下をおこなう。
+    <ul>
+      <li>重み付き誤差関数$E_{m}$が最小になるように学習する。
+        <ul>
+          <li>
+            <script type="math/tex; mode=display">\begin{equation}
+\label{eq_11_21}
+E_{m}=\cfrac{\sum_{i=1}^{N} w_{i}^{m} I\left(y_{m}(\mathbf{x}_{i}) \ne t_{i}\right)}{\sum_{i=1}^{N} w_{i}^{m}} \tag{11.21}
+\end{equation}</script>
+          </li>
+          <li>$I\left(y_{m}(\mathbf{x}_{i}) \ne t_{i}\right)$は識別器の出力がサンプルのラベルと一致したとき$0$、<br />
+一致しなかったとき$1$となる指示関数であるため、<br />
+$E_{m}$は誤ったサンプルの正規化された重みの和となる。</li>
+        </ul>
+      </li>
+      <li>弱識別器$y_{m}(\mathbf{x})$に対する重み$\alpha_{m}$を計算する。
+        <ul>
+          <li>
+            <script type="math/tex; mode=display">\begin{equation}
+\label{eq_11_22}
+\alpha_{m}=\ln\left( \cfrac{1-E_{m}}{E_{m}} \right) \tag{11.22}
+\end{equation}</script>
+          </li>
+          <li>弱識別器はランダム推定よりも性能が良いものを指すため<br />
+$E_{m}&lt;\frac{1}{2}$となり、$\alpha_{m}&gt;0$となる。<br />
+また、誤差が小さい識別器ほど大きな重みを与えられる。</li>
+        </ul>
+      </li>
+      <li>重み$w_{i}^{m}$を更新する。
+        <ul>
+          <li>
+            <script type="math/tex; mode=display">\begin{equation}
+\label{eq_11_23}
+w_{i}^{m+1}=w_{i}^{m} \exp \left(\alpha_{m} I(y_{m}(\mathbf{x}_{i}) \ne t_{i})\right) \tag{11.23}
+\end{equation}</script>
+          </li>
+          <li>誤分類したサンプルの重みが$\exp(\alpha_{m})&gt;1$倍される。<br />
+正しく分類されたサンプルの重みは変更されないが、<br />
+$E_{m+1}$の計算で正規化されるため相対的に小さくなる。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>入力$\mathbf{x}$に対する識別結果を求める。
+    <ul>
+      <li>
+        <script type="math/tex; mode=display">Y_{M}(\mathbf{x})=sign\left( \sum_{m=1}^{M} \alpha_{m} y_{m}(\mathbf{x})\right)</script>
+      </li>
+      <li>ここで、$sign(\alpha)$は符号関数であり、<br />
+ $\alpha&gt;0$で+1、$\alpha=0$で0、$\alpha&lt;0$で1を出力する。</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="導出">導出</h3>
+
+<h4 id="損失関数e_mの導出">損失関数$E_{m}$の導出</h4>
+
+<p>指数誤差関数</p>
+
+<script type="math/tex; mode=display">E=\sum_{i=1}^{N}\exp(-t_{i}f_{m} \left( \mathbf{x}_{i}) \right)</script>
+
+<p>を$m=1$から$M$まで逐次最小化することで導出できる。</p>
+
+<p>$f_{m}(\mathbf{x})$は</p>
+
+<script type="math/tex; mode=display">f_{m}(\mathbf{x})=\cfrac{1}{2}\sum_{j=1}^{m}\alpha_{j}y_{j}(\mathbf{x})</script>
+
+<p>で定義された、弱識別器$y_{j}(\mathbf{x})$の$j=1$から$m$までの線形結合である。</p>
+
+<p>$m$番目の識別器における誤差$E$を$y_{m}(\mathbf{x})$と$\alpha_{m}$に関して最小化する。</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+E&=\sum_{i=1}^{N}\exp(-t_{i}f_{m} \left( \mathbf{x}_{i}) \right)\\
+&=\sum_{i=1}^{N} \exp \left( -t_{i}f_{m-1}(\mathbf{x}_{i}) - \cfrac{1}{2}t_{i}\alpha_{m}y_{m}(\mathbf{x}_{i}) \right) \\
+&=\sum_{i=1}^{N} w_{i}^{m} \exp \left(-\cfrac{1}{2}t_{i}\alpha_{m}y_{m}(\mathbf{x}_{i}) \right) \quad \left( w_{i}^{m}=\exp (-t_{i}f_{m-1}(\mathbf{x}_{i}) ) \right) \\
+&=\exp\left(-\cfrac{\alpha_{m}}{2}\right) \sum_{i\in T_{c}}w_{i}^{m} +\exp\left(\cfrac{\alpha_{m}}{2}\right)\sum_{i\in T_{e}} w_{i}^{m} \\
+&\quad\quad
+  \left(\begin{cases}
+    t_{i}y_{m}(\mathbf{x}_{i})=1 & (i \in T_{c}) \\
+    t_{i}y_{m}(\mathbf{x}_{i})=-1 & (i \in T_{e})
+  \end{cases}\right)  \\
+&=\exp\left(-\cfrac{\alpha_{m}}{2}\right) \left(\sum_{i=1}^{n}w_{i}^{m} - \sum_{i\in T_{e}} w_{i}^{m}\right) +\exp\left(\cfrac{\alpha_{m}}{2}\right)\sum_{i\in T_{e}} w_{i}^{m} \\
+&= \left(\exp\left(\cfrac{\alpha_{m}}{2}\right) - \exp\left(-\cfrac{\alpha_{m}}{2}\right)\right)\sum_{i=1}^{N} w_{i}^{m} I(y_{m}(\mathbf{x}_{i}\ne t_{i})) + \exp\left(-\cfrac{\alpha_{m}}{2}\right)\sum_{i=1}^{N}w_{i}^{m} \\
+&=\left(\exp\left(\cfrac{\alpha_{m}}{2}\right) - \exp\left(-\cfrac{\alpha_{m}}{2}\right)\right)A+\exp\left(-\cfrac{\alpha_{m}}{2}\right)B \\
+&\quad\quad\left( A=\sum_{i=1}^{N} w_{i}^{m} I(y_{m}(\mathbf{x}_{i}\ne t_{i})),B=\sum_{i=1}^{N}w_{i}^{m} \right)
+\end{align} %]]></script>
+
+<p>（途中で$w_{i}^{m}=\exp (-t_{i}f_{m-1}(\mathbf{x}_{i}))$とおいて式変形をしているが、<br />
+  なぜ重みをそう置くのかはよくわからない。。。）</p>
+
+<p>$y_{m}(\mathbf{x})$に関する$E$の最小化は、$B$が定数なので$A$の最小化に等しい。<br />
+$B$は訓練データの重みの総和なので$A$を割ることで正規化して</p>
+
+<script type="math/tex; mode=display">\cfrac{A}{B}=\cfrac{\sum_{i=1}^{N} w_{i}^{m} I(y_{m}(\mathbf{x}_{i}\ne t_{i}))}{\sum_{i=1}^{N}w_{i}^{m}}=E_{m}</script>
+
+<p>となり、式(\ref{eq_11_21})に一致する。</p>
+
+<h4 id="alpha_mの更新">$\alpha_{m}$の更新</h4>
+
+<p>$E$を$\alpha_{m}$に関して最小化することを考える、</p>
+
+<p>$\cfrac{\partial E}{\partial \alpha_{m}}
+=\left( \cfrac{1}{2}\exp\left(\cfrac{\alpha_{m}}{2}\right) +  \cfrac{1}{2}\exp\left(-\cfrac{\alpha_{m}}{2}\right) \right)A - \cfrac{1}{2}\exp\left(-\cfrac{\alpha_{m}}{2}\right)B = 0$</p>
+
+<p>より、</p>
+
+<script type="math/tex; mode=display">\left( \exp\left(\cfrac{\alpha_{m}}{2}\right)+\exp\left(-\cfrac{\alpha_{m}}{2}\right) \right)A = \exp\left(-\cfrac{\alpha_{m}}{2}\right)B \\
+A\exp\left(\cfrac{\alpha_{m}}{2}\right) = (B-A)\exp\left(-\cfrac{\alpha_{m}}{2}\right) \\
+\exp(\alpha_{m})=\cfrac{B-A}{A}</script>
+
+<p>よって、$\alpha_{m}=\ln\left(\cfrac{1-\frac{A}{B}}{\frac{A}{B}}\right)=\ln\left(\cfrac{1-E_{m}}{E_{m}}\right)$となり、式(\ref{eq_11_22})と一致する。</p>
+
+<h4 id="w_imの更新">$w_{i}^{m}$の更新</h4>
+
+<p>$E=\sum_{i=1}^{N} w_{i}^{m} \exp \left(-\cfrac{1}{2}t_{i}\alpha_{m}y_{m}(\mathbf{x}_{i}) \right)$より、$i$番目の学習サンプルの重みの更新式は</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+w_{i}^{m+1}&=\sum_{i=1}^{N} w_{i}^{m} \exp \left(-\cfrac{1}{2}t_{i}\alpha_{m}y_{m}(\mathbf{x}_{i}) \right) \\
+&=\begin{cases}
+w_{i}^{m}\exp\left(-\cfrac{\alpha_{m}}{2}\right) & (t_{i}y_{m}(\mathbf{x}_{i})=1) \\
+w_{i}^{m}\exp\left(\cfrac{\alpha_{m}}{2}\right) & (t_{i}y_{m}(\mathbf{x}_{i})=-1)
+\end{cases} \\
+&=w_{i}^{m} \exp\left(\cfrac{\alpha_{m}}{2}\right) \exp\left(\alpha_{m}I(y_{m}(\mathbf{x}\ne t_{i}))\right)
+\end{align} %]]></script>
+
+<p>となり、式(\ref{eq_11_23})と一致する。</p>
+
+<h2 id="前進逐次加法モデリング-forward-stagewise-additive-modeling">前進逐次加法モデリング (forward stagewise additive modeling)</h2>
+
+<p>AdaBoostの出力関数$f(\mathbf{x})=\sum_{m=1}^{M}\alpha_{m}y_{m}(\mathbf{x};\gamma_{m})$は<br />
+$f(\mathbf{x})$を基底関数$y_{m}(\mathbf{x};\gamma_{m})$で加法展開しているので、<br />
+<strong>加法モデル(additive model)</strong>と呼ばれる。<br />
+$m=1$のとき$f(\mathbf{x})=\alpha_{1}y_{1}$、<br />
+$m=2$のとき$f(\mathbf{x})=\alpha_{1}y_{1}+\alpha_{2}y_{2}$、<br />
+$m=3$のとき$f(\mathbf{x})=\alpha_{1}y_{1}+\alpha_{2}y_{2}+\alpha_{3}y_{3}$、…<br />
+のように、$y_{m}$が$f(\mathbf{x})$に線形結合で加算されていくためである。<br />
+なお、$\gamma_{m}$は誤差関数を最小にする識別器$m$のパラメータである。</p>
+
+<p>また、各$y_{m}$において誤差関数を逐次的に最小化することでパラメータ$\gamma_{m}$を算出、加法モデルを求めていることから、<br />
+<strong>前進逐次加法モデリング(forward stagewise additive modeling)</strong>と呼ばれる。</p>
+
+<h3 id="アルゴリズム-1">アルゴリズム</h3>
+
+<ul>
+  <li>学習データ: $\mathbf{x}_{i}\in \mathbb{R}^{d}, t_{i}=\{-1, +1\}\quad(i=1,\cdots,N)$</li>
+  <li>基底関数: $y_m(\mathbf{x})=\{-1,+1\}\quad(m=1,\cdots,M)$</li>
+  <li>基底関数$y_{m}$にかける重み: $\alpha_{m}$</li>
+  <li>基底関数$y_{m}$のパラメータ: $\gamma$</li>
+</ul>
+
+<ol>
+  <li>$f_{0}=0$とおく</li>
+  <li>ステップ$m=1$から$M$まで以下をおこなう。
+    <ul>
+      <li>誤差関数$L(t_{i},y_{m})$を$\alpha$, $\gamma$について最小化する
+        <ul>
+          <li>
+            <script type="math/tex; mode=display">\begin{equation}
+\label{eq_11_34}
+\arg \min_{\alpha, \gamma} \sum_{i=1}^{N} L\left( t_{i}, f_{m-1}(\mathbf{x})+\alpha y_{m}(\mathbf{x}_{i};\gamma) \right) \tag{11.34}
+\end{equation}</script>
+          </li>
+        </ul>
+      </li>
+      <li>$f(\mathbf{x})$を更新する
+        <ul>
+          <li>
+            <script type="math/tex; mode=display">f_{m}(\mathbf{x})=f_{m-1}(\mathbf{x})+\alpha_{m}y_{m}(\mathbf{x};\gamma_{m})</script>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="勾配ブースティング-gradient-boosting">勾配ブースティング (Gradient Boosting)</h2>
+
+<p>AdaBoostでは損失関数に指数誤差関数を使用したのに対し、<br />
+Gradient Boostingは様々な微分可能な損失関数を使用できるように<br />
+より一般化されている。</p>
+
+<p>Gradient Boostingでは、式(\ref{eq_11_34})の最小化問題をsteepest descentで解くことで<br />
+勾配の負の方向に$f(\mathbf{x})$を更新する。</p>
+
+<script type="math/tex; mode=display">f_{m}(\mathbf{x})=f_{m-1}(\mathbf{x})+\alpha_{m}\sum_{i=1}^{n}\nabla_{f} L(t_{i}, f_{m-1}(\mathbf{x}_{i}))</script>
+
+<p>よって、$m$番目の弱識別器にかける重み$\alpha_{m}$は<br />
+勾配降下法におけるステップ幅とみなすこともできる。<br />
+各弱識別器の誤差関数を$\nabla_{f} L(t_{i}, f_{m-1}(\mathbf{x}_{i}))$とすることで、<br />
+ステップ幅$\alpha_{m}$分だけ勾配の負の方向に$f(\mathbf{x})$を更新することができる。</p>
+
+<h3 id="アルゴリズム-2">アルゴリズム</h3>
+
+<ul>
+  <li>学習データ: $\mathbf{x}_{i}\in \mathbb{R}^{d}, t_{i}=\{-1, +1\}\quad(i=1,\cdots,N)$</li>
+  <li>基底関数: $y_m(\mathbf{x})=\{-1,+1\}\quad(m=1,\cdots,M)$</li>
+  <li>基底関数$y_{m}$にかける重み: $\alpha_{m}$</li>
+  <li>基底関数$y_{m}$のパラメータ: $\gamma$</li>
+</ul>
+
+<ol>
+  <li>$f_{0}(\mathbf{x})=\arg \min_{\gamma} \sum_{i=1}^{N} L(t_{i}, \gamma)$となるように初期化する。$f_{0}(\mathbf{x})=\gamma$である。</li>
+  <li>ステップ$m=1$から$M$まで以下をおこなう。
+    <ul>
+      <li>$i=1,2,\cdots,N$に対して次を計算する。
+        <ul>
+          <li>
+            <script type="math/tex; mode=display">r_{im}=-\left[ \cfrac{\partial L(t_{i}, f(\mathbf{x}_{i}))}{\partial f(\mathbf{x}_{i})} \right]_{f(\mathbf{x})=f_{m-1}(\mathbf{x})}</script>
+          </li>
+        </ul>
+      </li>
+      <li>$r_{im}$に学習器$y_{m}(\mathbf{x})$をfitさせる。
+        <ul>
+          <li>
+            <script type="math/tex; mode=display">\gamma_{m}=\arg\min_{\gamma}\sum_{i=1}^{N}L(r_{im},y_m(\mathbf{x}_{i};\gamma))</script>
+          </li>
+        </ul>
+      </li>
+      <li>line searchによりステップ幅$\alpha_{m}$に対して次を計算する。
+        <ul>
+          <li>
+            <script type="math/tex; mode=display">\alpha_{m}=\arg \min_{\alpha}\sum_{i=1}^{n} L(t_{i}, f_{m-1}(\mathbf{x}_{i})+\alpha y_{m}(\mathbf{x}_{i};\gamma_{m}))</script>
+          </li>
+          <li>(勾配降下法におけるステップ幅あるいは学習率は<br />
+ チューニングにより人間が決定するものかと思っていたが、<br />
+ ここではline searchによる1次元探索で決定されるらしい？)</li>
+        </ul>
+      </li>
+      <li>$f(\mathbf{x})$を更新する。
+        <ul>
+          <li>
+            <script type="math/tex; mode=display">f_{m}(\mathbf{x})=f_{m-1}(\mathbf{x})+\alpha_{m}y_{m}(\mathbf{x})</script>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>$f_{M}(\mathbf{x})$を出力する。</li>
+</ol>
+
+<h2 id="勾配ブースティング木-gradient-tree-boosting">勾配ブースティング木 (Gradient Tree Boosting)</h2>
+
+<p>特にGradient Boostingの弱学習器に決定木を用いたものを<br />
+Gradient Tree Boosting, Gradient Boosting Decision Tree)などと呼ぶ。</p>
+
+<p>各決定木の終端ノードを$R_{jm}(j=1,2,\cdots,J_{m})$とすると、<br />
+出力関数$y_{m}$は以下のように表される。</p>
+
+<script type="math/tex; mode=display">y_{m}(\mathbf{x})=\sum_{j=1}^{J}b_{jm}I(\mathbf{x}\in R_{jm})</script>
+
+<p>Gradient Boostingと同様に決定木を勾配$r_{im}$にfitさせるため、<br />
+$b_{jm}$はノード$R_{jm}$に属する全$\mathbf{x}$の勾配の平均である。</p>
+
+<p>各終端ノードにおいて勾配を求めるため、<br />
+誤分類の多い(=誤差関数の値が大きい)ノードについては勾配が大きくなり<br />
+よりgreedyにパラメータを更新できる。</p>
+
+<p>ランダムサンプリングしたサンプルのみを用いる<br />
+Stochastic Gradient Boostingというものも存在する。</p>
+
+<h3 id="アルゴリズム-3">アルゴリズム</h3>
+
+<p>上のAdaBoost、Gradient Boostingの説明では$\gamma$は出力関数のパラメータであり、<br />
+Gradient Tree Boostingでの$\gamma$も決定木のパラメータである。<br />
+決定木のパラメータとはノード分割がおこなわれている特徴と<br />
+その特徴平面上(特徴直線？)における点である。<br />
+(決定木のパラメータを更新するというのがイメージできない。。。)</p>
+
+<ol>
+  <li>$\arg \min_{\gamma} \sum_{i=1}^{N} L(t_{i}, \gamma)$となるように初期化する。$f_{0}(\mathbf{x})=\gamma$である。</li>
+  <li>ステップ$m=1$から$M$まで以下をおこなう。
+    <ul>
+      <li>$i=1,2,\cdots,N$に対して次を計算する。
+        <ul>
+          <li>
+            <script type="math/tex; mode=display">r_{im}=-\left[ \cfrac{\partial L(t_{i}, f(\mathbf{x}_{i}))}{\partial f(\mathbf{x}_{i})} \right]_{f(\mathbf{x})=f_{m-1}(\mathbf{x})}</script>
+          </li>
+        </ul>
+      </li>
+      <li>$r_{im}$を目的変数として回帰木を推定し、その終端ノードを$R_{jm}(j=1,2,\cdots,J_{m})$とする。</li>
+      <li>$j=1,2,\cdots,J_{m}$に対して次を計算する。
+        <ul>
+          <li>
+            <script type="math/tex; mode=display">\gamma_{jm}=\arg \min_{\gamma}\sum_{\mathbf{x}_{i}\in R_{jm}} L(t_{i}, f_{m-1}(\mathbf{x}_{i})+\gamma)</script>
+          </li>
+        </ul>
+      </li>
+      <li>$f(\mathbf{x})$を更新する。
+        <ul>
+          <li>
+            <script type="math/tex; mode=display">f_{m}(\mathbf{x})=f_{m-1}(\mathbf{x}) + \sum_{j=1}^{J_{m}} \gamma_{jm}I(\mathbf{x}\in R_{jm})</script>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>$f_{M}(\mathbf{x})$を出力する。</li>
+</ol>
+
+<h2 id="参考文献サイト">参考文献・サイト</h2>
+
+<ul>
+  <li><a href="https://www.morikita.co.jp/books/book/2235">はじめてのパターン認識</a> 第11章</li>
+  <li><a href="http://scikit-learn.org/stable/modules/ensemble.html">1.11. Ensemble methods — scikit-learn 0.17.1 documentation</a></li>
+  <li><a href="http://tjo.hatenablog.com/entry/2015/05/15/190000">パッケージユーザーのための機械学習(12)：Xgboost (eXtreme Gradient Boosting) - 六本木で働くデータサイエンティストのブログ</a></li>
+  <li><a href="http://yoshihikomuto.hatenablog.jp/entry/20070823/1190044644">AdaBoost - (主に)プログラミングのメモ</a></li>
+  <li><a href="http://statweb.stanford.edu/~jhf/ftp/trebst.pdf">Friedman, Jerome H. “Greedy function approximation: a gradient boosting machine.” Annals of statistics (2001): 1189-1232.</a></li>
+  <li><a href="https://statweb.stanford.edu/~jhf/ftp/stobst.pdf">Friedman, Jerome H. “Stochastic gradient boosting.” Computational Statistics &amp; Data Analysis 38.4 (2002): 367-378.</a></li>
+</ul>
+
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2016/09/27/hajipata-boosting.html" class="hatena-bookmark-button" data-hatena-bookmark-title="はじめてのパターン認識 第11章 boosting - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+          </div>
+        </div>
+        <footer>
+  This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+</footer>
+
+      </div>
+    </div>
+  </body>
+</html>

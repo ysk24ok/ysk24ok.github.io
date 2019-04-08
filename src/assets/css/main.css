@@ -1,0 +1,210 @@
+blockquote {
+  font-size: 1em;
+}
+
+body {
+  text-shadow: none;
+  font-family: arial, sans-serif;
+}
+
+.pagination {
+  margin: 5px 0;
+  text-align: center;
+  width: 100%;
+}
+
+header h1 {
+  text-align: center;
+  font-size: 36px;
+}
+
+header h1 a {
+  color: #778899;
+  text-decoration: none;
+}
+
+footer {
+  margin-top: 0;
+}
+
+/* for post-item */
+.post-item {
+  margin-bottom: 20px;
+  background-color: #f8f8f8;
+}
+
+/* for post-header */
+.post-header {
+  position: relative;
+  padding: 10px 15px 0px;
+}
+
+.post-header hr {
+  border-top: solid 1px #708090;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.post-header h1 {
+  font-size: 1.6em;
+  font-weight: bold;
+}
+
+.post-header h1 a {
+  color: #337ab7;
+}
+
+.post-header .post-date {
+  position: absolute;
+  right: 15px;
+  font-size: 12px;
+}
+
+/* http://www.nxworld.net/tips/css-tag-cloud.html */
+.post-header ul.post-tags {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.post-header ul.post-tags li {
+  position: relative;
+  display: inline-block;
+  margin-left .7em;
+  padding: 0 20px;
+  line-height: 1.2em;
+  background-color: #999;
+  border-radius: 2.5px;
+}
+.post-header ul.post-tags li a {
+  color: #fff;
+  font-size: 13px;
+  text-decoration: none;
+}
+/*
+.post-header ul.post-tags li::after {
+  width: 0;
+  height: 0;
+  top: 50%;
+  right: 100%;
+  content: '';
+  position: absolute;
+  border: solid transparent;
+  border-color: transparent;
+  border-right-color: #3498db;
+  border-width: .9em;
+  border-radius: 100%;
+  margin-top: -.9em;
+}
+*/
+
+/* for post */
+.post-content {
+  padding: 0px 20px 10px;
+}
+
+.post-content h1 {
+  font-size: 22px;
+  font-weight: normal;
+  color: #696969;
+  border-bottom: solid 1px #808080;
+  margin-bottom: 15px;
+}
+
+.post-content h2 {
+  font-size: 20px;
+  font-weight: normal;
+  color: #696969;
+  margin-bottom: 12px;
+}
+
+.post-content h3 {
+  font-weight: normal;
+  color: #696969;
+}
+
+.post-content hr {
+  border-top: dashed 1px #708090;
+}
+
+.post-content ul, ol {
+  padding-left: 20px;
+}
+
+.post-content ul li {
+  padding-left: 5px;
+}
+
+.post-content ol li {
+  padding-left: 5px;
+}
+
+.post-content .post-img img{
+  display: block;
+  padding: 10px 0px;
+  margin: auto;
+}
+
+.post-content table {
+  margin-bottom: 10px;
+}
+
+.post-content .img-centering {
+  margin: 10px auto;
+  text-align: center;
+}
+
+.post-content .img-centering figcaption {
+  font-size: 10px;
+}
+
+/* for social button */
+.post-content .social-buttons {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.post-content .social-buttons li {
+  display: inline-block;
+  padding-left: 0;
+}
+
+/* for slide */
+.slides table {
+  /* margin-top: 30px; */
+  margin-bottom: 30px;
+}
+
+.slides table caption {
+  font-size: 24px;
+}
+
+.slides th {
+  font-size: 28px;
+  background-color: #eee;
+  border: 1px solid;
+}
+
+.slides td {
+  font-size: 28px;
+  border: 1px solid;
+}
+
+.slides .MathJax_Display {
+  margin: 30px 0px;
+}
+
+.slides h1.very-large-font {
+  font-size: 6em;
+}
+
+.slides h1, .slides h2, .slides h3 {
+  text-transform: none;
+}
+
+.slides .ref {
+  font-size: 0.5em;
+}
+
+.slides pre code {
+  max-height: 400px;
+}

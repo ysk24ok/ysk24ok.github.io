@@ -1,26 +1,358 @@
----
-layout: default
-title: Home
-type: blog
-description: "ysk24ok's blog posts, slides and past works"
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="author" content="ysk24ok">
+  
+  <meta name="description" content="ysk24ok's blog posts, slides and past works">
+  <meta property="og:description" content="ysk24ok's blog posts, slides and past works">
+  
+  <meta property="og:image" content="https://ysk24ok.github.io/assets/images/profile.jpeg">
+  <meta property="og:title" content="Home">
+  <meta property="og:url" content="https://ysk24ok.github.io/">
+  <meta property="og:type" content="blog">
+  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+  <!-- MathJax -->
+  <!-- http://docs.mathjax.org/en/latest/start.html#secure-access-to-the-cdn -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- bootstrap -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+  <script src="/assets/js/jquery-2.1.4.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <!-- github.io default -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/stylesheet.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/github-dark.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/print.css" media="print">
+  <!-- syntax highlight css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" media="screen">
+  <!-- My customized css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
+  <!-- RSS -->
+  <link href="/feed.xml" type="application/rss+xml" rel="alternate" title="ysk24ok.github.io" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131519041-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-<div class="post-list">
-{% for post in paginator.posts %}
+    gtag('config', 'UA-131519041-1');
+  </script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title>Home - ysk24ok.github.io</title>
+</head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+        <header>
+  <h1><a href="/">ysk24ok.github.io</a></h1>
+</header>
+<nav class="navbar navbar-default" role="navigation">
+  <ul id="main-navigation" class="nav navbar-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+
+        <div class="post-list">
+
   <div class="post-item">
-    {% include post_header.html page_obj=post %}
+    <div class="post-header">
+  <h1>
+    <a href="/2019/02/15/blog_posts_abount_concurrency.html">NII佐藤先生の並行処理に関するブログ記事をまとめる</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 15 Feb 2019</div>
+  
+  <hr>
+</div>
+
     <div class="post-content">
-      {{ post.excerpt }}
-      <a href="{{ post.url }}">続きを読む</a>
+      <p>最近並行処理について調べていた時に見つけたNII佐藤一郎先生のブログ記事をまとめます。
+やっていることはkazunori279さんの<a href="https://kazunori279.hatenablog.com/entry/20100301/1267405275">こちらの記事</a>と同じですが、何年何月何日の内容なのかリンクがある状態でまとめておきたかったので、、</p>
+
+
+      <a href="/2019/02/15/blog_posts_abount_concurrency.html">続きを読む</a>
     </div>
   </div>
-{% endfor %}
+
+  <div class="post-item">
+    <div class="post-header">
+  <h1>
+    <a href="/2019/01/05/todo_in_2019.html">2019年にやっていきたいこと</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 05 Jan 2019</div>
+  
+  <hr>
+</div>
+
+    <div class="post-content">
+      <p>2019年にやっていきたいことをリストアップする。</p>
+
+
+      <a href="/2019/01/05/todo_in_2019.html">続きを読む</a>
+    </div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-header">
+  <h1>
+    <a href="/2018/04/30/coursera_deeplearning_specialization_course5.html">Coursera Deep Learning Specialization course5受講メモ</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">Coursera</a></li>
+    
+      <li><a href="#">deep learning</a></li>
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 30 Apr 2018</div>
+  
+  <hr>
+</div>
+
+    <div class="post-content">
+      <p><a href="https://www.coursera.org/specializations/deep-learning">Coursera Deep Learning Specializaton</a>の<a href="https://www.coursera.org/learn/nlp-sequence-models">course5: Sequence Models</a>を修了したのでメモを残しておく。</p>
+
+
+      <a href="/2018/04/30/coursera_deeplearning_specialization_course5.html">続きを読む</a>
+    </div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-header">
+  <h1>
+    <a href="/2018/04/29/coursera_deeplearning_specialization_course4.html">Coursera Deep Learning Specialization course4受講メモ</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">Coursera</a></li>
+    
+      <li><a href="#">deep learning</a></li>
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 29 Apr 2018</div>
+  
+  <hr>
+</div>
+
+    <div class="post-content">
+      <p><a href="https://www.coursera.org/specializations/deep-learning">Coursera Deep Learning Specializaton</a>の<a href="https://www.coursera.org/learn/convolutional-neural-networks">course4: Convolutional Neural Networks</a>を修了したのでメモを残しておく。</p>
+
+
+      <a href="/2018/04/29/coursera_deeplearning_specialization_course4.html">続きを読む</a>
+    </div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-header">
+  <h1>
+    <a href="/2018/03/10/market_design_for_auction_and_matching.html">「マーケット・デザイン オークションとマッチングの経済学」を読んだ</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">market design</a></li>
+    
+      <li><a href="#">auction theory</a></li>
+    
+      <li><a href="#">matching theory</a></li>
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 10 Mar 2018</div>
+  
+  <hr>
+</div>
+
+    <div class="post-content">
+      <p>「マーケット・デザイン オークションとマッチングの経済学」を読んだので、感想と内容のメモを残しておく。</p>
+
+
+      <a href="/2018/03/10/market_design_for_auction_and_matching.html">続きを読む</a>
+    </div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-header">
+  <h1>
+    <a href="/2018/03/01/difference_between_confidence_interval_and_credible_interval.html">信頼区間(confidence interval)と信用区間(credible interval)の違い</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">statistics</a></li>
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 01 Mar 2018</div>
+  
+  <hr>
+</div>
+
+    <div class="post-content">
+      <p>信頼区間(confidence interval)と信用区間(credible interval)の違いをメモしておく。</p>
+
+
+      <a href="/2018/03/01/difference_between_confidence_interval_and_credible_interval.html">続きを読む</a>
+    </div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-header">
+  <h1>
+    <a href="/2018/02/14/papers_of_reserve_price_optimization.html">reserve price最適化のpaperまとめ</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">paper</a></li>
+    
+      <li><a href="#">reserve price optimization</a></li>
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 14 Feb 2018</div>
+  
+  <hr>
+</div>
+
+    <div class="post-content">
+      <p>reserve price(floor price)最適化の論文をいくつか読んだので内容をメモ。</p>
+
+
+      <a href="/2018/02/14/papers_of_reserve_price_optimization.html">続きを読む</a>
+    </div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-header">
+  <h1>
+    <a href="/2018/01/12/coursera_deeplearning_specializaion_course3.html">CourseraのDeep Learning Specializaton course3受講メモ</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">deep learning</a></li>
+    
+      <li><a href="#">coursera</a></li>
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 12 Jan 2018</div>
+  
+  <hr>
+</div>
+
+    <div class="post-content">
+      <p>Courseraの<a href="https://www.coursera.org/specializations/deep-learning">Deep Learning Specializaton</a>の<a href="https://www.coursera.org/learn/machine-learning-projects">course3: Structuring Machine Learning Projects</a>を修了したのでメモを残しておく。</p>
+
+
+      <a href="/2018/01/12/coursera_deeplearning_specializaion_course3.html">続きを読む</a>
+    </div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-header">
+  <h1>
+    <a href="/2017/12/31/coursera_deeplearning_course2.html">CourseraのDeep Learning Specializaton course2受講メモ</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">deep learning</a></li>
+    
+      <li><a href="#">coursera</a></li>
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 31 Dec 2017</div>
+  
+  <hr>
+</div>
+
+    <div class="post-content">
+      <p><a href="https://www.deeplearning.ai/">deeplearning.ai</a>が提供する<a href="https://www.coursera.org/specializations/deep-learning">Deep Learning Specializaton</a>の<a href="https://www.coursera.org/learn/deep-neural-network">course2</a>を受講したのでメモを残しておく。</p>
+
+
+      <a href="/2017/12/31/coursera_deeplearning_course2.html">続きを読む</a>
+    </div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-header">
+  <h1>
+    <a href="/2017/11/25/uplift_modeling.html">「仕事ではじめる機械学習」のUplift Modelingのコードを写経してみた</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">uplift modeling</a></li>
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 25 Nov 2017</div>
+  
+  <hr>
+</div>
+
+    <div class="post-content">
+      <p><a href="https://www.oreilly.co.jp/books/9784873118215/">仕事ではじめる機械学習</a>第9章のUplift Modelingのコードを写経してみた。</p>
+
+
+      <a href="/2017/11/25/uplift_modeling.html">続きを読む</a>
+    </div>
+  </div>
+
 </div>
 <div class="pagination">
-  {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path }}" class="prev">← Prev</a>
-  {% endif %}
-  {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path }}" class="next">Next →</a>
-  {% endif %}
+  
+  
+    <a href="/page/2" class="next">Next →</a>
+  
 </div>
+
+        <footer>
+  This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+</footer>
+
+      </div>
+    </div>
+  </body>
+</html>

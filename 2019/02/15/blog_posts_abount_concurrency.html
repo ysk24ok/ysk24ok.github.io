@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="author" content="ysk24ok">
+  
+  <meta name="description" content="NII佐藤先生の並行処理に関するブログ記事をまとめる">
+  <meta property="og:description" content="NII佐藤先生の並行処理に関するブログ記事をまとめる">
+  
+  <meta property="og:image" content="https://ysk24ok.github.io/assets/images/profile.jpeg">
+  <meta property="og:title" content="NII佐藤先生の並行処理に関するブログ記事をまとめる">
+  <meta property="og:url" content="https://ysk24ok.github.io/2019/02/15/blog_posts_abount_concurrency.html">
+  <meta property="og:type" content="article">
+  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+  <!-- MathJax -->
+  <!-- http://docs.mathjax.org/en/latest/start.html#secure-access-to-the-cdn -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- bootstrap -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+  <script src="/assets/js/jquery-2.1.4.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <!-- github.io default -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/stylesheet.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/github-dark.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/print.css" media="print">
+  <!-- syntax highlight css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" media="screen">
+  <!-- My customized css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
+  <!-- RSS -->
+  <link href="/feed.xml" type="application/rss+xml" rel="alternate" title="ysk24ok.github.io" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131519041-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-131519041-1');
+  </script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title>NII佐藤先生の並行処理に関するブログ記事をまとめる - ysk24ok.github.io</title>
+</head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+        <header>
+  <h1><a href="/">ysk24ok.github.io</a></h1>
+</header>
+<nav class="navbar navbar-default" role="navigation">
+  <ul id="main-navigation" class="nav navbar-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+
+        <div class="post-item">
+          <div class="post-header">
+  <h1>
+    <a href="/2019/02/15/blog_posts_abount_concurrency.html">NII佐藤先生の並行処理に関するブログ記事をまとめる</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 15 Feb 2019</div>
+  
+  <hr>
+</div>
+
+          <div class="post-content">
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2019/02/15/blog_posts_abount_concurrency.html" class="hatena-bookmark-button" data-hatena-bookmark-title="NII佐藤先生の並行処理に関するブログ記事をまとめる - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+            <p>最近並行処理について調べていた時に見つけたNII佐藤一郎先生のブログ記事をまとめます。
+やっていることはkazunori279さんの<a href="https://kazunori279.hatenablog.com/entry/20100301/1267405275">こちらの記事</a>と同じですが、何年何月何日の内容なのかリンクがある状態でまとめておきたかったので、、</p>
+
+<!-- more -->
+
+<p><a href="http://home.att.ne.jp/sigma/satoh/diary/diary100331.html#20100226">2010年2月26日</a></p>
+
+<blockquote>
+  <p>最近、興味深いのはオブジェクト指向言語のScalaやErlangが話題を集めていることでしょうか。どちらもActor Modelをベースにしているそうですが、オブジェクト指向言語の歴史でいうと、Actor Modelなどの並行処理用オブジェクト指向言語の研究が盛んになったのは1985年からの6,7年ぐらいだと思います(Actor Model自身はもっと古いですが)。そして1990年後ぐらいから議論されてきた話題のひとつは、各オブジェクトは高々のひとつの実行スレッドとするシングルスレッド実行モデルと、一つのオブジェクトでも複数同時処理を許すマルチスレッド実行モデルのどちらがいいかというもの。</p>
+</blockquote>
+
+<blockquote>
+  <p>さてシングルスレッド実行モデルとマルチスレッド実行モデルは何が違うかというと、前者は各オブジェクトは能動的に処理してもよい、つまり各オブジェクトに高々一つのスレッドを割り当てるが、オブジェクト内部的には逐次プログラムですから、オブジェクト内部で排他実行や同期をしなくてもいいので、オブジェクトのプログラミングは楽になります。一方、マルチスレッド実行モデルでは各オブジェクトは能動的に処理されますし、各オブジェクトにも複数のスレッドが割り当てられます。このため処理効率はあがりますが、オブジェクト内部で排他実行や同期する必要が出てきます。どちらもメリットとデメリットがあるのですが、シングルスレッド実行モデルの代表格というのが前述のActor Modelでした。</p>
+</blockquote>
+
+<p><a href="http://home.att.ne.jp/sigma/satoh/diary/diary100331.html#20100227">2010年2月27日</a></p>
+
+<blockquote>
+  <p>当時の並行オブジェクト指向で議論されていた話題に並行処理の定義方法があります。ちょっと歴史を説明しないといけないのですが、ひとつのプログラム内に並行処理をいれると効率的な処理ができる一方で、前述のように排他制御や同期処理をしないといけないのでプログラミングがたいへんになります。初期のUnixはそれを嫌って、各プロセスに割り当てるスレッドは高々一つと制限しました。そのうえ並行処理を行うときはプロセス自身を複製(fork)するという方法をとって、並行実行単位間の共有変数を排除。この結果としてはUnix向けプログラミングは簡単化させて、Unixの普及の要因の一つになったと思います。ここで興味深いのはUnixの前身のMulticsではプログラムの並行実行、つまりマルチスレッド実行を許していたので、Unixはプログラミングのシンプルさ・容易さのために、あえて低機能化させたといえます。</p>
+</blockquote>
+
+<p><a href="http://home.att.ne.jp/sigma/satoh/diary/diary100331.html#20100228">2010年2月28日</a></p>
+
+<blockquote>
+  <p>ちなみに昨日、ErlangにはCSP的なガード記述があると書きましたが、これはErlangの歴史を考えれば当然。詳しくは設計者の一人がErlangの歴史に関する論文を書いているので、そちらをご覧いただければいいのですが、せっかくなので当時の状況などを少々。</p>
+</blockquote>
+
+<blockquote>
+  <p>通信プロトコルの開発では、OSI的な世界では、まず仕様をきっちり決める。きっちり決めると言っても自然言語で仕様を書くと解釈にブレが出るので、数学的に裏付けられた方法で定義をする。そうした定義方法のひとつが形式仕様記述言語。簡単に言えば数学的に定義されている言語を使ってプロトコルを定義するという方法。その形式仕様記述言語にはいろいろあったのですが(過去形)、そのなかにCSPにデータ構造を導入したような形式仕様記述言語Estelleがあって、そのEstelleにより記述したプロトコル仕様を実装するためにEricssonはConcurrent Pascalを作っていた。ErlangはそのEricsson版のConcurrent Pascalの影響を受けたというか、それを拡張して実装したはず。なんでこんな事情を知っているかというとEstelleを含む通信仕様記述言語のISO委員だから(Estelleの拡張版の規格化では多少の貢献があったりします、ちょっと自慢してみたり)。まぁ、当方の話はどうでもいいのですが、ErlangがCSP的な記述ができるのは当然というか、Erlangの前身の言語がCSP的な記述の実装言語ということ。</p>
+</blockquote>
+
+<p><a href="http://home.att.ne.jp/sigma/satoh/diary/diary101231.html">2010年11月16日</a></p>
+
+<blockquote>
+  <p>ScalaやErlangのおかげでActorが流行っていますね。正直いって20年間のデジャヴーを見ているよう(といっても正確には20年前は知らないけど)。最近の論調だと、Actorだと並行プログラムが書きやすいということになっていますが、Actorというのは並行オブジェクト(各オブジェクトが能動的に動く)の中でもシングルスレッドオブジェクトと呼ばれるタイプ。つまりオブジェクト内のスレッドが高々一つ。ちなみにオブジェクト内のスレッドが複数あるオブジェクトをマルチスレッドオブジェクトといいます。</p>
+</blockquote>
+
+<blockquote>
+  <p>20年前のシングルスレッドオブジェクト派の研究者とマルチスレッドオブジェクト派の研究者で散々議論がされたのですが、結果としてはマルチスレッドオブジェクトが優勢となりました。その理由のひとつは例外処理のしやすさ。シングルスレッドオブジェクトは綺麗にプログラムが書けるのですが、例外処理もシングルスレッドで処理しようとするとオブジェクト間連携が複雑になるのです。いまはマルチスレッドオブジェクトからシングルスレッドオブジェクトへの揺り戻しが起きていますが、歴史が繰り返すならば再びマルチスレッドオブジェクトにもどる可能性もあります。</p>
+</blockquote>
+
+<p>togetterで当時の佐藤先生のツイートがまとめられていたのでそちらも貼っておきます。<br />
+<a href="https://togetter.com/li/6948">航空機の話題からAda,Java,並列オブジェクトへ - Togetter</a></p>
+
+<p>個人的に興味深かったのが、今起きているのは（2010年頃には既に起きているようですが）マルチスレッド実行モデルからシングルスレッド実行モデルへの揺り戻しだという部分。</p>
+
+<p><code class="highlighter-rouge">シングルスレッドオブジェクトは綺麗にプログラムが書けるのですが、例外処理もシングルスレッドで処理しようとするとオブジェクト間連携が複雑になるのです。</code>とありますが、シングレスレッドの並行処理をあまり書いたことがないのでピンと来ていない。。</p>
+
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2019/02/15/blog_posts_abount_concurrency.html" class="hatena-bookmark-button" data-hatena-bookmark-title="NII佐藤先生の並行処理に関するブログ記事をまとめる - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+          </div>
+        </div>
+        <footer>
+  This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+</footer>
+
+      </div>
+    </div>
+  </body>
+</html>

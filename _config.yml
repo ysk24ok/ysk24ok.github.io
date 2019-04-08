@@ -1,5 +1,5 @@
-# jekyll setting
-# https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+# Jekyll setting
+source: src
 markdown: kramdown
 kramdown:
   input: GFM
@@ -18,7 +18,7 @@ paginate_path: "/page/:num"
 # title
 name: ysk24ok.github.io
 description: My blog posts, slides and past works
-url: //ysk24ok.github.io
+url: https://ysk24ok.github.io
 github_url: https://github.com/ysk24ok
 
 # Path

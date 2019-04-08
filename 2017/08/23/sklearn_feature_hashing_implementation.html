@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="author" content="ysk24ok">
+  
+  <meta name="description" content="scikit-learnのFeatureHashingの実装についてメモ">
+  <meta property="og:description" content="scikit-learnのFeatureHashingの実装についてメモ">
+  
+  <meta property="og:image" content="https://ysk24ok.github.io/assets/images/profile.jpeg">
+  <meta property="og:title" content="scikit-learnのFeatureHashingの実装についてメモ">
+  <meta property="og:url" content="https://ysk24ok.github.io/2017/08/23/sklearn_feature_hashing_implementation.html">
+  <meta property="og:type" content="article">
+  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+  <!-- MathJax -->
+  <!-- http://docs.mathjax.org/en/latest/start.html#secure-access-to-the-cdn -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- bootstrap -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+  <script src="/assets/js/jquery-2.1.4.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <!-- github.io default -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/stylesheet.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/github-dark.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/print.css" media="print">
+  <!-- syntax highlight css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" media="screen">
+  <!-- My customized css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
+  <!-- RSS -->
+  <link href="/feed.xml" type="application/rss+xml" rel="alternate" title="ysk24ok.github.io" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131519041-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-131519041-1');
+  </script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title>scikit-learnのFeatureHashingの実装についてメモ - ysk24ok.github.io</title>
+</head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+        <header>
+  <h1><a href="/">ysk24ok.github.io</a></h1>
+</header>
+<nav class="navbar navbar-default" role="navigation">
+  <ul id="main-navigation" class="nav navbar-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+
+        <div class="post-item">
+          <div class="post-header">
+  <h1>
+    <a href="/2017/08/23/sklearn_feature_hashing_implementation.html">scikit-learnのFeatureHashingの実装についてメモ</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">scikit-learn</a></li>
+    
+      <li><a href="#">feature hashing</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 23 Aug 2017</div>
+  
+  <hr>
+</div>
+
+          <div class="post-content">
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2017/08/23/sklearn_feature_hashing_implementation.html" class="hatena-bookmark-button" data-hatena-bookmark-title="scikit-learnのFeatureHashingの実装についてメモ - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+            <p>scikit-learnのFeatureHashingの実装をメモしておく。</p>
+
+<!-- more -->
+
+<ul>
+  <li><a href="https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/feature_extraction/_hashing.pyx">feature_extraction/_hashing.pyx</a></li>
+  <li><code class="highlighter-rouge">n_features</code>がfeature vectorの次元数になる</li>
+  <li>featureをハッシュ化して<code class="highlighter-rouge">mod n_features</code>することでfeature vectorのインデックスの位置を決定する
+    <ul>
+      <li>featureのvalueが文字列のとき、<code class="highlighter-rouge">key=value</code>をハッシュ化して、<code class="highlighter-rouge">mod n_features</code>番目のインデックスに1を入れる</li>
+      <li>featureのvalueが数値のとき、<code class="highlighter-rouge">key</code>をハッシュ化して、<code class="highlighter-rouge">mod n_features</code>番目のインデックスにvalueをいれる</li>
+      <li>入れるvalueはハッシュ値の正負を反映する(<code class="highlighter-rouge">alternate_sign=True</code>のとき)</li>
+      <li>なお、<code class="highlighter-rouge">mod n_features</code>するときはハッシュ値は絶対値にする</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">sklearn.feature_extraction</span> <span class="kn">import</span> <span class="n">FeatureHasher</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">n_features</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">h</span> <span class="o">=</span> <span class="n">FeatureHasher</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="n">n_features</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">D</span> <span class="o">=</span> <span class="p">[{</span><span class="s">"id"</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> <span class="s">"category"</span><span class="p">:</span> <span class="s">"8"</span><span class="p">},{</span><span class="s">"id"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s">"category"</span><span class="p">:</span> <span class="s">"7"</span><span class="p">}]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="n">array</span><span class="p">([[</span>  <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>   <span class="mf">1.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>  <span class="o">-</span><span class="mf">9.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">],</span>
+       <span class="p">[</span>  <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>  <span class="o">-</span><span class="mf">1.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">]])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">mmh3</span>
+<span class="c"># 7番目のインデックスに負の符号をつけたvalueを入れる</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">mmh3</span><span class="o">.</span><span class="nb">hash</span><span class="p">(</span><span class="s">"id"</span><span class="p">)</span>
+<span class="o">-</span><span class="mi">1737061407</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mmh3</span><span class="o">.</span><span class="nb">hash</span><span class="p">(</span><span class="s">"id"</span><span class="p">))</span> <span class="o">%</span> <span class="n">n_features</span>
+<span class="mi">7</span>
+<span class="c"># 5番目のインデックスに1を入れる</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">mmh3</span><span class="o">.</span><span class="nb">hash</span><span class="p">(</span><span class="s">"category=8"</span><span class="p">)</span>
+<span class="mi">1453528385</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mmh3</span><span class="o">.</span><span class="nb">hash</span><span class="p">(</span><span class="s">"category=8"</span><span class="p">))</span> <span class="o">%</span> <span class="n">n_features</span>
+<span class="mi">5</span>
+<span class="c"># 3番目のインデックスに-1を入れる</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">mmh3</span><span class="o">.</span><span class="nb">hash</span><span class="p">(</span><span class="s">"category=7"</span><span class="p">)</span>
+<span class="o">-</span><span class="mi">647926533</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mmh3</span><span class="o">.</span><span class="nb">hash</span><span class="p">(</span><span class="s">"category=7"</span><span class="p">))</span> <span class="o">%</span> <span class="n">n_features</span>
+<span class="mi">3</span>
+</code></pre></div></div>
+
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2017/08/23/sklearn_feature_hashing_implementation.html" class="hatena-bookmark-button" data-hatena-bookmark-title="scikit-learnのFeatureHashingの実装についてメモ - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+          </div>
+        </div>
+        <footer>
+  This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+</footer>
+
+      </div>
+    </div>
+  </body>
+</html>

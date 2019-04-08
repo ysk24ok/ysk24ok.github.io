@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="author" content="ysk24ok">
+  
+  <meta name="description" content="「行動ゲーム理論入門」を読んだ">
+  <meta property="og:description" content="「行動ゲーム理論入門」を読んだ">
+  
+  <meta property="og:image" content="https://ysk24ok.github.io/assets/images/profile.jpeg">
+  <meta property="og:title" content="「行動ゲーム理論入門」を読んだ">
+  <meta property="og:url" content="https://ysk24ok.github.io/2017/07/27/behavioral_game_theory_intro.html">
+  <meta property="og:type" content="article">
+  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+  <!-- MathJax -->
+  <!-- http://docs.mathjax.org/en/latest/start.html#secure-access-to-the-cdn -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- bootstrap -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+  <script src="/assets/js/jquery-2.1.4.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <!-- github.io default -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/stylesheet.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/github-dark.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/print.css" media="print">
+  <!-- syntax highlight css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" media="screen">
+  <!-- My customized css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
+  <!-- RSS -->
+  <link href="/feed.xml" type="application/rss+xml" rel="alternate" title="ysk24ok.github.io" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131519041-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-131519041-1');
+  </script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title>「行動ゲーム理論入門」を読んだ - ysk24ok.github.io</title>
+</head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+        <header>
+  <h1><a href="/">ysk24ok.github.io</a></h1>
+</header>
+<nav class="navbar navbar-default" role="navigation">
+  <ul id="main-navigation" class="nav navbar-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+
+        <div class="post-item">
+          <div class="post-header">
+  <h1>
+    <a href="/2017/07/27/behavioral_game_theory_intro.html">「行動ゲーム理論入門」を読んだ</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">coaching</a></li>
+    
+      <li><a href="#">book report</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 27 Jul 2017</div>
+  
+  <hr>
+</div>
+
+          <div class="post-content">
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2017/07/27/behavioral_game_theory_intro.html" class="hatena-bookmark-button" data-hatena-bookmark-title="「行動ゲーム理論入門」を読んだ - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+            <p>「行動ゲーム理論入門」を読んだので、メモ書きを残しておく。</p>
+
+<!-- more -->
+
+<p>あまり理解できなかった部分は青色で示している。</p>
+
+<ul>
+  <li><a href="http://www.nttpub.co.jp/search/books/detail/100002041">行動ゲーム理論入門 (NTT入門)</a></li>
+  <li><a href="https://www.amazon.co.jp/%E8%A1%8C%E5%8B%95%E3%82%B2%E3%83%BC%E3%83%A0%E7%90%86%E8%AB%96%E5%85%A5%E9%96%80-%E5%B7%9D%E8%B6%8A-%E6%95%8F%E5%8F%B8/dp/4757122586">行動ゲーム理論入門 (Amazon)</a></li>
+</ul>
+
+<h1 id="第1章-決定不能性">第1章 決定不能性</h1>
+
+<ul>
+  <li>一般の非協力ゲームにおいて、ナッシュ均衡という解が混合戦略の範囲で存在することが証明されている
+    <ul>
+      <li>しかしその解を具体的に求めるアルゴリズムを構成できないことが存在する
+        <ul>
+          <li>10x10以上の盤面のヘックス</li>
+          <li>ディオファンタス・ゲーム</li>
+        </ul>
+      </li>
+      <li>ちなみにナッシュ均衡とは、どのプレーヤーも自分の戦略を変更することによってより高い利得を得ることができない、安定的な状態のことである</li>
+    </ul>
+  </li>
+  <li>限定合理性
+    <ul>
+      <li>解（均衡）を求めることができない状況では、<br />
+プレーヤーは合理的な行動を取ることができず、<br />
+限定された合理性に基づいて行動するしかない</li>
+    </ul>
+  </li>
+  <li>囚人のジレンマ
+    <ul>
+      <li>相手が自白・黙秘どちらを選択した場合でも<br />
+こちらは自白を選択する方が利得が大きくなるため、<br />
+両方とも自白を選択するのが合理的なプレーヤーによるゲームの均衡である</li>
+      <li>しかし現実には二人とも黙秘をする選択が存在し、<br />
+しかもこの場合利得の和が最大になるためパレート効率となる</li>
+      <li>つまり合理的な選択をしてもパレート効率にならないというジレンマ</li>
+    </ul>
+  </li>
+  <li>囚人のジレンマの無限繰り返しゲーム
+    <ul>
+      <li>オウム返し戦略が最も有効とされた
+        <ul>
+          <li>進化ゲームにおける進化的安定戦略の基準は満たさないので最適戦略ではない</li>
+          <li>計算コストの制約を設けた場合も最適戦略ではない</li>
+        </ul>
+      </li>
+      <li>戦略的安定戦略かつ計算コストの制約（限定合理性）のある場合において、<br />
+パレート効率な結果が実現可能なことが示されている</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="第2章-混合戦略">第2章 混合戦略</h1>
+
+<ul>
+  <li>純戦略と混合戦略
+    <ul>
+      <li>混合戦略とは、いくつかの純戦略を確率的に選ぶ戦略</li>
+      <li>純戦略とは、特定の選択肢のみを選択する戦略</li>
+      <li>混合戦略においては、相手がどんな選択をしても期待利得が均一になるような確率で選択をするのが合理的である</li>
+    </ul>
+  </li>
+  <li>混合戦略の均衡
+    <ul>
+      <li>各プレーヤーの戦略選択頻度が混合戦略で予測される確率と等しいかどうか
+        <ul>
+          <li>プレーヤー全体で見るとおおよそ等しくなる</li>
+        </ul>
+      </li>
+      <li>各プレーヤーの毎回の戦略選択が統計的に独立におこなわれるかどうか
+        <ul>
+          <li>過去の自分や相手の選択に依存して系列相関する</li>
+        </ul>
+      </li>
+      <li>個人としては混合戦略に従っていない（=不合理な選択をしている）にも関わらず<br />
+集団全体としては混合戦略に従っていることも、<br />
+混合戦略と考えることができる</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="第3章-学習理論">第3章 学習理論</h1>
+
+<ul>
+  <li>信念学習
+    <ul>
+      <li>相手プレーヤーの行動を学習して自分の行動を決定する</li>
+      <li>クールノー学習
+        <ul>
+          <li>直前の記憶をもとに相手の行動を予測する</li>
+        </ul>
+      </li>
+      <li>仮想プレー学習
+        <ul>
+          <li>より長期の記憶をもとに相手の行動を予測する</li>
+        </ul>
+      </li>
+      <li>問題点
+        <ul>
+          <li>相手の行動を決定する確率分布がプレー中に変化しないという定常性が仮定されている</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>強化学習
+    <ul>
+      <li>自分の過去の行動から自分の行動を決定する</li>
+      <li>試行錯誤と忘却</li>
+    </ul>
+  </li>
+  <li>学習理論と初期値
+    <ul>
+      <li>学習初期には均衡からの逸脱が多く見られる</li>
+      <li>均衡に収束するか、収束するとしてどれくらいかかるかを決定する要素として初期値の取り方がある</li>
+      <li>最後通牒ゲームにおいても、
+サブゲーム完全均衡になるか否かは初期値のとり方によって変わってくる</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="第4章-予測と推論">第4章 予測と推論</h1>
+
+<ul>
+  <li>実験経済学と行動経済学
+    <ul>
+      <li>実験経済学
+        <ul>
+          <li>利己的で限定合理的</li>
+          <li>レベルK理論
+            <ul>
+              <li>プレーヤーは利己的な動機付けで行動するが<br />
+相手の合理性は完全には分からないので推論する</li>
+              <li>その推論によって予測された相手の行動が間違っている可能性もあるという意味で限定合理的</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>行動経済学
+        <ul>
+          <li>利他的で合理的</li>
+          <li>心理学ゲーム理論
+            <ul>
+              <li>互恵性の理論</li>
+              <li>罪回避の理論</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>利他性の理論
+    <ul>
+      <li>最後通牒ゲーム</li>
+      <li>不平等回避の選好
+        <ul>
+          <li>自分の利得が他人のそれより小さいときは羨望を、<br />
+他人のそれより多いときは後悔を感じるため、<br />
+利得の差を小さくする選択肢が選ばれる</li>
+          <li>結果だけが考慮されるので、過程の違いを区別できない</li>
+        </ul>
+      </li>
+      <li>互恵性の理論
+        <ul>
+          <li><span style="color:blue">相手の行動に対する二階の予測により親切度を定義する</span></li>
+        </ul>
+      </li>
+      <li>罪回避の理論</li>
+    </ul>
+  </li>
+  <li>レベルK理論
+    <ul>
+      <li>支配的戦略の逐次的消去
+        <ul>
+          <li>美人投票ゲーム</li>
+          <li>旅人のジレンマゲーム</li>
+          <li>実際の実験では逐次消去によって生き残る解が選択されることは多くなく、<br />
+推論の深さはプレーヤーによって異なる</li>
+        </ul>
+      </li>
+      <li>ムカデ・ゲーム
+        <ul>
+          <li>ギフトギビング行動を利他性の理論により説明するか、<br />
+レベルK理論により説明するか？</li>
+          <li>レベルK理論のほうがより実験結果の説明力が高いという結果に</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="第5章-ロジット均衡">第5章 ロジット均衡</h1>
+
+<ul>
+  <li>ロジット均衡
+    <ul>
+      <li>合理性のパラメータ$\lambda$を変化させることで<br />
+完全にランダムなプレーヤー($\lambda=0$)から
+完全に合理的なプレーヤー($\lambda\rightarrow\inf$)まで<br />
+多種多様な行動を表現できる</li>
+      <li>限定合理性とナッシュ均衡を特殊なケースとして含むような<br />
+より一般的な均衡概念</li>
+      <li><span style="color:blue">均衡の精緻化</span>
+        <ul>
+          <li>$\lambda$を$0$から$\inf$まで大きくした時、<br />
+$\lambda=0$のときのロジット均衡と連続的に接続する均衡は<br />
+完全均衡と一致する</li>
+        </ul>
+      </li>
+      <li>ムカデ・ゲームのギフトギビング行動もロジット均衡で説明できる
+        <ul>
+          <li>ロジット均衡では利他性は一切考慮されていないにも関わらず</li>
+        </ul>
+      </li>
+      <li>レベルK理論のように相手のレベルを予想して<br />
+それに最適な反応を選ぶこともできる
+        <ul>
+          <li>プレーヤーが同じレベル同士の場合、<br />
+コーディネーションの失敗が発生する</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="第6章-コーディネーションとコミュニケーション">第6章 コーディネーションとコミュニケーション</h1>
+
+<ul>
+  <li>コーディネーション問題
+    <ul>
+      <li>ナッシュ要求ゲーム</li>
+      <li>複数の均衡が存在する非決定性の問題において、<br />
+焦点に向けて各プレーヤーの行動が調整される</li>
+    </ul>
+  </li>
+  <li>均衡選択理論
+    <ul>
+      <li>複数の均衡が存在する場合に、<br />
+どれが選ばれやすいかの基準を設ける
+        <ul>
+          <li>パレート支配基準</li>
+          <li>リスク支配基準</li>
+        </ul>
+      </li>
+      <li>基準を設けることで</li>
+      <li>リスク支配ナッシュ均衡のほうが<br />
+均衡選択の理論として優れている</li>
+    </ul>
+  </li>
+  <li>コミュニケーション
+    <ul>
+      <li>プレーヤー間の事前コミュニケーションにより<br />
+コーディネーションの失敗を回避する</li>
+      <li>メッセージに信憑性があるｋ
+        <ul>
+          <li>自己コミットメント</li>
+          <li>自己シグナリング</li>
+        </ul>
+      </li>
+      <li>完備情報ゲーム(e.x. 鹿狩りゲーム)において、<br />
+事前コミュニケーションによりプレーの意図を伝える</li>
+      <li>不完全情報ゲームにおいて、私的情報を相手に伝える
+        <ul>
+          <li>分離均衡</li>
+        </ul>
+      </li>
+      <li>プレーヤー間で言語が共有されていなくても、<br />
+特に利害関係が一致する場合コミュニケーションは成立する</li>
+    </ul>
+  </li>
+  <li>相関均衡
+    <ul>
+      <li>サンスポット均衡</li>
+      <li>外生的に与えられたルールがプレーヤーの戦略選択に相関を生み出し、<br />
+パレート効率的な結果に誘導する</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="第7章-メカニズムデザイン論">第7章 メカニズム・デザイン論</h1>
+
+<ul>
+  <li>インセンティブ両立的メカニズムの設計
+    <ul>
+      <li>目標
+        <ul>
+          <li>プレーヤーに真の選好を表明させるようなインセンティブを与えて<br />
+すべての選好の組み合わせの下で社会選択対応で目標としている<br />
+社会的に望ましい結果を均衡として導く</li>
+        </ul>
+      </li>
+      <li>一般不可能性定理
+        <ul>
+          <li>ほとんどの問題において、<br />
+インセンティブ両立的メカニズムを見たすメカニズムは設計できない</li>
+          <li>安定結婚問題</li>
+        </ul>
+      </li>
+      <li>グローブス・メカニズム</li>
+      <li>ピボタル・メカニズム</li>
+    </ul>
+  </li>
+  <li>ナッシュ均衡メカニズム
+    <ul>
+      <li>インセンティブ両立性にはあまりこだわらず、<br />
+プレーヤーたちが均衡をプレーするという条件の元でのメカニズムを考える</li>
+      <li>マスキンのメカニズム
+        <ul>
+          <li>単調性と非拒否権性を満たすことが条件</li>
+        </ul>
+      </li>
+      <li>ウォーカーのメカニズム</li>
+    </ul>
+  </li>
+  <li>行動メカニズム・デザイン論</li>
+</ul>
+
+<h1 id="第8章-社会的学習と制度変化">第8章 社会的学習と制度変化</h1>
+
+<ul>
+  <li>群集行動の理論
+    <ul>
+      <li>プレーヤーは私的情報と共有情報（先行者の行動）を用いて<br />
+期待利得の高い選択をおこなう</li>
+      <li>先行者の選択が間違っていた場合、間違った予測が伝搬し非効率性を生む</li>
+      <li>一方、プレーヤーは私的情報を過度に重視するので<br />
+群集行動が発生しづらいことも</li>
+    </ul>
+  </li>
+  <li>慣習の形成と崩壊
+    <ul>
+      <li>世代間ゲーム
+        <ul>
+          <li>あるプレーヤーにとって不利な均衡が慣習として維持される（慣性）</li>
+          <li>ある均衡が維持されている間は、現世代のプレーヤーが次世代にその均衡を維持するようアドバイスする（慣習の社会化）</li>
+          <li>先行する世代によって形成された慣習を次世代が戦略的に変えようとする（慣習の断続化）</li>
+        </ul>
+      </li>
+      <li>断続化に見られるようなプレーヤーの行動は制度選択にどのような影響を与えるのか？</li>
+    </ul>
+  </li>
+  <li>内生的制度選択
+    <ul>
+      <li>モニタリングと制裁がプレーヤー間に協調をもたらす</li>
+      <li>あらかじめ決められたメカニズムのうちどれが良いかプレーヤーに選ばせる</li>
+      <li>共有財ゲーム
+        <ul>
+          <li>誰がコストを払ってまで制裁or報償を与えるのかという非決定性問題</li>
+          <li>制度のための制度を導入する必要があり問題が無限に後退する</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>内生的制度選択
+    <ul>
+      <li>プレーヤーに自由にメカニズムを設計できる機会を与える</li>
+      <li>人間は限定合理的なので制度選択の無限後退問題は起こり得ない</li>
+      <li>比較的シンプルなメカニズムが自発的に生み出され、安定的に運用される</li>
+    </ul>
+  </li>
+</ul>
+
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2017/07/27/behavioral_game_theory_intro.html" class="hatena-bookmark-button" data-hatena-bookmark-title="「行動ゲーム理論入門」を読んだ - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+          </div>
+        </div>
+        <footer>
+  This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+</footer>
+
+      </div>
+    </div>
+  </body>
+</html>

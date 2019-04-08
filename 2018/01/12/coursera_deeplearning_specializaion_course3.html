@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="author" content="ysk24ok">
+  
+  <meta name="description" content="CourseraのDeep Learning Specializatonのcourse3受講メモ">
+  <meta property="og:description" content="CourseraのDeep Learning Specializatonのcourse3受講メモ">
+  
+  <meta property="og:image" content="https://ysk24ok.github.io/assets/images/profile.jpeg">
+  <meta property="og:title" content="CourseraのDeep Learning Specializaton course3受講メモ">
+  <meta property="og:url" content="https://ysk24ok.github.io/2018/01/12/coursera_deeplearning_specializaion_course3.html">
+  <meta property="og:type" content="article">
+  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+  <!-- MathJax -->
+  <!-- http://docs.mathjax.org/en/latest/start.html#secure-access-to-the-cdn -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- bootstrap -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+  <script src="/assets/js/jquery-2.1.4.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <!-- github.io default -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/stylesheet.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/github-dark.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/print.css" media="print">
+  <!-- syntax highlight css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" media="screen">
+  <!-- My customized css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
+  <!-- RSS -->
+  <link href="/feed.xml" type="application/rss+xml" rel="alternate" title="ysk24ok.github.io" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131519041-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-131519041-1');
+  </script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title>CourseraのDeep Learning Specializaton course3受講メモ - ysk24ok.github.io</title>
+</head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+        <header>
+  <h1><a href="/">ysk24ok.github.io</a></h1>
+</header>
+<nav class="navbar navbar-default" role="navigation">
+  <ul id="main-navigation" class="nav navbar-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+
+        <div class="post-item">
+          <div class="post-header">
+  <h1>
+    <a href="/2018/01/12/coursera_deeplearning_specializaion_course3.html">CourseraのDeep Learning Specializaton course3受講メモ</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">deep learning</a></li>
+    
+      <li><a href="#">coursera</a></li>
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 12 Jan 2018</div>
+  
+  <hr>
+</div>
+
+          <div class="post-content">
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2018/01/12/coursera_deeplearning_specializaion_course3.html" class="hatena-bookmark-button" data-hatena-bookmark-title="CourseraのDeep Learning Specializaton course3受講メモ - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+            <p>Courseraの<a href="https://www.coursera.org/specializations/deep-learning">Deep Learning Specializaton</a>の<a href="https://www.coursera.org/learn/machine-learning-projects">course3: Structuring Machine Learning Projects</a>を修了したのでメモを残しておく。</p>
+
+<!-- more -->
+
+<h1 id="week1">Week1</h1>
+
+<h2 id="orthogonalization">orthogonalization</h2>
+
+<ul>
+  <li>MLプロジェクトには以下のようにチューニングの項目がいくつかあるが、<br />
+それぞれ独立したチューニングとしておこなうことができる
+    <ul>
+      <li>training setにfitさせる
+        <ul>
+          <li>ネットワークサイズを大きくする、advancedなoptimizerを使う</li>
+        </ul>
+      </li>
+      <li>dev setにfitさせる
+        <ul>
+          <li>正則化、training setを大きくする</li>
+        </ul>
+      </li>
+      <li>test setにfitさせる
+        <ul>
+          <li>dev setを大きくする</li>
+        </ul>
+      </li>
+      <li>実世界でうまく動く
+        <ul>
+          <li>dev/test setを現実のデータに近づける、cost functionを変える</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>early stoppingを使うと各チューニング項目がorthogonalizeではなくなる</li>
+</ul>
+
+<h2 id="evaluation-metric">evaluation metric</h2>
+
+<ul>
+  <li>evaluation metricは複数ではなく単一の実数値にする
+    <ul>
+      <li>e.x. precisionとrecall両方ではなくF1 scoreを使う</li>
+      <li>e.x. 地域ごとの精度ではなく全地域での平均を使う</li>
+    </ul>
+  </li>
+  <li>単一のmetricにするのが難しい場合は、<br />
+1つをoptimizing metric、残りをsatisficing metricとする
+    <ul>
+      <li>accuracyをoptimizing metric、running timeをsatisficing metric</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="training--dev--test-set">training / dev / test set</h2>
+
+<ul>
+  <li>dev setとtest setは必ず同じ分布から得られたデータにする
+    <ul>
+      <li><code class="highlighter-rouge">Choose a dev set and test set to reflect data you expect to get in the future  
+and consider important to do well on</code></li>
+      <li>e.x. dev setはUSから得られたデータ、<br />
+test setはそれ以外の地域から得られたデータという分割方法ではなく、<br />
+予測するのは全地域のデータなのでdev/test setともに全地域のデータにする</li>
+    </ul>
+  </li>
+  <li>size of training sets
+    <ul>
+      <li>データ量がそう多くない（e.x. 100or1000or10000）昔は60/20/20程度に分割していた</li>
+      <li>データ量が多い（e.x. 1,000,000）昨今では98/1/1のように<br />
+training setを多くする</li>
+      <li>特にdeep learningには大量のtrainingデータが必要になるので</li>
+      <li>deep learningではない古典的なMLアルゴリズムでもこの分割割合は適用されるのだろうか？</li>
+    </ul>
+  </li>
+  <li>size of test set
+    <ul>
+      <li><code class="highlighter-rouge">Set your test set to be big enough to give high confidence  
+in the overall performance of your system</code></li>
+      <li>test setを用意しないということもできるが、おすすめはしない</li>
+    </ul>
+  </li>
+  <li>dev/test setsやevaluation metricが適切でないと気付いた時点ですぐに変える
+    <ul>
+      <li>新しいmetricを考え、その新しいmetricに対してモデルを最適化する</li>
+      <li>新しいdev/test setsを作って、その新しいdev/test setsに対して最適化する</li>
+      <li>その新しく定義したmetricやdev/test setsもあまり良くなくて変えたい場合も変えてよい</li>
+    </ul>
+  </li>
+  <li>問題なのはmetricやdev/test setsが定まっていない状態が長く続いてしまうこと</li>
+</ul>
+
+<h2 id="improving-model-performance">improving model performance</h2>
+
+<ul>
+  <li>human-level errorはBayes optimal errorの代わりになり得る
+    <ul>
+      <li>Bayes optimal errorとは、端的に言うとこれ以上下げようがないerror rateのこと</li>
+    </ul>
+  </li>
+  <li>human-level errorとtraining errorの差をavoidable biasと呼び（ただし一般的な名前ではない）、<br />
+training errorとdev errorの差がvariance problemを表す
+    <ul>
+      <li>avoidable biasがvarianceと比べて大きい場合、
+        <ul>
+          <li>より大きなネットワークにする</li>
+          <li>よりadvancedなoptimization algorithmにする</li>
+        </ul>
+      </li>
+      <li>varianceがavoidable biasと比べて大きい場合
+        <ul>
+          <li>データを増やす</li>
+          <li>regularizationを加える</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="week2">Week2</h1>
+
+<ul>
+  <li>error analysis
+    <ul>
+      <li>モデルの精度を高めていくために次にどの問題に取り組むべきかを調べる</li>
+      <li>手順
+        <ul>
+          <li>縦軸に誤認識したサンプル、横軸にerror categoryをとった表を作る</li>
+          <li>dev setにおいて誤認識したサンプルを100-500ほど人手で調べ、<br />
+どのerror categoryに属するかをチェックする
+            <ul>
+              <li>e.x. 猫認識アプリケーションにおいて、
+犬を猫と誤認識した、画像がぼやけているなど</li>
+            </ul>
+          </li>
+          <li>どのerror categoryが多いかを明らかにすることで行動の指針になる
+            <ul>
+              <li>最も割合の大きいerror categoryに取り組むべきということではない</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>ラベル付けが間違っているサンプルが含まれている場合
+    <ul>
+      <li>training setにラベル付けが間違っているサンプルが含まれている場合
+        <ul>
+          <li>deep learningはtraining setのrandom errorには頑健なので、<br />
+ラベル付けの間違いに規則性が無い場合は特に問題ない
+            <ul>
+              <li>ただし一貫して白い犬を間違って猫とラベル付けしてしまっているような場合、<br />
+モデルは白い犬を猫と学習してしまう</li>
+            </ul>
+          </li>
+          <li>training setについてはラベル付けを直す重要性は低い
+            <ul>
+              <li>training setはdev/test setsよりも量が多いので直すのも一苦労</li>
+              <li>直さないことでdev/test setsと分布が多少異なってしまうが、問題ない</li>
+              <li>week2のquizでは<code class="highlighter-rouge">You should not correct incorrectly labeled data in the training set as well so as to avoid your training set now being even more different from your dev set.</code>が正解となっており、直すと分布が変わることになっているがむしろ逆なのでは。。？</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>dev/test setsにラベル付けが間違っているサンプルが含まれている場合
+        <ul>
+          <li>error analysis時にチェック、dev set error全体に占める割合が大きいときのみラベル付けを直す</li>
+          <li>ラベル付けを直す場合はdev/test sets両方に対しておこなう
+            <ul>
+              <li>ともに同じ分布からなるという前提を維持するため</li>
+            </ul>
+          </li>
+          <li>誤認識したサンプルだけでなく正しく認識されたサンプルについてもおこなう
+            <ul>
+              <li>ラベル付けの間違ったサンプルをさらに誤認識して結果正しいと判定されただけかもしれず、
+誤認識したサンプルについてのみ直すのはアルゴリズムに有利に働いてしまう</li>
+              <li>ただアルゴリズムの精度が高いほど見つけるのは難しくなる</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Build your first system quickly, then iterate
+    <ul>
+      <li>解決するポイントはまず山ほどあるが、まずdev/test setsとmetricsを決めて、シンプルなシステムを作ることから始める</li>
+      <li>bias/variance analysisやerror analysisをもとに次に何をするかを決める</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="data-mismatch-problem">data mismatch problem</h2>
+
+<ul>
+  <li>training setとdev/test setsの分布が異なる場合
+    <ul>
+      <li>猫認識アプリケーションにおいて、<br />
+Webからクローリングしてきた猫の画像が200,000枚、<br />
+ユーザがアップロードした猫の画像が10,000枚のとき、<br />
+training setは前者200,000+後者5,000の計205,000枚、<br />
+dev/test setsはともに後者の2,500枚ずつにする</li>
+      <li>このアプリケーションにおいてケアすべきなのは後者の画像のため、</li>
+      <li>結果training setとdev/test setsの分布が異なる</li>
+    </ul>
+  </li>
+  <li>training setとdev/test setの分布が異なる場合、<br />
+bias/variance analysisのためにtraining-dev setを用意する
+    <ul>
+      <li>training-dev setに対してのerrorは低いがdev setに対してのerrorが高くなっている場合、data mismatchが原因であると分かる</li>
+    </ul>
+  </li>
+  <li>data mismatchの対策
+    <ul>
+      <li>まず、training setとdev/test setsの違いを特定する
+        <ul>
+          <li>(test setに最適化するのを防ぐため、dev setのみについて確認するのが望ましい)</li>
+          <li>e.x. dev setのほうがノイズが多い等</li>
+        </ul>
+      </li>
+      <li>次に、データを集めてtraining setの分布ををdev/test setsの分布に近づける
+        <ul>
+          <li>人工的にデータを合成してtraining setを増やす
+            <ul>
+              <li>e.x. 人の声とノイズを合成する</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="learning-from-multiple-tasks">Learning from multiple tasks</h2>
+
+<ul>
+  <li>transfer learning
+    <ul>
+      <li>先にtask Aでネットワークをpre-trainingしておき、<br />
+そのネットワークをtask Bのtrainingに流用する
+        <ul>
+          <li>e.x. task A = 普通の画像認識タスク、task B = 放射線診断</li>
+        </ul>
+      </li>
+      <li>output layerをtask Bのものに入れ替え、task Bのデータで再びtrainingする</li>
+      <li>transfer learningが使える条件
+        <ul>
+          <li>task Aとtask Bの入力データの種類が同じであること
+            <ul>
+              <li>e.x. ともに画像、ともに音声</li>
+            </ul>
+          </li>
+          <li>task Aに用いるデータの方がtask Bのそれよりもずっと多いこと</li>
+          <li>task Aで学習した物体の境界などのlow-level featureがtask Bでも使えること</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>multi-task learning
+    <ul>
+      <li>通常1つのネットワークで1つのtaskを担当するところを、
+1つのネットワークで複数taskをおこなう
+        <ul>
+          <li>e.x. 画像の中の複数種類の物体を認識する</li>
+        </ul>
+      </li>
+      <li>1つのサンプルが複数ラベルを持つので、output layerにも複数node存在する</li>
+      <li>ラベルに欠損があっても使える</li>
+      <li>multi-task learningが使える条件
+        <ul>
+          <li>そのネットワークで学習したlow-level featureをtask間で共有することができる</li>
+          <li>各taskが持つデータがだいたい同じくらいである</li>
+          <li>十分に大きいNNを構成することができる
+            <ul>
+              <li>Rich Caruana曰く、別々のネットワークでtrainingする場合と比べてmulti-task learningが劣るのはネットワークサイズが小さいとき</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="end-to-end-deep-learning">end-to-end deep learning</h2>
+
+<ul>
+  <li>データXから目的変数Yを求めるとき、通常複数ステージからなるパイプラインを作る必要がある
+    <ul>
+      <li>e.x. 音声データからMFCCでfeatureを生成、featureからMLでphonemeを取り出し、phonemeからwordを認識、、最後にtranscriptを生成する</li>
+    </ul>
+  </li>
+  <li>end-to-end deep learningでは、これら複数のステージを1つのNNで置き換えることができる</li>
+  <li>pros
+    <ul>
+      <li>人間の先入観にもとづいて前処理をするより、データの特徴を捉えることができる可能性がある</li>
+      <li>パイプラインのステージ数を減らすことができる</li>
+    </ul>
+  </li>
+  <li>cons
+    <ul>
+      <li>大量のデータが必要になる</li>
+      <li>人間の知識をNNに与えることができない</li>
+    </ul>
+  </li>
+  <li>実際には、end-to-endではなく複数のsubproblemに分割するほうがうまくいくことも多いため、<br />
+どこにend-to-end deep learningを適用するかよく考えるべき
+    <ul>
+      <li>e.x. face recoginitionにおいて、画像から直接顔を認識させるのではなく、<br />
+まず画像から顔をcropしてから認識させるという2つのステージに分けたほうがうまくいく</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="関連リンク">関連リンク</h1>
+
+<ul>
+  <li><a href="https://www.coursera.org/specializations/deep-learning">Deep Learning | Coursera</a></li>
+  <li><a href="https://www.coursera.org/learn/deep-neural-network">Improving Deep Neural Networks: Hyperparameter tuning, Regularization and Optimization | Coursera</a></li>
+</ul>
+
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2018/01/12/coursera_deeplearning_specializaion_course3.html" class="hatena-bookmark-button" data-hatena-bookmark-title="CourseraのDeep Learning Specializaton course3受講メモ - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+          </div>
+        </div>
+        <footer>
+  This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+</footer>
+
+      </div>
+    </div>
+  </body>
+</html>

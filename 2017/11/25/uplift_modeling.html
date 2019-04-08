@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="author" content="ysk24ok">
+  
+  <meta name="description" content="「仕事ではじめる機械学習」のUplift Modelingのコードを写経してみた">
+  <meta property="og:description" content="「仕事ではじめる機械学習」のUplift Modelingのコードを写経してみた">
+  
+  <meta property="og:image" content="https://ysk24ok.github.io/assets/images/profile.jpeg">
+  <meta property="og:title" content="「仕事ではじめる機械学習」のUplift Modelingのコードを写経してみた">
+  <meta property="og:url" content="https://ysk24ok.github.io/2017/11/25/uplift_modeling.html">
+  <meta property="og:type" content="article">
+  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+  <!-- MathJax -->
+  <!-- http://docs.mathjax.org/en/latest/start.html#secure-access-to-the-cdn -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- bootstrap -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+  <script src="/assets/js/jquery-2.1.4.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <!-- github.io default -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/stylesheet.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/github-dark.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/print.css" media="print">
+  <!-- syntax highlight css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" media="screen">
+  <!-- My customized css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
+  <!-- RSS -->
+  <link href="/feed.xml" type="application/rss+xml" rel="alternate" title="ysk24ok.github.io" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131519041-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-131519041-1');
+  </script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title>「仕事ではじめる機械学習」のUplift Modelingのコードを写経してみた - ysk24ok.github.io</title>
+</head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+        <header>
+  <h1><a href="/">ysk24ok.github.io</a></h1>
+</header>
+<nav class="navbar navbar-default" role="navigation">
+  <ul id="main-navigation" class="nav navbar-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+
+        <div class="post-item">
+          <div class="post-header">
+  <h1>
+    <a href="/2017/11/25/uplift_modeling.html">「仕事ではじめる機械学習」のUplift Modelingのコードを写経してみた</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">uplift modeling</a></li>
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 25 Nov 2017</div>
+  
+  <hr>
+</div>
+
+          <div class="post-content">
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2017/11/25/uplift_modeling.html" class="hatena-bookmark-button" data-hatena-bookmark-title="「仕事ではじめる機械学習」のUplift Modelingのコードを写経してみた - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+            <p><a href="https://www.oreilly.co.jp/books/9784873118215/">仕事ではじめる機械学習</a>第9章のUplift Modelingのコードを写経してみた。</p>
+
+<!-- more -->
+
+<p>使用したnotebookは<a href="https://gist.github.com/ysk24ok/c0678e517b6cf35897c93a15381dfb1f">こちら</a>。</p>
+
+<h1 id="uplift-modelingとは">Uplift Modelingとは</h1>
+
+<p>ある施策をおこなうと効果があるかどうかを見極める方法の1つにA/Bテストがある。
+A/Bテストでは、母集団をランダムにtreatment groupとcontrol groupに分割してtreatment groupにのみ施策をおこない、
+treatment groupとcontrol group間で効果に差があるかどうかを確認することで
+その施策をおこなうべきかどうかを判断する。</p>
+
+<p>ダイレクトメールを送ることでWebサイトへの訪問を促す施策を例にとると、
+treatment groupにのみメールを送付し、treatment groupに属する顧客の反応率がcontrol groupに属する顧客のそれよりも高かった場合、
+メール送付という施策には効果があることがわかる。</p>
+
+<p>しかしUplift Modelingを使うと単にtreatment groupとcontrol groupに差があったかどうかだけではなく、
+施策をおこなうことで施策をおこなわなかったときと比べて
+反応率がどれだけ上がるのか(これがuplift)を顧客ごとに推定することができ、
+反応率が大きく上昇するであろう顧客のみに施策を適用することも可能となる。</p>
+
+<h1 id="使用するデータ">使用するデータ</h1>
+
+<p><a href="http://blog.minethatdata.com/2008/03/minethatdata-e-mail-analytics-and-data.html">MineThatData E-Mail Analytics And Data Mining Challenge dataset</a>を使用する。<br />
+このデータには、直近12ヶ月以内に商品を購入したことがある顧客をランダムに3分割し、</p>
+
+<ul>
+  <li>男性向けのメールを送る</li>
+  <li>女性向けのメールを送る</li>
+  <li>何もしない</li>
+</ul>
+
+<p>という施策をおこなったときに、顧客が次の2週間以内に</p>
+
+<ul>
+  <li>Webサイトを訪問したか</li>
+  <li>商品を購入したか</li>
+  <li>商品を購入した人は何ドルいくら使ったのか</li>
+</ul>
+
+<p>などの情報が記録されている。</p>
+
+<p>ここでは、Webサイトへの再訪をコンバージョン（以下CV）として、<br />
+男性向けのメールを送るべきなのか女性向けのメールを送るべきなのかをUplift Modelingにより推定する。</p>
+
+<h1 id="準備前処理">準備・前処理</h1>
+
+<p>ローカルにダウンロードしてデータを読み込む。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">csv_path</span> <span class="o">=</span> <span class="s">'~/downloads/kevin_hillstrom_minethatdata_e-mailanalytics_dataminingchallenge_2008.03.20.csv'</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>まずメールを送らなかったグループを除外する。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mailed_df = df.query("segment != 'No E-Mail'")
+mailed_df.reset_index(drop=True, inplace=True)
+</code></pre></div></div>
+
+<p>次に、カテゴリ変数であるzip_codeとchannelはダミー変数化してそれぞれ2次元にマッピングし、<br />
+<code class="highlighter-rouge">recency</code>, <code class="highlighter-rouge">history</code>, <code class="highlighter-rouge">mens</code>, <code class="highlighter-rouge">womens</code>と合わせて特徴量として使用する。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dummied_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span>
+    <span class="n">mailed_df</span><span class="p">[[</span><span class="s">'zip_code'</span><span class="p">,</span> <span class="s">'channel'</span><span class="p">]],</span> <span class="n">prefix_sep</span><span class="o">=</span><span class="s">'='</span><span class="p">,</span> <span class="n">drop_first</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">features_to_use</span> <span class="o">=</span> <span class="p">(</span><span class="s">'recency'</span><span class="p">,</span> <span class="s">'history'</span><span class="p">,</span> <span class="s">'mens'</span><span class="p">,</span> <span class="s">'womens'</span><span class="p">,</span> <span class="s">'newbie'</span><span class="p">)</span>
+<span class="n">fv_df</span> <span class="o">=</span> <span class="n">mailed_df</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">features_to_use</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dummied_df</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="学習">学習</h1>
+
+<p>男性向けメールを送った顧客をtreatment group、女性向けメールを送った顧客をcontrol groupとする。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">is_treat</span> <span class="o">=</span> <span class="n">mailed_df</span><span class="p">[</span><span class="s">'segment'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'Mens E-Mail'</span>
+<span class="n">is_visit</span> <span class="o">=</span> <span class="n">mailed_df</span><span class="p">[</span><span class="s">'visit'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<p>データをtraining setとtest setに分割する。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tr_fv_df</span><span class="p">,</span> <span class="n">te_fv_df</span><span class="p">,</span> <span class="n">tr_is_visit</span><span class="p">,</span> <span class="n">te_is_visit</span><span class="p">,</span> <span class="n">tr_is_treat</span><span class="p">,</span> <span class="n">te_is_treat</span> <span class="o">=</span> \
+    <span class="n">train_test_split</span><span class="p">(</span><span class="n">fv_df</span><span class="p">,</span> <span class="n">is_visit</span><span class="p">,</span> <span class="n">is_treat</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">tr_fv_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">te_fv_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">tr_is_visit</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">te_is_visit</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">tr_is_treat</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">te_is_treat</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>treatment group, control groupそれぞれについてロジスティック回帰を使って<br />
+メール送付によって顧客がWebサイトを再訪するかどうかを予測するモデルを作成する。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tr_fv_df_treat</span> <span class="o">=</span> <span class="n">tr_fv_df</span><span class="p">[</span><span class="n">tr_is_treat</span><span class="p">]</span>
+<span class="n">tr_fv_df_control</span> <span class="o">=</span> <span class="n">tr_fv_df</span><span class="p">[</span><span class="n">tr_is_treat</span> <span class="o">==</span> <span class="bp">False</span><span class="p">]</span>
+<span class="n">tr_is_visit_treat</span> <span class="o">=</span> <span class="n">tr_is_visit</span><span class="p">[</span><span class="n">tr_is_treat</span><span class="p">]</span>
+<span class="n">tr_is_visit_control</span> <span class="o">=</span> <span class="n">tr_is_visit</span><span class="p">[</span><span class="n">tr_is_treat</span> <span class="o">==</span> <span class="bp">False</span><span class="p">]</span>
+
+<span class="n">treat_model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">control_model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">treat_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tr_fv_df_treat</span><span class="p">,</span> <span class="n">tr_is_visit_treat</span><span class="p">)</span>
+<span class="n">control_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tr_fv_df_control</span><span class="p">,</span> <span class="n">tr_is_visit_control</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="スコアリングによる可視化">スコアリングによる可視化</h1>
+
+<p>各顧客について、Uplift Modelingによるスコアを計算する。Uplift Modelingのスコアは、</p>
+
+<ul>
+  <li>treatment groupのモデルで予測したCV確率 / control groupのモデルで予測したCV確率</li>
+</ul>
+
+<p>で表される。</p>
+
+<p>スコアの降順に10パーセンタイルごとに顧客を区切り、<br />
+treatment group, control groupそれぞれのcvrを表示すると下の図のようになる。</p>
+
+<p><img src="/assets/images/uplift_modeling/cvr_per_percentile.png" width="80%" /></p>
+
+<p>この図から、スコアの上位60%は介入をおこなう（男性向けメールを送付する）ほうが反応率が高くなり、
+スコアの下位40%は介入をおこなわない（女性向けメールを送付する）ほうが反応率が高くなることがわかる。</p>
+
+<h1 id="auucによる評価">AUUCによる評価</h1>
+
+<p>Uplift Modelingの評価には<strong>AUUC</strong>が用いられ、AUUCの算出には<strong>lift</strong>という指標が用いられる。<br />
+liftとは、あるスコアを閾値としたとき、その閾値以上の顧客にのみ介入した場合と<br />
+全く介入をおこなわなかった場合とを比較してどれだけCV数が増えるかを表す値である。<br />
+横軸をスコアの降順に並べたときの順位とすると、liftは下の図で示すような曲線となり、この曲線とx軸で囲まれた面積が全く介入をおこなわない場合と比較したCV上昇数となる。</p>
+
+<p><img src="/assets/images/uplift_modeling/auuc.png" width="80%" /></p>
+
+<p>高めのスコアを閾値とした場合、スコア上位の顧客ほど介入したほうがCVに至る確率が増すためlift曲線の左側は正の傾きとなるが、
+逆に低めのスコアを閾値とした場合介入しないほうがCVに至る確率が増すためlift曲線の右側は負の傾きとなる。そのため、lift曲線は上に凸の曲線となる。<br />
+曲線のピークの位置（図でいうとスコアランク12000番前後）のスコアを閾値としたときが最も効率的な介入のしかたであるといえる。</p>
+
+<p>一方、liftと同様にあるスコアを閾値として、その閾値以上の顧客に対してランダムに介入した場合（スコアが閾値以上であっても介入する顧客と介入しない顧客がいる）と全く介入をおこなわなかった場合とを比較してどれだけCV数が増えるかについて考える。
+ランダム介入はデータとして観測していないため、lift曲線の左端と右端を結んだ直線をランダム介入によるCV上昇数の想定値とし、これをbaselineとする
+（lift曲線とbaseline直線の左端は全く介入をおこなわなかったときの増加分を意味するのでこの2つの左端0で一致する。右端は必ずしも一致しない（はずだ）が、簡単のためlift曲線の左端と右端を結んだ直線としている？）。
+ランダム介入によるCV上昇数はこの直線とx軸で囲まれた面積となる。</p>
+
+<p>AUUCとは、スコアが閾値以上の顧客に対して介入する場合とスコアが閾値以上の顧客に対してランダムに介入した場合と比較してどれだけCV数が増えるかを示す値であり、lift曲線とbaseline直線で囲まれた面積にあたる。この面積が大きいほどUplift Modelingの精度が高いといえる。</p>
+
+<h1 id="参考">参考</h1>
+
+<ul>
+  <li><a href="https://www.oreilly.co.jp/books/9784873118215/">仕事ではじめる機械学習</a> 第9章</li>
+  <li><a href="https://www.slideshare.net/yokkuns/uplift-modelling-1">Uplift Modelling 入門（1）</a></li>
+</ul>
+
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2017/11/25/uplift_modeling.html" class="hatena-bookmark-button" data-hatena-bookmark-title="「仕事ではじめる機械学習」のUplift Modelingのコードを写経してみた - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+          </div>
+        </div>
+        <footer>
+  This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+</footer>
+
+      </div>
+    </div>
+  </body>
+</html>

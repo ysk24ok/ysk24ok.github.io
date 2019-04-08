@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="author" content="ysk24ok">
+  
+  <meta name="description" content="はじめてのパターン認識 第11章の決定木についてまとめた。">
+  <meta property="og:description" content="はじめてのパターン認識 第11章の決定木についてまとめた。">
+  
+  <meta property="og:image" content="https://ysk24ok.github.io/assets/images/profile.jpeg">
+  <meta property="og:title" content="はじめてのパターン認識 第11章 決定木">
+  <meta property="og:url" content="https://ysk24ok.github.io/2016/08/23/hajipata-decision-tree.html">
+  <meta property="og:type" content="article">
+  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+  <!-- MathJax -->
+  <!-- http://docs.mathjax.org/en/latest/start.html#secure-access-to-the-cdn -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- bootstrap -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+  <script src="/assets/js/jquery-2.1.4.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <!-- github.io default -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/stylesheet.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/github-dark.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/print.css" media="print">
+  <!-- syntax highlight css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" media="screen">
+  <!-- My customized css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
+  <!-- RSS -->
+  <link href="/feed.xml" type="application/rss+xml" rel="alternate" title="ysk24ok.github.io" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131519041-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-131519041-1');
+  </script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title>はじめてのパターン認識 第11章 決定木 - ysk24ok.github.io</title>
+</head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+        <header>
+  <h1><a href="/">ysk24ok.github.io</a></h1>
+</header>
+<nav class="navbar navbar-default" role="navigation">
+  <ul id="main-navigation" class="nav navbar-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+
+        <div class="post-item">
+          <div class="post-header">
+  <h1>
+    <a href="/2016/08/23/hajipata-decision-tree.html">はじめてのパターン認識 第11章 決定木</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">hajipata</a></li>
+    
+      <li><a href="#">decision tree</a></li>
+    
+      <li><a href="#">Japanese</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 23 Aug 2016</div>
+  
+  <hr>
+</div>
+
+          <div class="post-content">
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2016/08/23/hajipata-decision-tree.html" class="hatena-bookmark-button" data-hatena-bookmark-title="はじめてのパターン認識 第11章 決定木 - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+            <div class="post-img">
+  <img src="/assets/images/hajipata/cover.jpg" width="20%" />
+</div>
+
+<p><a href="https://www.morikita.co.jp/books/book/2235">はじめてのパターン認識</a> 第11章の決定木についてまとめた。</p>
+
+<!-- more -->
+
+<h2 id="決定木とは">決定木とは</h2>
+
+<p><strong>決定木</strong>とは、<code class="highlighter-rouge">if ... then ... else</code>のような単純な識別規則を組み合わせて<br />
+分類・回帰をおこなうノンパラメトリックな手法である。<br />
+以下の説明はCARTを前提とする。</p>
+
+<h2 id="特徴">特徴</h2>
+
+<ul>
+  <li>学習した木を可視化することができる。</li>
+  <li>質的変数も量的変数も扱うことができる。</li>
+  <li>ノード数を増やすと過学習しやすいのでノード数の調整が必須。</li>
+  <li>訓練データにfitしやすく、高バリアンスである。</li>
+</ul>
+
+<h2 id="木の分割">木の分割</h2>
+
+<ul>
+  <li>$C_{i}\quad(i=1,\cdots,K)$: クラス</li>
+  <li>$N(t)\quad(t=1,\cdots,T)$: ノード$t$に属するサンプルの数</li>
+  <li>$N_{j}$: クラス$j$に属するサンプルの数</li>
+  <li>$N_{j}(t)$: ノード$t$に属するサンプルのうちクラス$j$に属する数</li>
+  <li>$p(t)=\frac{N(t)}{N}$: サンプルがノード$t$に属する確率</li>
+  <li>$P(C_{j})=\frac{N_{j}}{N}$: クラス$j$の事前確率</li>
+  <li>$p(t|C_{j})=\frac{N_{j}(t)}{N_{j}}$: クラス$j$のサンプルがノード$t$に属する確率</li>
+</ul>
+
+<p>ノード$t$におけるクラス$j$の事後確率$P(C_{j}|t)$は、ベイズの公式より</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+P(C_{j}|t)
+&=\cfrac{p(t|C_{j})P(C_{j})}{p(t)} \\
+&=p(t|C_{j})P(C_{j})p(t)^{-1} \\
+&=\cfrac{N_{j}(t)}{N_{j}} \cfrac{N_{j}}{N} \cfrac{N}{N(t)} \\
+&=\cfrac{N_j(t)}{N(t)}
+\end{align} %]]></script>
+
+<p>となる。</p>
+
+<h3 id="不純度impurity">不純度(impurity)</h3>
+
+<p>ノード$t$で分割規則を作るときは<strong>不純度</strong>の減り方が最も大きな分割を選ぶ。</p>
+
+<ul>
+  <li>$t_{L}$: 子ノード(左)</li>
+  <li>$t_{R}$: 子ノード(右)</li>
+  <li>$p_{L}$: サンプル$\mathbf{x}$が$t_{L}$に属する確率</li>
+  <li>$p_{R}$: サンプル$\mathbf{x}$が$t_{R}$に属する確率</li>
+</ul>
+
+<p>とすると、</p>
+
+<script type="math/tex; mode=display">\Delta I(s,t)=I(t)-\left(p_{L}I(t_{L})+p_{R}I(t_{R}) \right)</script>
+
+<p>ノード$t$の不純度$I(t)$を</p>
+
+<script type="math/tex; mode=display">I(t)=\phi\left( P(C_{1}|t), \cdots,P(C_{K}|t) \right)</script>
+
+<p>と定義すると、$\phi()$は、</p>
+
+<ul>
+  <li>$P(C_{i}|t)=\frac{1}{K}\quad(i=1,\cdots,K)$のとき、<br />
+すなわちどのクラスの事後確率も一様に等しいとき最大になる。</li>
+  <li>ある$i$について$P(C_{i}|t)=1$となり、$j \neq i$のときは$P(C_{j}|t)=0$、<br />
+すなわちただ1つのクラスに定まるとき最小になる。</li>
+  <li>$P(C_{i}|t)\quad(i=1,\cdots,K)$に関して対称な関数である。</li>
+</ul>
+
+<p>という性質をもつ。</p>
+
+<h4 id="誤り率">誤り率</h4>
+
+<script type="math/tex; mode=display">I(t)=1-\max_{i}P(C_{i}|t)</script>
+
+<p>ノード$t$において事後確率$P(C_{j}|t)$が最大となるクラスを選ぶ。</p>
+
+<h4 id="交差エントロピー">交差エントロピー</h4>
+
+<script type="math/tex; mode=display">I(t)=-\sum_{i=1}^{K} P(C_{i}|t) \ln P(C_{i}|t)</script>
+
+<h4 id="ジニ係数">ジニ係数</h4>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+I(t)
+&=\sum_{i=1}^{K} \sum_{j \neq i} P(C_{i}|t)P(C_{j}|t)  \\
+&=\sum_{i=1}^{K} P(C_{i}|t)\left( 1-P(C_{i}|t) \right) \\
+&=1-\sum_{i=1}^{K} P(C_i|t)^2
+\end{align} %]]></script>
+
+<p>ジニ係数とは、  あるノードから取り出したサンプルを取り出し<br />
+そのサンプルが$i$番目のクラスであるときを1、<br />
+それ以外のクラスであるときを0とするベルヌーイ試行を考えたとき、<br />
+取り出したサンプルのクラスが異なる確率である。</p>
+
+<p>取り出したサンプルのクラスが異なる確率が大きい<br />
+$=$そのノードに属するサンプルのクラスの偏りが小さい<br />
+   (1のクラスと0のクラスがほぼ同程度存在する)<br />
+$=$不純度が大きい<br />
+ということを示している。</p>
+
+<p>また、$P(C_{i}|t)\left( 1-P(C_{i}|t) \right)$はこのベルヌーイ試行の分散なので、<br />
+ジニ係数はすべてのクラスに関する分散の和でもある。</p>
+
+<p>なお、ジニ係数はもともとは経済学において<br />
+所得分配の不均衡の度合いを示す指標である。</p>
+
+<h2 id="木の剪定-pruning">木の剪定 (pruning)</h2>
+
+<p>木が大きくなるとバイアスは小さくなるものの汎化性能が下がる、<br />
+木が小さいとバイアスが大きくなり再代入誤り率が大きくなる<br />
+というトレードオフの調整のために、<br />
+誤り率と木の複雑さで決まる許容範囲まで木を<strong>剪定</strong>する。</p>
+
+<ul>
+  <li>$t\in \tilde{T}$: 終端ノード</li>
+  <li>$M(t)$: 終端ノードに属するサンプルのうち、事後確率を最大にしないクラスのサンプル数</li>
+  <li>$\alpha$: 1つの終端ノードがあることによる複雑さのコスト</li>
+</ul>
+
+<p>とすると、木全体の誤り率と複雑さのコスト$R_{\alpha}(T)$は</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+R_{\alpha}(T)
+&= \sum_{t\in \tilde{T}} R(t) + \alpha |\tilde{T}| \\
+&= \sum_{t\in \tilde{T}} \cfrac{M(t)}{N} + \alpha |\tilde{T}|
+\end{align} %]]></script>
+
+<p>目的は木のコスト$R_{\alpha}(T)$を最小にすることであるが、<br />
+$\alpha$は誤り率と複雑さのバランスをとる正則化パラメータの役割を果たす。</p>
+
+<p>続きは後日追記予定。</p>
+
+<p>ちなみにscikit-learnでは木のpruningはサポートされていない。<br />
+そのため、<code class="highlighter-rouge">max_depth</code>や<code class="highlighter-rouge">max_leaf_node</code>の値を<br />
+汎化性能を見ながら調整する必要がある。</p>
+
+<h2 id="実践">実践</h2>
+
+<p>irisデータセットを<code class="highlighter-rouge">sklearn.tree.DecisionTreeClassifier</code>で分類、<br />
+bostonデータセットを<code class="highlighter-rouge">sklearn.tree.DecisionTreeClassifier</code>で回帰させる。</p>
+
+<p>使用したコードは<a href="https://github.com/ysk24ok/swsk">こちら</a>。<br />
+また、notebookは<a href="https://github.com/ysk24ok/swsk/blob/master/notebooks/decision_tree.ipynb">こちら</a>。</p>
+
+<h3 id="分類木">分類木</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s">'{}/../../'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())))</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="kn">import</span> <span class="nn">swsk</span>
+
+<span class="c"># http://pythondatascience.plavox.info/scikit-learn/scikit-learn%E3%81%A7%E6%B1%BA%E5%AE%9A%E6%9C%A8%E5%88%86%E6%9E%90/</span>
+<span class="c"># http://sucrose.hatenablog.com/entry/2013/05/25/133021</span>
+
+<span class="c"># load dataset</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="c"># split dataset into training and test subsets</span>
+<span class="n">tr_x</span><span class="p">,</span> <span class="n">te_x</span><span class="p">,</span> <span class="n">tr_y</span><span class="p">,</span> <span class="n">te_y</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tr_x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">tr_y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">te_x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">te_y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c"># learn</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">swsk</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">DTClassifier</span><span class="p">(</span><span class="n">tr_x</span><span class="p">,</span> <span class="n">tr_y</span><span class="p">,</span> <span class="p">{</span><span class="s">'max_depth'</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span>
+<span class="c"># accuracy</span>
+<span class="n">pred_tr_y</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">tr_x</span><span class="p">)</span>
+<span class="n">pred_te_y</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">te_x</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'accuracy against tr data: {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">tr_y</span><span class="p">,</span> <span class="n">pred_tr_y</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'accuracy against te data: {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">te_y</span><span class="p">,</span> <span class="n">pred_te_y</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+<span class="c"># show tree</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">create_png</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    ['setosa' 'versicolor' 'virginica']
+    ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
+    (90, 4) (90,)
+    (60, 4) (60,)
+    accuracy against tr data: 0.98889
+    accuracy against te data: 0.96667
+</code></pre></div></div>
+
+<p><img src="/assets/images/hajipata/11/decision_tree_0_1.png" alt="png" /></p>
+
+<p>ジニ係数が小さくなるようにノードを分割している。<br />
+なお、<code class="highlighter-rouge">criterion='entropy'</code>とすれば不純度を交差エントロピーに変更できる。</p>
+
+<h3 id="回帰木">回帰木</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s">'{}/../../'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())))</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_boston</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="kn">import</span> <span class="nn">swsk</span>
+
+<span class="c"># load dataset</span>
+<span class="n">boston</span> <span class="o">=</span> <span class="n">load_boston</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="c"># split dataset into training and test subsets</span>
+<span class="n">tr_x</span><span class="p">,</span> <span class="n">te_x</span><span class="p">,</span> <span class="n">tr_y</span><span class="p">,</span> <span class="n">te_y</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">boston</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tr_x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">tr_y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">te_x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">te_y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c"># learn</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">swsk</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">DTRegressor</span><span class="p">(</span><span class="n">tr_x</span><span class="p">,</span> <span class="n">tr_y</span><span class="p">,</span> <span class="p">{</span><span class="s">'max_depth'</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span>
+<span class="c"># accuracy</span>
+<span class="n">pred_tr_y</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">tr_x</span><span class="p">)</span>
+<span class="n">pred_te_y</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">te_x</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'mse against tr data: {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">tr_y</span><span class="p">,</span> <span class="n">pred_tr_y</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'mse accuracy against te data: {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">te_y</span><span class="p">,</span> <span class="n">pred_te_y</span><span class="p">),</span> <span class="mi">5</span><span class="p">)))</span>
+<span class="c"># show tree</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">boston</span><span class="p">)</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">create_png</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    ['CRIM' 'ZN' 'INDUS' 'CHAS' 'NOX' 'RM' 'AGE' 'DIS' 'RAD' 'TAX' 'PTRATIO'
+     'B' 'LSTAT']
+    (303, 13) (303,)
+    (203, 13) (203,)
+    mse against tr data: 11.95696
+    mse accuracy against te data: 30.75719
+</code></pre></div></div>
+
+<p><img src="/assets/images/hajipata/11/decision_tree_1_1.png" alt="png" /></p>
+
+<p>回帰木では、不純度にmean squared errorが使用されている。</p>
+
+<h2 id="章末問題">章末問題</h2>
+
+<h3 id="111">11.1</h3>
+
+<p>決定木Aの$(C_{1}, C_{2})=(50,150)$のノードを$t_{A,L}$, $(150,50)$のノードを$t_{A,R}$、<br />
+決定木Bの$(C_{1}, C_{2})=(100,200)$のノードを$t_{B,L}$, $(100,0)$のノードを$t_{B,R}$とする。</p>
+
+<ul>
+  <li>$P(C_{1}|t_{A,L})=\frac{50}{200}=\frac{1}{4},\quad P(C_{2}|t_{A,L})=\frac{150}{200}=\frac{3}{4}$</li>
+  <li>
+    <p>$P(C_{1}|t_{A,R})=\frac{150}{200}=\frac{3}{4},\quad P(C_{2}|t_{A,R})=\frac{50}{200}=\frac{1}{4}$</p>
+  </li>
+  <li>$P(C_{1}|t_{B,L})=\frac{100}{300}=\frac{1}{3},\quad P(C_{2}|t_{B,L})=\frac{200}{300}=\frac{2}{3}$</li>
+  <li>$P(C_{1}|t_{B,R})=\frac{100}{100}=1,\quad P(C_{2}|t_{B,R})=\frac{0}{100}=0$</li>
+</ul>
+
+<p>(1)</p>
+
+<p>決定木Aの誤り率は$\frac{50}{400}+\frac{50}{400}=\frac{1}{4}$<br />
+決定木Bの誤り率は$\frac{100}{400}+\frac{0}{400}=\frac{1}{4}$</p>
+
+<p>よって、どちらの木も誤り率は同じである。</p>
+
+<p>(2)</p>
+
+<p>決定木Aの総コスト$R_{A}(T)$は</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+R_{A}(T)
+&= \sum_{t\in \{t_{A,L}, t_{A,R}\}} R(t) + \alpha |\tilde{T}| \\
+&= -\sum_{t\in \{t_{A,L}, t_{A,R}\}} \sum_{i=1}^{2} P(C_{i}|t) \ln P(C_{i}|t) + \alpha |\tilde{T}| \\
+&= -2 \left( \frac{1}{4}\ln\frac{1}{4} + \frac{3}{4}\ln\frac{3}{4} \right) + 2\alpha\\
+&= 0.562335\cdots \times 2 + 2\alpha \\
+&= 1.125 + 2\alpha
+\end{align} %]]></script>
+
+<p>決定木Bの総コスト$R_{B}(T)$は</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+R_{B}(T)
+&= \sum_{t\in \{t_{B,L}, t_{B,R}\}} R(t) + \alpha |\tilde{T}| \\
+&= -\sum_{t\in \{t_{B,L}, t_{B,R}\}} \sum_{i=1}^{2} P(C_{i}|t) \ln P(C_{i}|t) + \alpha |\tilde{T}| \\
+&= - \left(\frac{1}{3}\ln\frac{1}{3} + \frac{2}{3}\ln\frac{2}{3} + \ln1 \right) + 2\alpha \\
+&= 0.6365\cdots + 2\alpha
+\end{align} %]]></script>
+
+<p>よって、決定木Bの方が総コストが低い。</p>
+
+<p>(3)</p>
+
+<p>決定木Aの総コスト$R_{A}(T)$は</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+R_{A}(T)
+&= \sum_{t\in \{t_{A,L}, t_{A,R}\}} R(t) + \alpha |\tilde{T}| \\
+&= \sum_{t\in \{t_{A,L}, t_{A,R}\}} \sum_{i=1}^{2} P(C_{i}|t) (1 - P(C_{i}|t)) + \alpha |\tilde{T}| \\
+&= 2 \left( \frac{1}{4}\times\frac{3}{4} + \frac{3}{4}\times\frac{1}{4} \right) + 2\alpha\\
+&= \frac{3}{4} + 2\alpha
+\end{align} %]]></script>
+
+<p>決定木Bの総コスト$R_{B}(T)$は</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+R_{B}(T)
+&= \sum_{t\in \{t_{B,L}, t_{B,R}\}} R(t) + \alpha |\tilde{T}| \\
+&= \sum_{t\in \{t_{B,L}, t_{B,R}\}} \sum_{i=1}^{2} P(C_{i}|t) (1 - P(C_{i}|t)) + \alpha |\tilde{T}| \\
+&= 2 \left( \frac{1}{3}\times\frac{2}{3} + 1\times0 \right) + 2\alpha\\
+&= \frac{4}{9} + 2\alpha
+\end{align} %]]></script>
+
+<p>よって、決定木Bの方が総コストが低い。</p>
+
+<h2 id="参考文献サイト">参考文献・サイト</h2>
+
+<ul>
+  <li><a href="https://www.morikita.co.jp/books/book/2235">はじめてのパターン認識</a> 第11章</li>
+  <li><a href="http://scikit-learn.org/stable/modules/tree.html">1.10. Decision Trees — scikit-learn 0.17.1 documentation</a></li>
+  <li><a href="http://pythondatascience.plavox.info/scikit-learn/scikit-learn%E3%81%A7%E6%B1%BA%E5%AE%9A%E6%9C%A8%E5%88%86%E6%9E%90/">scikit-learn で決定木分析 (CART 法)</a></li>
+</ul>
+
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2016/08/23/hajipata-decision-tree.html" class="hatena-bookmark-button" data-hatena-bookmark-title="はじめてのパターン認識 第11章 決定木 - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+          </div>
+        </div>
+        <footer>
+  This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+</footer>
+
+      </div>
+    </div>
+  </body>
+</html>

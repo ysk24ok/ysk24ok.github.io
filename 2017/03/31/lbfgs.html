@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="author" content="ysk24ok">
+  
+  <meta name="description" content="L-BFGS法の更新式を導出してみる。">
+  <meta property="og:description" content="L-BFGS法の更新式を導出してみる。">
+  
+  <meta property="og:image" content="https://ysk24ok.github.io/assets/images/profile.jpeg">
+  <meta property="og:title" content="L-BFGS法の更新式を導出">
+  <meta property="og:url" content="https://ysk24ok.github.io/2017/03/31/lbfgs.html">
+  <meta property="og:type" content="article">
+  <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+  <!-- MathJax -->
+  <!-- http://docs.mathjax.org/en/latest/start.html#secure-access-to-the-cdn -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- bootstrap -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+  <script src="/assets/js/jquery-2.1.4.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <!-- github.io default -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/stylesheet.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/github-dark.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/assets/css/print.css" media="print">
+  <!-- syntax highlight css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" media="screen">
+  <!-- My customized css -->
+  <link rel="stylesheet" type="text/css" href="/assets/css/main.css" media="screen">
+  <!-- RSS -->
+  <link href="/feed.xml" type="application/rss+xml" rel="alternate" title="ysk24ok.github.io" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131519041-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-131519041-1');
+  </script>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title>L-BFGS法の更新式を導出 - ysk24ok.github.io</title>
+</head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+        <header>
+  <h1><a href="/">ysk24ok.github.io</a></h1>
+</header>
+<nav class="navbar navbar-default" role="navigation">
+  <ul id="main-navigation" class="nav navbar-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+
+        <div class="post-item">
+          <div class="post-header">
+  <h1>
+    <a href="/2017/03/31/lbfgs.html">L-BFGS法の更新式を導出</a>
+  </h1>
+  <ul class="post-tags">
+    
+      <li><a href="#">convex optimization</a></li>
+    
+      <li><a href="#">bfgs</a></li>
+    
+  </ul>
+  
+  <div class="post-date">posted on 31 Mar 2017</div>
+  
+  <hr>
+</div>
+
+          <div class="post-content">
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2017/03/31/lbfgs.html" class="hatena-bookmark-button" data-hatena-bookmark-title="L-BFGS法の更新式を導出 - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+            <p>L-BFGS法の更新式を導出してみる。</p>
+
+<!-- more -->
+
+<h2 id="ニュートン法の復習">ニュートン法の復習</h2>
+
+<p>最小化したい損失関数を$L(\boldsymbol{w})$とする。</p>
+
+<script type="math/tex; mode=display">\boldsymbol{w}_{k+1} = \boldsymbol{w}_{k} - \alpha_{k}\boldsymbol{H}_{k}^{-1}\boldsymbol{g}_{k}</script>
+
+<p>ただし、$\alpha_{k}$はステップ幅、$\boldsymbol{g}_{k}$は勾配ベクトル、$\boldsymbol{H}_{k}$はヘッセ行列である。</p>
+
+<p>詳しくは弊ブログの<a href="/2017/03/03/newton_method.html">ニュートン法の更新式を導出</a>を参照。</p>
+
+<h2 id="bfgs法">BFGS法</h2>
+
+<p>まずBFGS法について。</p>
+
+<h3 id="セカント法-secant-methodによるヘッセ行列の近似">セカント法 (secant method)によるヘッセ行列の近似</h3>
+
+<p>割線法ともいう。求根アルゴリズム（root-finding algorithm）の1種である。<br />
+関数$f(x)$が区間$[x_{n-2}, x_{n-1}]$で連続であり、かつ根が1つだけ存在する場合</p>
+
+<script type="math/tex; mode=display">x_{n+1} = x_{n} - \cfrac{x_{n}-x_{n-1}}{f(x_{n})-f(x_{n-1})} f(x_{n})</script>
+
+<p>として$x$を更新していく。</p>
+
+<p>セカント法を用いて$\boldsymbol{w}_{k}$の更新式を求めると</p>
+
+<script type="math/tex; mode=display">\boldsymbol{w}_{k+1} = \boldsymbol{w}_{k} - \cfrac{\boldsymbol{w}_{k}-\boldsymbol{w}_{k-1}}{\boldsymbol{g}_{k}-\boldsymbol{g}_{k-1}} \boldsymbol{g}_{k}</script>
+
+<p>となる。これは</p>
+
+<script type="math/tex; mode=display">\boldsymbol{H}_{k} \approx \boldsymbol{B}_{k} = \cfrac{\boldsymbol{g}_{k}-\boldsymbol{g}_{k-1}}{\boldsymbol{w}_{k}-\boldsymbol{w}_{k-1}}</script>
+
+<p>とヘッセ行列$\boldsymbol{H}_{k}$を正定値対称行列$\boldsymbol{B}_{k}$で近似していることになる。</p>
+<p><font color="red">（TODO: なぜ$\frac{\boldsymbol{g}_{k}-\boldsymbol{g}_{k-1}}{\boldsymbol{w}_{k}-\boldsymbol{w}_{k-1}}$が正定値対称行列になるのか？）</font></p>
+
+<h3 id="boldsymbolh_kの更新">$\boldsymbol{H}_{k}$の更新</h3>
+
+<p>$\boldsymbol{s}_{k}=\boldsymbol{w}_{k+1}-\boldsymbol{w}_{k},\quad
+ \boldsymbol{y}_{k}=\boldsymbol{g}_{k+1}-\boldsymbol{g}_{k}$とすると、
+$\boldsymbol{H}_{k}$の更新式は、</p>
+
+<script type="math/tex; mode=display">\boldsymbol{H}_{k+1}
+= \left[\boldsymbol{I}-\cfrac{\boldsymbol{s}_{k}\boldsymbol{y}_{k}^{T}}{\boldsymbol{y}_{k}^{T}\boldsymbol{s}_{k}}\right]
+  \boldsymbol{H}_{k}
+  \left[\boldsymbol{I}-\cfrac{\boldsymbol{y}_{k}\boldsymbol{s}_{k}^{T}}{\boldsymbol{y}_{k}^{T}\boldsymbol{s}_{k}}\right]
+  + \cfrac{\boldsymbol{s}_{k}\boldsymbol{s}_{k}^{T}}{\boldsymbol{y}_{k}^{T}\boldsymbol{s}_{k}}</script>
+
+<p>と表される<font color="red">（TODO: 要導出）</font>。</p>
+
+<p>$\boldsymbol{\rho}_{k}=\cfrac{1}{\boldsymbol{y}_{k}^{T}\boldsymbol{s}_{k}},\quad
+ \boldsymbol{V}_{k}=\boldsymbol{I}-\cfrac{\boldsymbol{y}_{k}\boldsymbol{s}_{k}^{T}}{\boldsymbol{y}_{k}^{T}\boldsymbol{s}_{k}}$とすると、</p>
+
+<script type="math/tex; mode=display">\boldsymbol{H}_{k+1}
+= \boldsymbol{V}_{k}^{T} \boldsymbol{H}_{k} \boldsymbol{V}_{k}
+  + \boldsymbol{\rho}_{k}\boldsymbol{s}_{k}\boldsymbol{s}_{k}^{T}</script>
+
+<p>BFGS法ではヘッセ行列を陽に求める必要はなくなったが、<br />
+$\boldsymbol{H}_{k}$は対称行列なので$O(\frac{n^{2}-n}{2}+n)=O(\frac{n^{2}}{2}+\frac{n}{2})$のメモリ領域を必要とする。</p>
+
+<h2 id="lbfgs法">LBFGS法</h2>
+
+<p>更新式を再帰的に展開すると、</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+\boldsymbol{H}_{k+1}
+=&\left(\boldsymbol{V}_{k}^{T}\cdots\boldsymbol{V}_{0}^{T}\right)\boldsymbol{H}_{0}\left(\boldsymbol{V}_{0}\cdots\boldsymbol{V}_{k}\right)  \\
+&+\rho_{0}\left(\boldsymbol{V}_{k}^{T}\cdots\boldsymbol{V}_{1}^{T}\right)\boldsymbol{s}_{0}\boldsymbol{s}_{0}^{T}\left(\boldsymbol{V}_{1}\cdots\boldsymbol{V}_{k}\right)  \\
+&+\rho_{1}\left(\boldsymbol{V}_{k}^{T}\cdots\boldsymbol{V}_{2}^{T}\right)\boldsymbol{s}_{1}\boldsymbol{s}_{1}^{T}\left(\boldsymbol{V}_{2}\cdots\boldsymbol{V}_{k}\right)  \\
+&\quad\vdots \\
+&+\rho_{k}\boldsymbol{s}_{k}\boldsymbol{s}_{k}^{T}
+\end{align} %]]></script>
+
+<p>となる。<br />
+$\boldsymbol{H}_{0}$は正定値対角行列であり、
+$k$ステップ分の$\boldsymbol{w}$と$\boldsymbol{g}$が必要になるのでメモリ使用量は$O((2k+1)n)$。<br />
+つまりステップ数が増えるにつれメモリ使用量も増えてしまう。</p>
+
+<p>そこで、全ステップではなく直近$m$ステップの$\boldsymbol{w}$と$\boldsymbol{g}$を使用するようにする。<br />
+$m$は通常$&lt;10$などの小さい値が取られる。</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+\boldsymbol{H}_{k+1}
+=&\left(\boldsymbol{V}_{k}^{T}\cdots\boldsymbol{V}_{k-m}^{T}\right)\boldsymbol{H}_{0}\left(\boldsymbol{V}_{k-m}\cdots\boldsymbol{V}_{k}\right)  \\
+&+\rho_{k-m}\left(\boldsymbol{V}_{k}^{T}\cdots\boldsymbol{V}_{k-m+1}^{T}\right)\boldsymbol{s}_{k-m}\boldsymbol{s}_{k-m}^{T}\left(\boldsymbol{V}_{k-m+1}\cdots\boldsymbol{V}_{k}\right)  \\
+&+\rho_{k-m+1}\left(\boldsymbol{V}_{k}^{T}\cdots\boldsymbol{V}_{k-m+2}^{T}\right)\boldsymbol{s}_{k-m+1}\boldsymbol{s}_{k-m+1}^{T}\left(\boldsymbol{V}_{k-m+2}\cdots\boldsymbol{V}_{k}\right)  \\
+&\quad\vdots \\
+&+\rho_{k}\boldsymbol{s}_{k}\boldsymbol{s}_{k}^{T}
+\end{align} %]]></script>
+
+<p>直近$m$ステップのみなのでメモリ使用量は$O((2m+1)n)$に抑えられる。</p>
+
+<h2 id="参考文献url">参考文献・URL</h2>
+
+<ul>
+  <li>Nocedal, Jorge. “Updating quasi-Newton matrices with limited storage.” Mathematics of computation 35.151 (1980): 773-782.</li>
+  <li>Liu, Dong C., and Jorge Nocedal. “On the limited memory BFGS method for large scale optimization.” Mathematical programming 45.1 (1989): 503-528.</li>
+  <li><a href="https://www.sist.ac.jp/~suganuma/kougi/other_lecture/SE/num/num.htm#2.3">2.3 セカント法</a></li>
+  <li><a href="https://www.sist.ac.jp/~suganuma/kougi/other_lecture/SE/opt/nonlinear/nonlinear.htm#2.6">2.7 準 Newton 法</a></li>
+  <li><a href="https://abicky.net/2010/06/22/114613/">L-BFGS法はだからメモリが節約できるのか！ - あらびき日記</a></li>
+  <li><a href="http://kotarotanahashi.github.io/blog/2015/10/03/l-bfgsfalseshi-zu-mi/">3分でわかるL-BFGS - Kotaro’s blog</a></li>
+</ul>
+
+            <ul class="social-buttons">
+  <!-- hatena bookmark -->
+  <li>
+    <a href="http://b.hatena.ne.jp/entry/ysk24ok.github.io/2017/03/31/lbfgs.html" class="hatena-bookmark-button" data-hatena-bookmark-title="L-BFGS法の更新式を導出 - ysk24ok.github.io" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加">
+      <img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+    </a>
+    <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+  </li>
+  <!-- twitter -->
+  <li>
+    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </li>
+</ul>
+
+          </div>
+        </div>
+        <footer>
+  This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+</footer>
+
+      </div>
+    </div>
+  </body>
+</html>
