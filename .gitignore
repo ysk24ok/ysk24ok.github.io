@@ -3,6 +3,5 @@ _site/
 .sass-cache/
 .jekyll-cache/
 .jekyll-metadata
-lib/
-slides/
-vendor/
+/slides/
+/vendor/
