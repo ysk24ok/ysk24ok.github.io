@@ -1,4 +1,5 @@
 # Jekyll setting
+timezone: Asia/Tokyo
 source: src
 markdown: kramdown
 kramdown:
