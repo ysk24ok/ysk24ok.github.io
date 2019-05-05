@@ -1,27 +1,141 @@
----
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
 	<channel>
-		<title>{{ site.name | xml_escape }}</title>
-    <description>{% if site.description %}{{ site.description | xml_escape }}{% endif %}</description>
-		<link>{{ site.url }}</link>
-		<atom:link href="{{ site.url }}/{{ page.path }}" rel="self" type="application/rss+xml" />
-		{% for post in site.posts limit:10 %}
+		<title>ysk24ok.github.io</title>
+		<description>My blog posts, slides and past works</description>
+		<link>https://ysk24ok.github.io</link>
+		<atom:link href="https://ysk24ok.github.io/feed.xml" rel="self" type="application/rss+xml" />
+		
 			<item>
-				<title>{{ post.title | xml_escape }}</title>
-				{% if post.author.name %}
-					<dc:creator>{{ post.author.name | xml_escape }}</dc:creator>
-				{% endif %}
-				{% if post.excerpt %}
-					<description>{{ post.excerpt }}</description>
-				{% else %}
-					<description>{{ post.content }}</description>
-				{% endif %}
-				<pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-				<link>{{ site.url }}{{ post.url }}</link>
-				<guid isPermaLink="true">{{ site.url }}{{ post.url }}</guid>
+				<title>jekyll-linkpreviewというJekyll pluginを書いた（がGitHub Pagesで使えなかったので使うために格闘した話）</title>
+				
+				
+					<description><p>jekyll-linkpreviewというJekyll pluginを書いたもののGitHub Pagesで使えなかったので、使えるようにするためにあれこれ格闘した話を書きます。</p>
+
+</description>
+				
+				<pubDate>Tue, 09 Apr 2019 00:00:00 +0900</pubDate>
+				<link>https://ysk24ok.github.io/2019/04/09/release_jekyll_linkpreview.html</link>
+				<guid isPermaLink="true">https://ysk24ok.github.io/2019/04/09/release_jekyll_linkpreview.html</guid>
 			</item>
-		{% endfor %}
+		
+			<item>
+				<title>NII佐藤先生の並行処理に関するブログ記事をまとめる</title>
+				
+				
+					<description><p>最近並行処理について調べていた時に見つけたNII佐藤一郎先生のブログ記事をまとめます。
+やっていることはkazunori279さんの<a href="https://kazunori279.hatenablog.com/entry/20100301/1267405275">こちらの記事</a>と同じですが、何年何月何日の内容なのかリンクがある状態でまとめておきたかったので、、</p>
+
+</description>
+				
+				<pubDate>Fri, 15 Feb 2019 00:00:00 +0900</pubDate>
+				<link>https://ysk24ok.github.io/2019/02/15/blog_posts_abount_concurrency.html</link>
+				<guid isPermaLink="true">https://ysk24ok.github.io/2019/02/15/blog_posts_abount_concurrency.html</guid>
+			</item>
+		
+			<item>
+				<title>2019年にやっていきたいこと</title>
+				
+				
+					<description><p>2019年にやっていきたいことをリストアップする。</p>
+
+</description>
+				
+				<pubDate>Sat, 05 Jan 2019 00:00:00 +0900</pubDate>
+				<link>https://ysk24ok.github.io/2019/01/05/todo_in_2019.html</link>
+				<guid isPermaLink="true">https://ysk24ok.github.io/2019/01/05/todo_in_2019.html</guid>
+			</item>
+		
+			<item>
+				<title>Coursera Deep Learning Specialization course5受講メモ</title>
+				
+				
+					<description><p><a href="https://www.coursera.org/specializations/deep-learning">Coursera Deep Learning Specializaton</a>の<a href="https://www.coursera.org/learn/nlp-sequence-models">course5: Sequence Models</a>を修了したのでメモを残しておく。</p>
+
+</description>
+				
+				<pubDate>Mon, 30 Apr 2018 00:00:00 +0900</pubDate>
+				<link>https://ysk24ok.github.io/2018/04/30/coursera_deeplearning_specialization_course5.html</link>
+				<guid isPermaLink="true">https://ysk24ok.github.io/2018/04/30/coursera_deeplearning_specialization_course5.html</guid>
+			</item>
+		
+			<item>
+				<title>Coursera Deep Learning Specialization course4受講メモ</title>
+				
+				
+					<description><p><a href="https://www.coursera.org/specializations/deep-learning">Coursera Deep Learning Specializaton</a>の<a href="https://www.coursera.org/learn/convolutional-neural-networks">course4: Convolutional Neural Networks</a>を修了したのでメモを残しておく。</p>
+
+</description>
+				
+				<pubDate>Sun, 29 Apr 2018 00:00:00 +0900</pubDate>
+				<link>https://ysk24ok.github.io/2018/04/29/coursera_deeplearning_specialization_course4.html</link>
+				<guid isPermaLink="true">https://ysk24ok.github.io/2018/04/29/coursera_deeplearning_specialization_course4.html</guid>
+			</item>
+		
+			<item>
+				<title>「マーケット・デザイン オークションとマッチングの経済学」を読んだ</title>
+				
+				
+					<description><p>「マーケット・デザイン オークションとマッチングの経済学」を読んだので、感想と内容のメモを残しておく。</p>
+
+</description>
+				
+				<pubDate>Sat, 10 Mar 2018 00:00:00 +0900</pubDate>
+				<link>https://ysk24ok.github.io/2018/03/10/market_design_for_auction_and_matching.html</link>
+				<guid isPermaLink="true">https://ysk24ok.github.io/2018/03/10/market_design_for_auction_and_matching.html</guid>
+			</item>
+		
+			<item>
+				<title>信頼区間(confidence interval)と信用区間(credible interval)の違い</title>
+				
+				
+					<description><p>信頼区間(confidence interval)と信用区間(credible interval)の違いをメモしておく。</p>
+
+</description>
+				
+				<pubDate>Thu, 01 Mar 2018 00:00:00 +0900</pubDate>
+				<link>https://ysk24ok.github.io/2018/03/01/difference_between_confidence_interval_and_credible_interval.html</link>
+				<guid isPermaLink="true">https://ysk24ok.github.io/2018/03/01/difference_between_confidence_interval_and_credible_interval.html</guid>
+			</item>
+		
+			<item>
+				<title>reserve price最適化のpaperまとめ</title>
+				
+				
+					<description><p>reserve price(floor price)最適化の論文をいくつか読んだので内容をメモ。</p>
+
+</description>
+				
+				<pubDate>Wed, 14 Feb 2018 00:00:00 +0900</pubDate>
+				<link>https://ysk24ok.github.io/2018/02/14/papers_of_reserve_price_optimization.html</link>
+				<guid isPermaLink="true">https://ysk24ok.github.io/2018/02/14/papers_of_reserve_price_optimization.html</guid>
+			</item>
+		
+			<item>
+				<title>CourseraのDeep Learning Specializaton course3受講メモ</title>
+				
+				
+					<description><p>Courseraの<a href="https://www.coursera.org/specializations/deep-learning">Deep Learning Specializaton</a>の<a href="https://www.coursera.org/learn/machine-learning-projects">course3: Structuring Machine Learning Projects</a>を修了したのでメモを残しておく。</p>
+
+</description>
+				
+				<pubDate>Fri, 12 Jan 2018 00:00:00 +0900</pubDate>
+				<link>https://ysk24ok.github.io/2018/01/12/coursera_deeplearning_specializaion_course3.html</link>
+				<guid isPermaLink="true">https://ysk24ok.github.io/2018/01/12/coursera_deeplearning_specializaion_course3.html</guid>
+			</item>
+		
+			<item>
+				<title>CourseraのDeep Learning Specializaton course2受講メモ</title>
+				
+				
+					<description><p><a href="https://www.deeplearning.ai/">deeplearning.ai</a>が提供する<a href="https://www.coursera.org/specializations/deep-learning">Deep Learning Specializaton</a>の<a href="https://www.coursera.org/learn/deep-neural-network">course2</a>を受講したのでメモを残しておく。</p>
+
+</description>
+				
+				<pubDate>Sun, 31 Dec 2017 00:00:00 +0900</pubDate>
+				<link>https://ysk24ok.github.io/2017/12/31/coursera_deeplearning_course2.html</link>
+				<guid isPermaLink="true">https://ysk24ok.github.io/2017/12/31/coursera_deeplearning_course2.html</guid>
+			</item>
+		
 	</channel>
 </rss>
