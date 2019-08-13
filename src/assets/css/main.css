@@ -148,6 +148,21 @@ footer {
   margin-bottom: 10px;
 }
 
+.post-content table thead th {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.post-content table tbody td {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+}
+
 .post-content .img-centering {
   margin: 10px auto;
   text-align: center;

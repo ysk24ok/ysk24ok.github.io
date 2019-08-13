@@ -7,6 +7,19 @@
 		<atom:link href="https://ysk24ok.github.io/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Dockerのrestart policyごとの違いを表でまとめてみる</title>
+				
+				
+					<description><p>Dockerのrestart policyごとの違いが説明文だけだといまいちピンと来なかったので、実際に試した結果を表にまとめる。</p>
+
+</description>
+				
+				<pubDate>Wed, 07 Aug 2019 00:00:00 +0900</pubDate>
+				<link>https://ysk24ok.github.io/2019/08/07/docker_restart_policy.html</link>
+				<guid isPermaLink="true">https://ysk24ok.github.io/2019/08/07/docker_restart_policy.html</guid>
+			</item>
+		
+			<item>
 				<title>jekyll-linkpreviewというJekyll pluginを書いた（がGitHub Pagesで使えなかったので使うために格闘した話）</title>
 				
 				
@@ -122,19 +135,6 @@
 				<pubDate>Fri, 12 Jan 2018 00:00:00 +0900</pubDate>
 				<link>https://ysk24ok.github.io/2018/01/12/coursera_deeplearning_specializaion_course3.html</link>
 				<guid isPermaLink="true">https://ysk24ok.github.io/2018/01/12/coursera_deeplearning_specializaion_course3.html</guid>
-			</item>
-		
-			<item>
-				<title>CourseraのDeep Learning Specializaton course2受講メモ</title>
-				
-				
-					<description><p><a href="https://www.deeplearning.ai/">deeplearning.ai</a>が提供する<a href="https://www.coursera.org/specializations/deep-learning">Deep Learning Specializaton</a>の<a href="https://www.coursera.org/learn/deep-neural-network">course2</a>を受講したのでメモを残しておく。</p>
-
-</description>
-				
-				<pubDate>Sun, 31 Dec 2017 00:00:00 +0900</pubDate>
-				<link>https://ysk24ok.github.io/2017/12/31/coursera_deeplearning_course2.html</link>
-				<guid isPermaLink="true">https://ysk24ok.github.io/2017/12/31/coursera_deeplearning_course2.html</guid>
 			</item>
 		
 	</channel>
