@@ -18,7 +18,7 @@ paginate: 10
 paginate_path: "/page/:num"
 
 # title
-name: ysk24ok.github.io
+title: ysk24ok.github.io
 description: My blog posts, slides and past works
 url: https://ysk24ok.github.io
 github_url: https://github.com/ysk24ok
