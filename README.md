@@ -17,8 +17,8 @@ $ docker run --rm -v ${PWD}:/blog -p 4000:4000 ysk24ok/ysk24ok.github.io \
 Run `jekyll build`.
 
 ```sh
-$ docker run --rm -v ${PWD}:/blog ysk24ok/ysk24ok.github.io \
-  bundle exec jekyll build
+$ docker run --rm -e JEKYLL_ENV=production -v ${PWD}:/blog \
+  ysk24ok/ysk24ok.github.io bundle exec jekyll build
 ```
 
 Copy built files to the root directory before `git commit`.
