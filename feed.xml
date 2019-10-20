@@ -7,6 +7,19 @@
 		<atom:link href="https://ysk24ok.github.io/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>認定スクラムマスターになりました</title>
+				
+				
+					<description><p>認定スクラムマスターになったので、認定スクラムマスター研修で学んだことをまとめてみます。</p>
+
+</description>
+				
+				<pubDate>Fri, 18 Oct 2019 00:00:00 +0900</pubDate>
+				<link>https://ysk24ok.github.io/2019/10/18/become_a_certified_scrummaster.html</link>
+				<guid isPermaLink="true">https://ysk24ok.github.io/2019/10/18/become_a_certified_scrummaster.html</guid>
+			</item>
+		
+			<item>
 				<title>Dockerのrestart policyごとの違いを表でまとめてみる</title>
 				
 				
@@ -122,19 +135,6 @@
 				<pubDate>Wed, 14 Feb 2018 00:00:00 +0900</pubDate>
 				<link>https://ysk24ok.github.io/2018/02/14/papers_of_reserve_price_optimization.html</link>
 				<guid isPermaLink="true">https://ysk24ok.github.io/2018/02/14/papers_of_reserve_price_optimization.html</guid>
-			</item>
-		
-			<item>
-				<title>CourseraのDeep Learning Specializaton course3受講メモ</title>
-				
-				
-					<description><p>Courseraの<a href="https://www.coursera.org/specializations/deep-learning">Deep Learning Specializaton</a>の<a href="https://www.coursera.org/learn/machine-learning-projects">course3: Structuring Machine Learning Projects</a>を修了したのでメモを残しておく。</p>
-
-</description>
-				
-				<pubDate>Fri, 12 Jan 2018 00:00:00 +0900</pubDate>
-				<link>https://ysk24ok.github.io/2018/01/12/coursera_deeplearning_specializaion_course3.html</link>
-				<guid isPermaLink="true">https://ysk24ok.github.io/2018/01/12/coursera_deeplearning_specializaion_course3.html</guid>
 			</item>
 		
 	</channel>
