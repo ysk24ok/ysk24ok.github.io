@@ -8,7 +8,7 @@ This blog is served at https://ysk24ok.github.io/ by [Github Pages](https://page
 Run `jekyll serve`.
 
 ```sh
-$ docker run --rm -it -v ${PWD}:/blog -p 4000:4000 ysk24ok/ysk24ok.github.io \
+$ docker run --rm -v ${PWD}:/blog -p 4000:4000 ysk24ok/ysk24ok.github.io \
   bundle exec jekyll serve --host 0.0.0.0
 ```
 
@@ -17,7 +17,7 @@ $ docker run --rm -it -v ${PWD}:/blog -p 4000:4000 ysk24ok/ysk24ok.github.io \
 Run `jekyll build`.
 
 ```sh
-$ docker run --rm -it -v ${PWD}:/blog ysk24ok/ysk24ok.github.io \
+$ docker run --rm -v ${PWD}:/blog ysk24ok/ysk24ok.github.io \
   bundle exec jekyll build
 ```
 
