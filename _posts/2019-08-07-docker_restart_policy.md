@@ -10,7 +10,27 @@ Dockerのrestart policyごとの違いが説明文だけだといまいちピン
 
 <!-- more -->
 
-{% linkpreview https://docs.docker.com/config/containers/start-containers-automatically/ %}
+<div class="jekyll-linkpreview-wrapper">
+  <p><a href="https://docs.docker.com/config/containers/start-containers-automatically/" target="_blank">https://docs.docker.com/config/containers/start-containers-automatically/</a></p>
+  <div class="jekyll-linkpreview-wrapper-inner">
+    <div class="jekyll-linkpreview-content">
+      <div class="jekyll-linkpreview-image">
+        <a href="https://docs.docker.com/config/containers/start-containers-automatically/" target="_blank">
+          <img src="//docs.docker.com/favicons/docs@2x.ico" />
+        </a>
+      </div>
+      <div class="jekyll-linkpreview-body">
+        <h2 class="jekyll-linkpreview-title">
+          <a href="https://docs.docker.com/config/containers/start-containers-automatically/" target="_blank">Start containers automatically</a>
+        </h2>
+        <div class="jekyll-linkpreview-description">Docker provides restart policies to control whether your containers start automatically when they exit, or when Docker restarts. Restart policies ensure that linked containers are started in the correct order....</div>
+      </div>
+    </div>
+    <div class="jekyll-linkpreview-footer">
+      <a href="//docs.docker.com" target="_blank">docs.docker.com</a>
+    </div>
+  </div>
+</div>
 
 o=再起動する・x=再起動しないとして表にまとめると、
 

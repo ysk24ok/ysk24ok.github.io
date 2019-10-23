@@ -28,13 +28,35 @@ jekyll-linkpreviewというJekyll pluginを書いたもののGitHub Pagesで使�
 
 プレビューを表示させたいURLを `linkpreview`コマンドに渡すと、
 
-{% linkpreview https://github.com/ysk24ok/jekyll-linkpreview %}
+<div class="jekyll-linkpreview-wrapper">
+  <p><a href="https://github.com/ysk24ok/jekyll-linkpreview" target="_blank">https://github.com/ysk24ok/jekyll-linkpreview</a></p>
+  <div class="jekyll-linkpreview-wrapper-inner">
+    <div class="jekyll-linkpreview-content">
+      <div class="jekyll-linkpreview-image">
+        <a href="https://github.com/ysk24ok/jekyll-linkpreview" target="_blank">
+          <img src="https://avatars2.githubusercontent.com/u/3449164?s=400&amp;v=4" />
+        </a>
+      </div>
+      <div class="jekyll-linkpreview-body">
+        <h2 class="jekyll-linkpreview-title">
+          <a href="https://github.com/ysk24ok/jekyll-linkpreview" target="_blank">ysk24ok/jekyll-linkpreview</a>
+        </h2>
+        <div class="jekyll-linkpreview-description">Jekyll plugin to generate link preview. Contribute to ysk24ok/jekyll-linkpreview development by creating an account on GitHub.</div>
+      </div>
+    </div>
+    <div class="jekyll-linkpreview-footer">
+      <a href="//github.com" target="_blank">github.com</a>
+    </div>
+  </div>
+</div>
 
 のようにプレビューを表示してくれる。
 
 そのページの[Open Graph protocol](http://ogp.me/)をfetchしてきてHTMLを出力するので、OGPタグが設定されていないページだとプレビューは表示されない。例えば阿部寛氏の公式HPだと
 
-{% linkpreview http://abehiroshi.la.coocan.jp/ %}
+<div class="jekyll-linkpreview-wrapper">
+  <p><a href="http://abehiroshi.la.coocan.jp/" target="_blank">http://abehiroshi.la.coocan.jp/</a></p>
+</div>
 
 とだけ表示される。
 

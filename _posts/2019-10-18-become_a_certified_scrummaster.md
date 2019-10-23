@@ -10,7 +10,27 @@ description: "認定スクラムマスターになったので、認定スクラ
 
 <!-- more -->
 
-{% linkpreview https://www.odd-e.jp/training/course-detail/59 %}
+<div class="jekyll-linkpreview-wrapper">
+  <p><a href="https://www.odd-e.jp/training/course-detail/59" target="_blank">https://www.odd-e.jp/training/course-detail/59</a></p>
+  <div class="jekyll-linkpreview-wrapper-inner">
+    <div class="jekyll-linkpreview-content">
+      <div class="jekyll-linkpreview-image">
+        <a href="https://www.odd-e.jp/training/course-detail/59" target="_blank">
+          <img src="https://s3-us-west-2.amazonaws.com/odde-training-production/1529052426_training_imageFileFirst.jpg" />
+        </a>
+      </div>
+      <div class="jekyll-linkpreview-body">
+        <h2 class="jekyll-linkpreview-title">
+          <a href="https://www.odd-e.jp/training/course-detail/59" target="_blank">Certified ScrumMaster®2019/10/2-4｜スクラム認定資格取得トレーニング｜Odd-e Japan</a>
+        </h2>
+        <div class="jekyll-linkpreview-description">Summary Of Training For SEO当日はOdd-eのAgileコーチ榎本明仁がAlan Cyment（アラン・サイメント）と協力して、日本語で行います。本研修は、Tokyo Agile CoachのAgileコーチ榎本明仁及びAlan Cyment（アラン・サイメント）が担当します。アクティビティやディスカッションを含め、全て日本語で行われます。英語に自信のない方も安心してご参加いただけます。※This training will be supported by an interpreter. However, this course has a lot of group activity.&nbsp;Most of atte...</div>
+      </div>
+    </div>
+    <div class="jekyll-linkpreview-footer">
+      <a href="//training.odd-e.jp" target="_blank">training.odd-e.jp</a>
+    </div>
+  </div>
+</div>
 
 10/2-4に秋葉原でおこなわれたOdd-e Japanの認定スクラムマスター研修に同僚と一緒に参加しました。トレーナーは[Alan Cyment](https://twitter.com/acyment)というアルゼンチンの方で、今回のトレーニングのために30時間かけて（！）来日されたそうです。10/18にオンラインの筆記テストを受けて合格し、無事にScrum Allianceの認定スクラムマスターになりました。
 
