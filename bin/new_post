@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 [title]"
+  exit 1
+fi
+
+title=$1
+
+YYYY=$(date "+%Y")
+MM=$(date "+%m")
+DD=$(date "+%d")
+
+rootdir=$(realpath $(dirname $0)/../)
+postpath=$rootdir/_posts/$YYYY-$MM-$DD-$title.md
+touch $postpath
+
+msg=$(cat << EOS
+---
+layout: post
+title: 
+tags: []
+type: article
+description: 
+---
+
+<!-- more -->
+EOS
+)
+echo -e "$msg" > $postpath
+echo $postpath is created.
