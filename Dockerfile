@@ -12,7 +12,6 @@ RUN apt-get update \
   && apt autoremove
 # Install gems
 COPY Gemfile $DIR/
-COPY Gemfile.lock $DIR/
 RUN gem install bundler \
   && cd $DIR \
   && bundle install
