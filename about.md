@@ -35,7 +35,8 @@ I'm a software engineer, whose interest is to bridge between data science and so
 
 # Tech posts
 
-- [bit vectorで編集距離の計算を高速化する](https://tech.retrieva.jp/entry/2019/06/17/101030), Jun, 2019
+- [音声認識エンジンの深層学習フレームワークをChainerからPyTorchに移行しました - Retrieva TECH BLOG](https://tech.retrieva.jp/entry/2020/08/11/123453), Aug, 2020
+- [bit vectorで編集距離の計算を高速化する - Retrieva TECH BLOG](https://tech.retrieva.jp/entry/2019/06/17/101030), Jun, 2019
 
 # Tech talks
 
