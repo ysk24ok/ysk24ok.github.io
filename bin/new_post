@@ -1,21 +1,14 @@
 #!/bin/bash
 
 if [ $# -ne 1 ]; then
-  echo "Usage: $0 [title]"
+  echo "Usage: $0 [title]" 1>&2
   exit 1
 fi
 
 title=$1
+post_path=$(dirname $0)/../_posts/$(date "+%Y-%m-%d")-$title.md
 
-YYYY=$(date "+%Y")
-MM=$(date "+%m")
-DD=$(date "+%d")
-
-rootdir=$(realpath $(dirname $0)/../)
-postpath=$rootdir/_posts/$YYYY-$MM-$DD-$title.md
-touch $postpath
-
-msg=$(cat << EOS
+content=$(cat << EOS
 ---
 layout: post
 title: 
@@ -27,5 +20,5 @@ description:
 <!-- more -->
 EOS
 )
-echo -e "$msg" > $postpath
-echo $postpath is created.
+echo -e "$content" > $post_path
+echo $post_path is created.
