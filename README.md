@@ -7,31 +7,25 @@ This blog is served at https://ysk24ok.github.io/ by [Github Pages](https://page
 
 Run `docker build`.
 
-```sh
+```console
 $ docker build -t ysk24ok/ysk24ok.github.io:YYYYMMDD .
 $ docker tag ysk24ok/ysk24ok.github.io:YYYYMMDD ysk24ok/ysk24ok.github.io
 ```
 
+## Creating a new post
+
+Run `bin/new_post` .
+
+```console
+$ bin/new_post new_post_about_something
+```
+
+This command creates `_posts/YYYY-MM-DD_new_post_about_something` .
+
 ## Serving locally
 
-Run `jekyll serve`.
+Run `bin/serve` .
 
-```sh
-$ docker run --rm -v ${PWD}:/blog -p 4000:4000 ysk24ok/ysk24ok.github.io \
-  bundle exec jekyll serve --host 0.0.0.0
-```
-
-## Building site
-
-Run `jekyll build`.
-
-```sh
-$ docker run --rm -e JEKYLL_ENV=production -v ${PWD}:/blog \
-  ysk24ok/ysk24ok.github.io bundle exec jekyll build
-```
-
-Copy built files to the root directory before `git commit`.
-
-```sh
-$ cp -r _site/* ./
+```console
+$ bin/serve
 ```
