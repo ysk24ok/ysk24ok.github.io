@@ -3,7 +3,7 @@ layout: post
 title: Passing pywrapfst objects to C++ using Cython
 tags: [Cython, Python, C++, OpenFst]
 type: article
-description:
+description: OpenFst provides Python binding which can be imported by import pywrapfst. In this article, I'll describe how to pass pywrapfst objects (such as pywrapfst.MutableFst) to C++ code using Cython.
 ---
 
 [OpenFst](http://www.openfst.org/twiki/bin/view/FST/WebHome) provides Python binding which can be imported by `import pywrapfst`.
