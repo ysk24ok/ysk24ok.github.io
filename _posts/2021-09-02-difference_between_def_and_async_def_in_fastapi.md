@@ -3,10 +3,10 @@ layout: post
 title: The difference between def and async def in FastAPI
 tags: [FastAPI]
 type: article
-description: I got curious about the difference between `def` and `async def` for path operations of FastAPI especially when the task is purely CPU-intensive and checked what's going on behind the scenes.
+description: I was curious about the difference between `def` and `async def` for path operations of FastAPI, especially when the task is purely CPU-intensive, and decided to check what's going on behind the scenes.
 ---
 
-I got curious about the difference between `def` and `async def` for path operations of [FastAPI](https://github.com/tiangolo/fastapi) especially when the task is purely CPU-intensive and checked what's going on behind the scenes.
+I was curious about the difference between `def` and `async def` for path operations of [FastAPI](https://github.com/tiangolo/fastapi), especially when the task is purely CPU-intensive, and decided to check what's going on behind the scenes.
 
 <!-- more -->
 
@@ -14,16 +14,16 @@ I got curious about the difference between `def` and `async def` for path operat
 
 [This page](https://fastapi.tiangolo.com/async) refers to when we should and should not use `async def`.
 
-It says, if a path operation contains a function call with I/O which can be called with `await`, we should use `async def`, and if a path operation contains an I/O call which cannot be called with `await`, we should use `def` .
+According to the page, if a path operation contains a function call with I/O which can be called with `await`, we should use `async def`, and if a path operation contains an I/O call which cannot be called with `await`, we should use `def` .
 
-But what if a path operation contains only purely CPU-intensive task?
+But what if a path operation contains only a purely CPU-intensive task?
 What is the difference between `async def` and `def` in that case?
 
-[Techical Details section of the page](https://fastapi.tiangolo.com/async/#path-operation-functions) says
+[The Techical Details section of the page](https://fastapi.tiangolo.com/async/#path-operation-functions) says
 
 > When you declare a path operation function with normal `def` instead of `async def`, it is run in an external threadpool that is then awaited, instead of being called directly (as it would block the server).
 
-It can be read that FastAPI can process requests without blocking by leveraging a threadpool when the path operation is declared with `def`.
+The quotation states that FastAPI can process requests without blocking by leveraging a threadpool when the path operation is declared with `def`.
 
 Let's try it out.
 
@@ -31,7 +31,7 @@ Let's try it out.
 
 ## Environment
 
-My laptop is Thinkpad X1 Carbon Gen5 (old model, by the way) and has 2.50 GHz 2 physical cores and 4 logical cores.
+My laptop is a Thinkpad X1 Carbon Gen5 (old model, by the way) and has 2.50 GHz 2 physical cores and 4 logical cores.
 
 I used Ubuntu 20.04 on WSL2.
 
@@ -57,7 +57,7 @@ uvicorn==0.15.0
 
 ## Code
 
-`main.py` is like this. Here `root()` is purely CPU-intensive task.
+`main.py` works like this. Here `root()` is a purely CPU-intensive task.
 The path accepts `client_id` as a path parameter and logs are output at the beginning and end of the function to show when the server starts and ends processing a request.
 
 ```python
@@ -77,20 +77,17 @@ async def root(client_id):
     return {}
 ```
 
-This client shell script sends GET request endlessly.
-This is executed in several terminals to check 
+This client shell script sends GET requests endlessly.
+This is executed in several terminals to check that the server can process requests without blocking.
 
 ```sh
 while :
 do
-curl -X GET 127.0.0.1:8000 -d "{"client"}"
+curl -X GET 127.0.0.1:8000/$1
 done
 ```
 
-
-## Result
-
-### When `async def` is used
+## The result when `async def` is used
 
 Start the uvicorn server. Note that the number of uvicorn workers is one.
 
@@ -100,7 +97,7 @@ $ uvicorn main:app
 
 Then, execute the shell script in multiple terminals. I used 4.
 
-The server log will be like this. It shows the server processes requests sequentially.
+The server log will be like this. It shows that the server processes requests sequentially.
 Since there is no `await` call in this function, the Python runtime doesn't switch coroutines, which leads to sequential processing.
 
 ```
@@ -132,7 +129,7 @@ MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.   4569.2 avail Mem
  2950 ysk24ok   20   0   40052  30800  13120 R  99.9   0.5   0:12.54 uvicorn
 ```
 
-### When `def` is used
+### The result when `def` is used
 
 Update `main.py` to change `async def` to `def` and start the server.
 
@@ -141,7 +138,7 @@ $ uvicorn main:app
 ```
 
 Then, execute the client shell script in 4 terminals.
-Unlink `async def` , the server processes requests concurrently.
+Unlike `async def` , the server processes requests concurrently.
 
 ```
 Start processing a request from client: 1
@@ -162,10 +159,10 @@ INFO:     127.0.0.1:35244 - "GET /4 HTTP/1.1" 200 OK
 ```
 
 Here is the output of `top -H` .
-There are 5 threads (1 parent thread and 4 child threads).
+There are 5 threads (1 main thread and 4 child threads).
 This is the "threadpool" the document is talking about.
-When a new request arrives and existing threads are in execution, a new thread is spawned and begins to process the request.
-Thus the server works as if it's asyncrounous.
+When a new request arrives and existing threads are being executed, a new thread is spawned and begins to process the request.
+Thus the server works as if it's asyncronous.
 But all threads utilize only 100% of CPU probably because of Python's GIL (global interpreter lock).
 
 ```
@@ -183,10 +180,10 @@ MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.   4582.2 avail Mem
  4166 ysk24ok   20   0  334980  30884  13100 S   0.3   0.5   0:00.31 uvicorn
 ```
 
-Thread switching which happens at the kernel level is more expensive than couroutine switching which happens at the user level.
-Processing lots of requests at the same time generates the large number of threads and all of them compete for CPU, which might cause performace degradation.
+Thread switching which happens at the kernel level is more expensive than coroutine switching which happens at the user level.
+Processing lots of requests at the same time generates the large number of threads and all of them compete for CPU, which might cause performance degradation.
 
 
 # Summary
 
-I think we should use `async def` if the path operation is CPU-intensive and the operation has to process lots of requests simultaneously, because using `def` creates lots of threads which can cause CPU contention.
+I think we should use `async def` if the path operation is CPU-intensive and the operation has to process numerous requests simultaneously, because using `def` creates lots of threads which can cause CPU contention.
