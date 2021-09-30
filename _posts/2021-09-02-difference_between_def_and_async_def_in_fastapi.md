@@ -87,7 +87,9 @@ curl -X GET 127.0.0.1:8000/$1
 done
 ```
 
-## The result when `async def` is used
+## Result
+
+### When `async def` is used
 
 Start the uvicorn server. Note that the number of uvicorn workers is one.
 
@@ -129,7 +131,7 @@ MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.   4569.2 avail Mem
  2950 ysk24ok   20   0   40052  30800  13120 R  99.9   0.5   0:12.54 uvicorn
 ```
 
-### The result when `def` is used
+### When `def` is used
 
 Update `main.py` to change `async def` to `def` and start the server.
 

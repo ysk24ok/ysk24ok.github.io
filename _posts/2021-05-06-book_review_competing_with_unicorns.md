@@ -37,7 +37,7 @@ description: 「ユニコーン企業のひみつ」を読んだので感想を�
 
 # どんな本？
 
-[アジャイルサムライ](https://shop.ohmsha.co.jp/shopdetail/000000001901/)の著者であるJonathan RasmussonがSpotifyで働いた経験をもとに、動きの遅い従来型のエンタープライズがどう変わっていけばよいかを指南した本です。
+[アジャイルサムライ]((https://shop.ohmsha.co.jp/shopdetail/000000001901/))の著者であるJonathan RasmussonがSpotifyで働いた経験をもとに、動きの遅い従来型のエンタープライズがどう変わっていけばよいかを指南した本です。
 
 # 気になった点
 
