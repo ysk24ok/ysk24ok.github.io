@@ -188,47 +188,6 @@ footer {
   padding-left: 0;
 }
 
-/* for slide */
-.slides table {
-  /* margin-top: 30px; */
-  margin-bottom: 30px;
-}
-
-.slides table caption {
-  font-size: 24px;
-}
-
-.slides th {
-  font-size: 28px;
-  background-color: #eee;
-  border: 1px solid;
-}
-
-.slides td {
-  font-size: 28px;
-  border: 1px solid;
-}
-
-.slides .MathJax_Display {
-  margin: 30px 0px;
-}
-
-.slides h1.very-large-font {
-  font-size: 6em;
-}
-
-.slides h1, .slides h2, .slides h3 {
-  text-transform: none;
-}
-
-.slides .ref {
-  font-size: 0.5em;
-}
-
-.slides pre code {
-  max-height: 400px;
-}
-
 .jekyll-linkpreview-wrapper {
   max-width: 600px;
   margin-bottom: 20px;
