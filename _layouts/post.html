@@ -5,14 +5,16 @@
     <div id="container">
       <div class="inner">
         {% include header.html %}
-        <div class="post-item">
-          {% include post_header.html page_obj=page %}
-          <div class="post-content">
-            {% include social.html %}
-            {{ content }}
-            {% include social.html %}
+        <section id="main_content">
+          <div class="post-item">
+            {% include post_header.html page_obj=page %}
+            <div class="post-content">
+              {% include social.html %}
+              {{ content }}
+              {% include social.html %}
+            </div>
           </div>
-        </div>
+        </section>
         {% include footer.html %}
       </div>
     </div>

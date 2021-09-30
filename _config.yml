@@ -1,5 +1,6 @@
 # Jekyll setting
 timezone: Asia/Tokyo
+remote_theme: pages-themes/tactile@v0.2.0
 markdown: kramdown
 kramdown:
   input: GFM
@@ -8,6 +9,7 @@ plugins:
   - jekyll-gist
   - jekyll-paginate
   - jekyll-linkpreview
+  - jekyll-remote-theme
   - rouge
 highlighter: rouge
 exclude:

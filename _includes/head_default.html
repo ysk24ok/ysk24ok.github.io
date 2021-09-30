@@ -30,15 +30,9 @@
   <link rel="stylesheet" type="text/css" href="{{ site.asset_path }}/css/bootstrap.min.css">
   <script src="{{ site.asset_path }}/js/jquery-2.1.4.min.js"></script>
   <script src="{{ site.asset_path }}/js/bootstrap.min.js"></script>
-  <!-- github.io default -->
-  <link rel="stylesheet" type="text/css" href="{{ site.asset_path }}/css/stylesheet.css" media="screen">
-  <link rel="stylesheet" type="text/css" href="{{ site.asset_path }}/css/github-dark.css" media="screen">
-  <link rel="stylesheet" type="text/css" href="{{ site.asset_path }}/css/print.css" media="print">
-  <!-- syntax highlight css -->
-  <link rel="stylesheet" type="text/css" href="{{ site.asset_path }}/css/syntax.css" media="screen">
-  <!-- My customized css -->
-  <link rel="stylesheet" type="text/css" href="{{ site.asset_path }}/css/linkpreview.css" media="screen">
-  <link rel="stylesheet" type="text/css" href="{{ site.asset_path }}/css/main.css" media="screen">
+  <!-- tactile css -->
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+  <link rel="stylesheet" type="text/css" href="{{ '/assets/css/print.css' | relative_url }}" media="print">
   <!-- RSS -->
   <link href="/feed.xml" type="application/rss+xml" rel="alternate" title="{{ site.title }}" />
 {% if jekyll.environment != "development" %}
