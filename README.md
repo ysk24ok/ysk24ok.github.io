@@ -8,7 +8,7 @@ This blog is served at https://ysk24ok.github.io/ by [Github Pages](https://page
 Run `docker build`.
 
 ```console
-$ docker build -t ysk24ok/ysk24ok.github.io:YYYYMMDD .
+$ docker build --no-cache -t ysk24ok/ysk24ok.github.io:YYYYMMDD .
 $ docker tag ysk24ok/ysk24ok.github.io:YYYYMMDD ysk24ok/ysk24ok.github.io
 ```
 
