@@ -12,6 +12,10 @@ body {
   font-family: arial, sans-serif;
 }
 
+.inner {
+  width: 750px;
+}
+
 .pagination {
   margin: 5px 0;
   text-align: center;
@@ -105,30 +109,6 @@ footer {
 /* for post */
 .post-content {
   padding: 0px 20px 10px;
-}
-
-.post-content h1 {
-  font-size: 22px;
-  font-weight: normal;
-  color: #696969;
-  border-bottom: solid 1px #808080;
-  margin-bottom: 15px;
-}
-
-.post-content h2 {
-  font-size: 20px;
-  font-weight: normal;
-  color: #696969;
-  margin-bottom: 12px;
-}
-
-.post-content h3 {
-  font-weight: normal;
-  color: #696969;
-}
-
-.post-content hr {
-  border-top: dashed 1px #708090;
 }
 
 .post-content ul, ol {
