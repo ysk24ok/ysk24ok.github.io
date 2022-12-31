@@ -5,27 +5,22 @@ This blog is served at https://ysk24ok.github.io/ by [Github Pages](https://page
 
 ## Building Docker image
 
-Run `docker build`.
-
 ```console
-$ docker build --no-cache -t ysk24ok/ysk24ok.github.io:YYYYMMDD .
-$ docker tag ysk24ok/ysk24ok.github.io:YYYYMMDD ysk24ok/ysk24ok.github.io
+$ make build
 ```
+
+This command builds `ysk24ok/ysk24ok.github.io:YYYYMMDD` and `ysk24ok/ysk24ok.github.io:latest` images.
 
 ## Creating a new post
 
-Run `bin/new_post` .
-
 ```console
-$ bin/new_post new_post_about_something
+$ make new TITLE=new_post_about_something
 ```
 
-This command creates `_posts/YYYY-MM-DD_new_post_about_something` .
+This command creates `_posts/YYYY-MM-DD-new_post_about_something.md`.
 
 ## Serving locally
 
-Run `bin/serve` .
-
 ```console
-$ bin/serve
+$ make serve
 ```
