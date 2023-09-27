@@ -6,6 +6,7 @@ kramdown:
   input: GFM
   hard_wrap: false
 plugins:
+  - jekyll-feed
   - jekyll-gist
   - jekyll-linkpreview
   - rouge
