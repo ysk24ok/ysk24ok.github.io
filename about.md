@@ -12,7 +12,6 @@ I'm a software engineer, whose interest is to bridge between data science and so
 * [GitHub](https://github.com/ysk24ok)
 * [LinkedIn](https://jp.linkedin.com/in/nishioka-yusuke-ab1b6767)
 * [LeetCode](https://leetcode.com/ysk24ok/)
-* [SlideShare](http://www.slideshare.net/NishiokaYusuke)
 * [Qiita](http://qiita.com/ysk24ok)
 * [Medium](https://medium.com/@ysk24ok)
 
