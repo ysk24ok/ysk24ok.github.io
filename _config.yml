@@ -1,6 +1,6 @@
 # Jekyll setting
 timezone: Asia/Tokyo
-remote_theme: pages-themes/tactile@v0.2.0
+theme: minima
 markdown: kramdown
 kramdown:
   input: GFM
@@ -9,20 +9,18 @@ plugins:
   - jekyll-gist
   - jekyll-paginate
   - jekyll-linkpreview
-  - jekyll-remote-theme
   - rouge
 highlighter: rouge
 exclude:
   - vendor
+show_excerpts: true
 excerpt_separator: <!-- more -->
 paginate: 10
 paginate_path: "/page/:num"
 
-# title
+# Site setting
 title: ysk24ok.github.io
-description: My blog posts, slides and past works
-url: https://ysk24ok.github.io
-github_url: https://github.com/ysk24ok
-
-# Path
-asset_path: /assets
+author: Yusuke Nishioka
+description: ysk24ok's blog posts
+twitter_username: ysk24ok
+github_username: ysk24ok
