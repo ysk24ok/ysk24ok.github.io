@@ -1,11 +1,11 @@
-IMAGE := ysk24ok/ysk24ok.github.io
-YYYYMMDD := $(shell date "+%Y%m%d")
+.PHONY: deps
+deps:
+	bundle config set path "vendor/bundle"
+	bundle install
 
 .PHONY: build
 build:
-	@rm -f Gemfile.lock
-	@docker build --no-cache -t $(IMAGE):$(YYYYMMDD) .
-	@docker tag $(IMAGE):$(YYYYMMDD) $(IMAGE)
+	bundle exec jekyll build $(OPTIONS)
 
 .PHONY: new
 new:
@@ -13,9 +13,4 @@ new:
 
 .PHONY: serve
 serve:
-	@docker run \
-		--rm \
-		-v ${PWD}:/blog \
-		-p 4000:4000 \
-		$(IMAGE) \
-		bundle exec jekyll serve --host 0.0.0.0
+	bundle exec jekyll serve $(OPTIONS)
